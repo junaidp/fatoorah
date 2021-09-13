@@ -1,0 +1,237 @@
+<div class="container m-0" ng-controller="invoiceController">
+            <div class="row">
+                <div class="col-4">
+                    <h2>Invoices</h2>
+                </div>
+                <div class="col-8 addproduct">
+                    <a ng-href="#!createinvoice">Create invoice</a>
+                    <a ng-href="#!createinvoice">Create debit note</a>
+                    <a ng-href="#!createinvoice">Create credit note</a>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12 border" style="border-radius :4px">
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col">Overdue</th>
+                                <th scope="col">Due within next 30 days</th>
+                                <th scope="col">Average time to get paid</th>
+                                <th scope="col">Upcoming payout</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h5>$0.00 <small>USD</small></h5>
+                                </td>
+                                <td>
+                                    <h5>$0.00 <small>USD</small></h5>
+                                </td>
+                                <td>
+                                    <h5>0 days</h5>
+                                </td>
+                                <td>
+                                    <h5>None</h5>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-12 mt-4">
+                    <div class="row">
+                        <div class="col-3">
+                            <select class="js-example-basic-single form-control" name="state">
+                                <option value="" ng-repeat="customer in customers">{{customer.customer}}</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <select class="form-control" name="state">
+                                <option>All status</option>
+                                <option >Paid</option>
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col-6 p-0">
+                                    <input placeholder="From" class="textbox-n form-control" type="text" onfocus="(this.type='date')" id="date">
+                                </div>
+                                <div class="col-sm-6 p-0">
+                                    <input placeholder="To" class="textbox-n form-control" type="text" onfocus="(this.type='date')" id="date">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Enter invoice #" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">
+                                        <i class="bx bx-search p-1"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-5">
+                    <div id="horizontalTab">
+                        <ul>
+                            <li><a href="#tab-1">Unpaid <span class="badge badge-light">4</span></a></li>
+                            <li><a href="#tab-2">Draft <span class="badge badge-light">4</span></a></li>
+                            <li>
+                                <a href="#tab-3">All invoice</a>
+                            </li>
+                        </ul>
+
+                        <div id="tab-1">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr >
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Number</th>
+                                        <th scope="col">Customer</th>
+                                        <th scope="col">Amount due</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="x in invoices">
+                                        <td><span class="badge badge-pill badge-primary successapprove">Approve</span></td>
+                                        <td>{{x.invoiceDate}}</td>
+                                        <td>{{x.invoiceNumber}}</td>
+                                        <td>{{x.billTo}}</td>
+                                        <td>{{x.paymentDue | currency}}</td>
+                                        <td>
+                                            <a href="#">
+                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                            </a>&nbsp;&nbsp;
+                                            <a href="#">
+                                                <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="tab-2">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Number</th>
+                                        <th scope="col">Customer</th>
+                                        <th scope="col">Amount due</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="badge badge-pill badge-secondary">draft</span></td>
+                                        <td>02/20/29</td>
+                                        <td>1</td>
+                                        <td>test</td>
+                                        <td>$0.00</td>
+                                        <td>
+                                            <a href="#">
+                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                            </a>&nbsp;&nbsp;
+                                            <a href="#">
+                                                <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+                                            </a> &nbsp;&nbsp;
+                                            <a href="#">
+                                                <span class="badge badge-pill badge-secondary successapprove">Approve</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="tab-3">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Number</th>
+                                        <th scope="col">Customer</th>
+                                        <th scope="col">Amount due</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="badge badge-pill badge-secondary">draft</span></td>
+                                        <td>02/20/29</td>
+                                        <td>1</td>
+                                        <td>test</td>
+                                        <td>$0.00</td>
+                                        <td>
+                                            <a href="#">
+                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                            </a>&nbsp;&nbsp;
+                                            <a href="#">
+                                                <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+                                            </a> &nbsp;&nbsp;
+                                            <a href="#">
+                                                <span class="badge badge-pill badge-secondary successapprove">Approve</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   
+
+
+  
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
+        $(document).ready(function() {
+            $('#horizontalTab').responsiveTabs({
+                rotate: false,
+                startCollapsed: 'accordion',
+                collapsible: 'accordion',
+                setHash: true,
+
+                activate: function(e, tab) {
+                    $('.info').html('Tab <strong>' + tab.id + '</strong> activated!');
+                }
+            });
+
+            $('#start-rotation').on('click', function() {
+                $('#horizontalTab').responsiveTabs('active');
+            });
+            $('#stop-rotation').on('click', function() {
+                $('#horizontalTab').responsiveTabs('stopRotation');
+            });
+            $('#start-rotation').on('click', function() {
+                $('#horizontalTab').responsiveTabs('active');
+            });
+            $('.select-tab').on('click', function() {
+                $('#horizontalTab').responsiveTabs('activate', $(this).val());
+            });
+
+        });
+   
+
+var app = angular.module("invoiceApp", []);
+
+app.controller("invoiceCtrl", function($scope,$http) {
+
+    $http.get("http://cd38-2a0a-a540-b1bf-0-ed14-4006-ff2f-4065.ngrok.io/control/getInvoices?userId=1")
+    .then(function(response) {
+        debugger
+        $scope.invoices = response.data;
+    });
+
+});
+
+   </script>

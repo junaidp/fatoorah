@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print Invoice</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+</head>
+
+<body id="body-pd">
+    <header class="header" id="header">
+        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
+        <div class="header_img"> <img src="https://i.imgur.com/hczKIze.jpg" alt=""> </div>
+    </header>
+    <div class="l-navbar" id="nav-bar">
+        <nav class="nav">
+            <div>
+                <a href="index.html" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">BBBootstrap</span> </a>
+                <div class="nav_list">
+                    <a href="index.html" class="nav_link"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span> </a>
+                    <a href="product.html" class="nav_link"> <i class='bx bx-box nav_icon'></i> <span class="nav_name">Product</span> </a>
+                    <a href="customer.html" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Customer</span> </a>
+                    <a href="invoice.html" class="nav_link active"> <i class="fas fa-file-invoice"></i> <span class="nav_name">Invoice</span> </a>
+                    <a href="setting.html" class="nav_link"> <i class="fas fa-cog nav_icon"></i></i> <span class="nav_name">Settings</span> </a>
+                </div>
+            </div>
+            <a href="#" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
+        </nav>
+    </div>
+    <!--Container Main start-->
+    <div class="height-100">
+        <div class="container m-0">
+            <div class="row">
+                <div class="col-6">
+                    <h2>Invoice</h2>
+                </div>
+                <div class="col-6 addproduct">
+                    <div class="dropdown">
+                        <span>Download</span>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li>
+                                    <a href="#">Downlaod as a PDF</a>
+                                </li>
+                                <li>
+                                    <a href="xml/invoice.xml" download="">Downlaod as a XML</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h4>Create</h4>
+                                    <small><b>Created:</b> 4 hour ago</small>
+                                </div>
+                                <div class="col-6 addproduct">
+                                    <a href="#">Approve</a>
+                                    <a href="createinvoice.html">Edit invoice</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h4>Send</h4>
+                                    <small><b>Last sent:</b> Marked as send today.  <a href="#">Edit date</a></small>
+                                </div>
+                                <div class="col-6 addproduct">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div class="row">
+                                                <div class="col-12 addproduct">
+                                                    <a href="#">Send invoice</a>
+                                                </div>
+                                                <div class="col-12">
+                                                    as <a href="#">mark as complete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 addproduct">
+                                            <a href="#">Get share link</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h4>Get Paid</h4>
+                                        </div>
+                                        <div class="col-6">
+                                            <small><b>Amount due:</b> <a href="#">Record a payment</a> manually</small>
+                                        </div>
+                                        <div class="col-6">
+                                            <small><b>Status:</b> Your invoice is awaiting payment</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 addproduct">
+                                    <a href="#" id="myBtn">Record a payment</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    <img src="img/theinspire.png" alt="">
+                                </div>
+                                <div class="col-6">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Invoice number</td>
+                                                    <td>100</td>
+                                                    <td style="text-align: right;">100</td>
+                                                    <td style="text-align: right;">رقم الفاتورة</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Invoice issue date</td>
+                                                    <td>02/02/12</td>
+                                                    <td style="text-align: right;">02/02/12</td>
+                                                    <td style="text-align: right;">تاريخ إصدار الفاتورة </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Date of supply</td>
+                                                    <td>02/02/12</td>
+                                                    <td style="text-align: right;">02/02/12</td>
+                                                    <td style="text-align: right;">تاريخ التوريد</td>
+                                                </tr>
+                                            </tbody>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-6">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">Seller</th>
+                                                <th colspan="2" class="textright">تاجر</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>Ali</td>
+                                                <td class="textright">علي</td>
+                                                <td class="textright">اسم</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Building No</td>
+                                                <td></td>
+                                                <td class="textright"></td>
+                                                <td class="textright">لا للبناء</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Street Name</td>
+                                                <td></td>
+                                                <td class="textright"></td>
+                                                <td class="textright">اسم الشارع</td>
+                                            </tr>
+                                            <tr>
+                                                <td>District</td>
+                                                <td></td>
+                                                <td class="textright"></td>
+                                                <td class="textright">منطقة</td>
+                                            </tr>
+                                            <tr>
+                                                <td>City</td>
+                                                <td></td>
+                                                <td class="textright"></td>
+                                                <td class="textright">مدينة</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Postal code</td>
+                                                <td></td>
+                                                <td class="textright"></td>
+                                                <td class="textright">رمز بريدي</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Additional no</td>
+                                                <td></td>
+                                                <td class="textright"></td>
+                                                <td class="textright">لاإضافية</td>
+                                            </tr>
+                                            <tr>
+                                                <td>VAT number</td>
+                                                <td></td>
+                                                <td class="textright"></td>
+                                                <td class="textright">ظريبه الشراء</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Other seller ID</td>
+                                                <td></td>
+                                                <td class="textright"></td>
+                                                <td class="textright">معرف البائع الآخر</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-6">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">Buyer</th>
+                                                <th colspan="2" class="textright">مشتر</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>Ali</td>
+                                                <td class="textright">علي</td>
+                                                <td class="textright">اسم</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Building No</td>
+                                                <td></td>
+                                                <td class="textright"></td>
+                                                <td class="textright">لا للبناء</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Street Name</td>
+                                                <td></td>
+                                                <td class="textright"></td>
+                                                <td class="textright">اسم الشارع</td>
+                                            </tr>
+                                            <tr>
+                                                <td>District</td>
+                                                <td></td>
+                                                <td class="textright"></td>
+                                                <td class="textright">منطقة</td>
+                                            </tr>
+                                            <tr>
+                                                <td>City</td>
+                                                <td></td>
+                                                <td class="textright"></td>
+                                                <td class="textright">مدينة</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Postal code</td>
+                                                <td></td>
+                                                <td class="textright"></td>
+                                                <td class="textright">رمز بريدي</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Additional no</td>
+                                                <td></td>
+                                                <td class="textright"></td>
+                                                <td class="textright">لاإضافية</td>
+                                            </tr>
+                                            <tr>
+                                                <td>VAT number</td>
+                                                <td></td>
+                                                <td class="textright"></td>
+                                                <td class="textright">ظريبه الشراء</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Other seller ID</td>
+                                                <td></td>
+                                                <td class="textright"></td>
+                                                <td class="textright">معرف البائع الآخر</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <table class="table table-bordered table-striped">
+                                        <thead class="thead-light">
+                                            <tr style="text-align: center;">
+                                                <th scope="col">Item name <br> اسم العنصر</th>
+                                                <th scope="col">Unit price <br> سعر الوحدة</th>
+                                                <th scope="col">Quantity <br> كمية</th>
+                                                <th scope="col">Taxable amount <br> المبلغ الخاضع للضريبة</th>
+                                                <th scope="col">Discount <br> تخفيض</th>
+                                                <th scope="col">Tax Rate <br> معدل الضريبة</th>
+                                                <th scope="col">Tax amount <br> قيمة الضريبة</th>
+                                                <th scope="col">Item Subtotal <br> المجموع الفرعي للعنصر</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>item1</td>
+                                                <td>item1</td>
+                                                <td>item1</td>
+                                                <td>item1</td>
+                                                <td>item1</td>
+                                                <td>item1</td>
+                                                <td>item1</td>
+                                                <td>item1</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-4">
+                                    <img src="img/tractor-school-qr-code.png" alt="">
+                                </div>
+                                <div class="col-8 ">
+                                    <div class="row">
+                                        <div class="col-12 ">
+                                            <div class="row border-bottom">
+                                                <div class="col-6">
+                                                    <h5>Total amounts</h5>
+                                                </div>
+                                                <div class="col-6" style="text-align: right;">
+                                                    <h5>إجمالي المبالغ</h5>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 p-0">
+                                                    <table class="table table-hover table-bordered">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Total (Excluding VAT) الإجمالي (باستثناء ضريبة القيمة المضافة)</td>
+                                                                <td>900.00 SAR</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Discount تخفيض</td>
+                                                                <td>00.00 SAR</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Total taxable amount (excluding VAT) إجمالي المبلغ الخاضع للضريبة (باستثناء ضريبة القيمة المضافة)</td>
+                                                                <td>00.00 SAR</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Total VAT إجمالي ضريبة القيمة المضافة</td>
+                                                                <td>00.00 SAR</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Total amount due إجمالي المبلغ المستحق</td>
+                                                                <td>00.00 SAR</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="col-3"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <label for="">Notes / Terms</label>
+                                    <label style="float: right;" for="">ملاحظات / شروط</label>
+                                </div>
+                                <div class="col-12">
+                                    <p class="m-0 border p-2">Enter notes or term of service that are visible to your customer</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-dialog recordpayment" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><b>Record a payment for this invoice </b></h5>
+                        <button type="button" class="close closebutton" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <p>Record a payment you’ve already received, such as cash, check, or bank payment.</p>
+                            </div>
+                            <div class="col-12 mt-2">
+                                <form action="">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Payment date</label>
+                                        <div class="col-sm-9">
+                                            <input type="date" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mt-2">
+                                        <label class="col-sm-3 col-form-label">Amount</label>
+                                        <div class="col-sm-9">
+                                            <input type="number" class="form-control" value="$">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mt-2">
+                                        <label class="col-sm-3 col-form-label">Payment method</label>
+                                        <div class="col-sm-9">
+                                            <select name="" class="form-control" id="">
+                                                <option value="">Select a payment method...</option>
+                                                <option value="">Bank payment</option>
+                                                <option value="">Cash</option>
+                                                <option value="">Check</option>
+                                                <option value="">Credit card</option>
+                                                <option value="">Paypal</option>
+                                                <option value="">Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mt-2">
+                                        <label class="col-sm-3 col-form-label">Payment account</label>
+                                        <div class="col-sm-9">
+                                            <select name="" class="form-control" id="">
+                                                <option value="">Select a payment account...</option>
+                                                <option value="">Cash on Hand (USD)</option>
+                                                <option value="">Shareholder Loan (USD)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mt-2">
+                                        <label class="col-sm-3 col-form-label">Memo / notes</label>
+                                        <div class="col-sm-9">
+                                            <textarea name="" id="" class="form-control" cols="3" rows="2"></textarea>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
+        $('#selectitem').hide();
+
+        function mytogal() {
+            $('#selectitem').show();
+            $('.select2-container').css("width", "50%");
+        }
+    </script>
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+Backend completed upto this point
+
+Real data is now being saved and can be fetched from Database and is ready to be displayed in ui.
+
+Here are the urls which need to be called from our frontend:
+
+USER / SELLER:
+http://5ab30cd956c9.ngrok.io/control/saveUser
+http://5ab30cd956c9.ngrok.io/control/signIn
+
+CUSTOMER:
+http://5ab30cd956c9.ngrok.io/control/saveCustomer
+http://5ab30cd956c9.ngrok.io/control/getCustomers?userId=1
+
+INVOICE:
+http://5ab30cd956c9.ngrok.io/control/saveInvoice
+http://5ab30cd956c9.ngrok.io/control/getInvoices?userId=1
+
+PRODUCT:
+http://5ab30cd956c9.ngrok.io/control/saveProduct
+http://5ab30cd956c9.ngrok.io/control/getProducts?invoiceId=2
+
+
+Postman collection of all the server calls Attached , which can be imported in Postman where we can see the parameters being passed in each server call.

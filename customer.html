@@ -1,0 +1,95 @@
+        <div class="container m-0" ng-controller="customerController">
+            <div class="row">
+                <div class="col-6">
+                    <h2>Customers</h2>
+                </div>
+                <div class="col-6 addproduct">
+                    <a href="#" class="import" onclick="$('#addcustomer').show();">Import CSV</a>
+                    <a href="#!addcustomer">Add a customer</a>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <p>You haven't added any customer yet.</p>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Saved Card</th>
+                                <th scope="col">Balance | Overdue</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="customer in customers">
+                                <td>{{customer.customer}}</td>
+                                <td>Otto@gmail.com</td>
+                                <td>{{customer.phone}}</td>
+                                <td>@mdo</td>
+                                <td>@mdo</td>
+                                <td>
+                                    <a href="#">
+                                        <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                    </a>&nbsp;&nbsp;
+                                    <a href="#">
+                                        <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <!-- <tr>
+                                <td>1</td>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                                <td>@mdo</td>
+                                <td>
+                                    <a href="#">
+                                        <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                    </a>&nbsp;&nbsp;
+                                    <a href="#">
+                                        <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+                                    </a>
+                                </td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="addcustomer" class="modal">
+        <!-- Modal content -->
+        <div class="modal-dialog recordpayment" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><b>Import customer</b></h5>
+                    <button type="button" class="close closebutton" onclick="$('#addcustomer').hide();" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 mt-2">
+                            <form action="">
+                                <div class="form-group row">
+                                    <div class="col-sm-9">
+                                        <input type="file" class="form-control">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button class="btn btn-success">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>

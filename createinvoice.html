@@ -1,0 +1,329 @@
+
+    <div class="height-100" ng-controller="createInvoiceCtrl">
+        <div class="container m-0">
+            <div class="row">
+                <div class="col-6">
+                    <h2>New invoice</h2>
+                </div>
+                <div class="col-6 addproduct">
+                    <a href="#!printinvoice">Save and continue</a>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12 mt-4">
+                    <div class="card">
+                        <div class="card-header">
+                            Business address and contact details, title, summary, and logo
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    <img src="img/theinspire.png" alt="">
+                                </div>
+                                <div class="col-6">
+                                    <div class="row" style="direction: rtl;">
+                                        <div class="col-12 mt-2">
+                                            <input type="text" class="form-control" placeholder="Invoice فاتورة">
+                                        </div>
+                                        <div class="col-12 mt-2">
+                                            <input type="text" class="form-control" placeholder="Summary (e.g. project name, description of invoice) ملخص (مثل اسم المشروع ووصف الفاتورة)">
+                                        </div>
+                                        <div class="col-12 mt-2">
+                                            <h4 class="m-0">Business name</h4>
+                                        </div>
+                                        <div class="col-12 mt-2">
+                                            <h5 class="m-0">Business address</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h4>Bill to</h4>
+                                        </div>
+                                        <div class="col-10">
+                                            <select class="js-example-basic-single form-control" name="state" ng-model="billTo">
+                                                <option value="" ng-repeat="customer in customers">{{customer.customer}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12">
+                                            <h3>Name here</h3>
+                                        </div>
+                                        <div class="col-12">
+                                            <a href="#">Change customer</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6" style="text-align: right;">
+                                    <div class="row">
+                                        <div class="col-3"></div>
+                                        <div class="col-9">
+                                            <div class="form-group row">
+                                                <label for="staticEmail" class="col-sm-6 col-form-label">Invoice Number  رقم الفاتورة</label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" class="form-control" ng-model="invoiceNumber">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-3"></div>
+                                        <div class="col-9">
+                                            <div class="form-group row">
+                                                <label for="staticEmail" class="col-sm-6 col-form-label">P.O./S.O. number</label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" class="form-control" ng-model="posoNumber">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-3"></div>
+                                        <div class="col-9">
+                                            <div class="form-group row">
+                                                <label for="staticEmail" class="col-sm-6 col-form-label">Invoice date</label>
+                                                <div class="col-sm-6">
+                                                    <input type="date" class="form-control" ng-model="invoiceDate">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-3"></div>
+                                        <div class="col-9">
+                                            <div class="form-group row">
+                                                <label for="staticEmail" class="col-sm-6 col-form-label">Payment due</label>
+                                                <div class="col-sm-6">
+                                                    <input type="date" class="form-control" ng-model="paymentDue">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-6">
+                                    <h5><b>Line items</b></h5>
+                                </div>
+                                <div class="col-6" style="text-align: right;">
+                                    <h5><b>البنود</b></h5>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <table class="table table-bordered table-striped">
+                                    <thead class="thead-light">
+                                        <tr style="text-align: center;">
+                                            <th scope="col">Item name <br> اسم العنصر</th>
+                                            <th scope="col">Unit price <br> سعر الوحدة</th>
+                                            <th scope="col">Quantity <br> كمية</th>
+                                            <th scope="col">Taxable amount <br> المبلغ الخاضع للضريبة</th>
+                                            <th scope="col">Discount <br> تخفيض</th>
+                                            <th scope="col">Tax Rate <br> معدل الضريبة</th>
+                                            <th scope="col">Tax amount <br> قيمة الضريبة</th>
+                                            <th scope="col" colspan="2">Item Subtotal <br> المجموع الفرعي للعنصر</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                item 1 name here
+                                            </td>
+                                            <td>
+                                                20 SAR
+                                            </td>
+                                            <td>
+                                                2
+                                            </td>
+                                            <td>
+                                                40 SAR
+                                            </td>
+                                            <td>
+                                                5
+                                            </td>
+                                            <td>
+                                                10%
+                                            </td>
+                                            <td>
+                                                3.5 SAR
+                                            </td>
+                                            <td>38.5 SAR</td>
+                                            <td class="text-center">
+                                                <a href="#">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                item 1 name here
+                                            </td>
+                                            <td>
+                                                20 SAR
+                                            </td>
+                                            <td>
+                                                2
+                                            </td>
+                                            <td>
+                                                40 SAR
+                                            </td>
+                                            <td>
+                                                5
+                                            </td>
+                                            <td>
+                                                10%
+                                            </td>
+                                            <td>
+                                                3.5 SAR
+                                            </td>
+                                            <td>38.5 SAR</td>
+                                            <td class="text-center">
+                                                <a href="#">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                item name here
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control">
+                                            </td>
+                                            <td>
+                                                <select name="" class="form-control" id="">
+                                                    <option value="">select</option>
+                                                    <option value="" ng-repeat="vat in vates">{{vat.vatRates}}</option>
+                                                    <!-- <option value="">5%</option>
+                                                    <option value="">Exempt</option>
+                                                    <option value="">Zero rate</option> -->
+                                                </select>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-center">
+                                                <a href="#">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="text-center" id="selectitem">
+                                            <td colspan="9">
+                                                <select class="js-example-basic-single form-control" name="state">
+                                                    <option value="AL">Select Items</option>
+                                                    <option value="AL"></option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <td colspan="9" class="additem"> <span onclick="mytogal();"><i class="bx bx-plus-circle"></i> Add an item</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-4"></div>
+                                <div class="col-8 ">
+                                    <div class="row">
+                                        <div class="col-12 ">
+                                            <div class="row border-bottom">
+                                                <div class="col-6">
+                                                    <h5>Total amounts</h5>
+                                                </div>
+                                                <div class="col-6" style="text-align: right;">
+                                                    <h5>إجمالي المبالغ</h5>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 p-0">
+                                                    <table class="table table-hover table-bordered">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Total (Excluding VAT) الإجمالي (باستثناء ضريبة القيمة المضافة)</td>
+                                                                <td>80.00 SAR</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Discount تخفيض</td>
+                                                                <td>10.00 SAR</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Total taxable amount (excluding VAT) إجمالي المبلغ الخاضع للضريبة (باستثناء ضريبة القيمة المضافة)</td>
+                                                                <td>70.00 SAR</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Total VAT إجمالي ضريبة القيمة المضافة</td>
+                                                                <td>07.00 SAR</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Total amount due إجمالي المبلغ المستحق</td>
+                                                                <td>77.00 SAR</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="col-3"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <label for="">Notes / Terms</label>
+                                    <label style="float: right;" for="">ملاحظات / شروط</label>
+                                </div>
+                                <div class="col-12">
+                                    <textarea name="" id="" class="form-control" cols="3" rows="3" placeholder="Enter notes or term of service that are visible to your customer"></textarea>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <label for="">Attach file</label>
+                                    <input type="file" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-12 text-right addproduct">
+                                    <a href="#" ng-click="SaveAndContinueInvoice()">Save and continue</a>
+                                    <!--printinvoice.html-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
+        $('#selectitem').hide();
+
+        function mytogal() {
+            $('#selectitem').show();
+            $('.select2-container').css("width", "50%");
+        }
+
+    </script>

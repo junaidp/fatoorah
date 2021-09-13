@@ -1,0 +1,309 @@
+<div ng-controller="settingCtrl">
+        <div class="container m-0">
+            <div class="row">
+                <div class="col-6">
+                    <h2>Settings</h2>
+                </div>
+                <div class="col-6 addproduct">
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-6">
+                    <ul class="setting_links">
+                        <li>
+                            <a ng-href="#!edituserprofile">Profile</a>
+                        </li>
+                        <li>
+                            <a href="#!usermanagement">User management</a>
+                        </li>
+                        <li>
+                            <a href="#">Billing & payments</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" id="myBtnn">VAT rates</a>
+                        </li>
+                        <li>
+                            <a href="#!chartofaccount" id="myBtnn">Chart of account</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="$('#emailmodel').show();">Email notifications</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" onclick="$('#passwordchange').show();">Password management</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" onclick="$('#location').show();">Location</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+  
+    <div id="myModall" class="modal">
+        <!-- Modal content -->
+        <div class="modal-dialog recordpayment" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><b>VAT rates</b></h5>
+                    <button type="button" class="close closebutton" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 mt-2">
+                            <form action="">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Add</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" ng-model="vatName">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button class="btn btn-success" type="button" ng-click="SaveVAT()">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="vat in vates">
+                                        <td>{{vat.vatRates}}</td>
+                                        <td>
+                                            <a href="#">
+                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                            </a>&nbsp;&nbsp;
+                                            <a href="#">
+                                                <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <!-- <tr>
+                                        <td>Exempt</td>
+                                        <td>
+                                            <a href="#">
+                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                            </a>&nbsp;&nbsp;
+                                            <a href="#">
+                                                <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Zero rate</td>
+                                        <td>
+                                            <a href="#">
+                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                            </a>&nbsp;&nbsp;
+                                            <a href="#">
+                                                <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+                                            </a>
+                                        </td>
+                                    </tr> -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div id="emailmodel" class="modal">
+        <!-- Modal content -->
+        <div class="modal-dialog recordpayment" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><b>Email notification</b></h5>
+                    <button type="button" onclick="$('#emailmodel').hide();" class="close closebutton" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider round"></span>
+                            </label>&nbsp; Enable SMS
+                        </div>
+                        <div class="col-12 mt-3">
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider round"></span>
+                              </label>&nbsp; Enable notification
+                        </div>
+                        <div class="col-12 mt-3">
+                            <textarea name="content" id="editor">
+                                &lt;p&gt;This is some sample content.&lt;/p&gt;
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="passwordchange" class="modal">
+        <!-- Modal content -->
+        <div class="modal-dialog recordpayment" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><b>Change password</b></h5>
+                    <button type="button" onclick="$('#passwordchange').hide();" class="close closebutton" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 mt-2">
+                            <form action="">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Old password</label>
+                                    <div class="col-sm-9">
+                                        <input type="password" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-3">
+                                    <label class="col-sm-3 col-form-label">New password</label>
+                                    <div class="col-sm-9">
+                                        <input type="password" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-3">
+                                    <label class="col-sm-3 col-form-label">Confirm password</label>
+                                    <div class="col-sm-9">
+                                        <input type="password" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-3">
+                                    <div class="col-sm-12 text-center">
+                                        <button class="btn btn-success">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div id="location" class="modal">
+        <!-- Modal content -->
+        <div class="modal-dialog recordpayment" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><b>Location</b></h5>
+                    <button type="button" class="close closebutton" onclick="$('#location').hide();" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 mt-2">
+                            <form action="">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Add</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" ng-model="location">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button class="btn btn-success" type="button" ng-click="saveAllLocation()">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Location</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="x in locations">
+                                        <td>{{x.locationName}}</td>
+                                        <td>
+                                            <a href="#">
+                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                            </a>&nbsp;&nbsp;
+                                            <a href="#">
+                                                <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <!-- <tr>
+                                        <td>Pakistan</td>
+                                        <td>
+                                            <a href="#">
+                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                            </a>&nbsp;&nbsp;
+                                            <a href="#">
+                                                <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+                                            </a>
+                                        </td>
+                                    </tr> -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+    <script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModall");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtnn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .catch(error => {
+                console.error(error);
+            });
+
+
+        
+
+
+    </script>
+</body>
+
+</html>

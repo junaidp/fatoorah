@@ -1,0 +1,120 @@
+<div ng-controller="chartOfAccountController">
+    <div class="height-100" >
+        <div class="container m-0">
+            <div class="row">
+                <div class="col-6">
+                    <h2>Chart of account</h2>
+                </div>
+                <div class="col-6 addproduct">
+                    <a href="javascript:void(0);" class="import" onclick="$('#chartofaccount').show();">Add new</a>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3>Revenue / Income</h3>
+                        </div>
+                        <div class="col-6 mt-2">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Code</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="Raccount in RevenueAccount">
+                                        <td>{{Raccount.code}}</td>
+                                        <td>{{Raccount.name}}</td>
+                                        <td>
+                                            <a href="#">
+                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                            </a>&nbsp;&nbsp;
+                                            <a href="#">
+                                                <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3>Bank Accounts</h3>
+                        </div>
+                        <div class="col-6 mt-2">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Code</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="Baccount in BankAccount">
+                                        <td>{{Baccount.code}}</td>
+                                        <td>{{Baccount.name}}</td>
+                                        <td>
+                                            <a href="#">
+                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                            </a>&nbsp;&nbsp;
+                                            <a href="#">
+                                                <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="chartofaccount" class="modal">
+        <!-- Modal content -->
+        <div class="modal-dialog recordpayment" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><b>Add field</b></h5>
+                    <button type="button" onclick="$('#chartofaccount').hide();" class="close closebutton" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 mt-2">
+                            <!-- <form action=""> -->
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Select A/C</label>
+                                    <select name="" class="form-control" id="" ng-model="accountType">
+                                        <option value="">Revenue</option>
+                                        <option value="">Bank account</option>
+                                    </select>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="exampleInputEmail1">GL code</label>
+                                    <input type="text" class="form-control" ng-model="code">
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="exampleInputEmail1">GL name</label>
+                                    <input type="text" class="form-control" ng-model="name">
+                                </div>
+                                <div class="form-group mt-3 text-center">
+                                    <button class="btn btn-success" type="button" ng-click="SaveAccount()">Submit</button>
+                                </div>
+                            <!-- </form> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

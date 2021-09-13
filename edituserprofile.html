@@ -1,0 +1,624 @@
+
+    <div ng-controller="userProileCtrl">
+        <div class="container m-0">
+            <div class="row">
+                <div class="col-4">
+                    <div class="col-6">
+                        <h2>User Profile</h2>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="image-upload-wrap">
+                        <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+                        <div class="drag-text">
+                            <h3>Select your logo</h3>
+                        </div>
+                    </div>
+                    <div class="file-upload-content">
+                        <img class="file-upload-image" src="#" alt="your image" />
+                        <div class="image-title-wrap">
+                            <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <!-- <form action="" class="col-12"> -->
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row border_right">
+                            <div class="col-12 mt-3 border-bottom">
+                                <h4>Basic information</h4>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <div class="form-group row">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">User</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control">
+                                        <small class="form-text text-muted">Name of a business or person.</small>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">Primary Contact</label>
+                                    <div class="col-sm-10 mt-2">
+                                        <div class="row">
+                                            <div class="col">
+                                                <input type="text" class="form-control" placeholder="First name">
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control" placeholder="Last name">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col">
+                                                <input type="email" class="form-control" placeholder="Email" ng-model="email">
+                                            </div>
+                                            <div class="col">
+                                                <input type="number" class="form-control" placeholder="Phone" ng-model="cellNo">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">Account Number</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">Website</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" ng-model="website">
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">Notes</label>
+                                    <div class="col-sm-10">
+                                        <textarea name="" class="form-control" id="" cols="2" rows="2" ng-model="notes"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 mt-3 border-bottom">
+                                <h4>Company adress</h4>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">Currency</label>
+                                    <div class="col-sm-10">
+                                        <select name="" id="" class="form-control">
+                                            <option value="">Select</option>
+                                            <option id='AED -	United Arab Emirates Dirham'>AED -	United Arab Emirates Dirham</option>
+                                            <option id='AFN -	Afghanistan Afghani'>AFN -	Afghanistan Afghani</option>
+                                            <option id='ALL -	Albania Lek'>ALL -	Albania Lek</option>
+                                            <option id='AMD -	Armenia Dram'>AMD -	Armenia Dram</option>
+                                            <option id='ANG -	Netherlands Antilles Guilder'>ANG -	Netherlands Antilles Guilder</option>
+                                            <option id='AOA -	Angola Kwanza'>AOA -	Angola Kwanza</option>
+                                            <option id='ARS -	Argentina Peso'>ARS -	Argentina Peso</option>
+                                            <option id='AUD -	Australia Dollar'>AUD -	Australia Dollar</option>
+                                            <option id='AWG -	Aruba Guilder'>AWG -	Aruba Guilder</option>
+                                            <option id='AZN -	Azerbaijan New Manat'>AZN -	Azerbaijan New Manat</option>
+                                            <option id='BAM -	Bosnia and Herzegovina Convertible Marka'>BAM -	Bosnia and Herzegovina Convertible Marka</option>
+                                            <option id='BBD -	Barbados Dollar'>BBD -	Barbados Dollar</option>
+                                            <option id='BDT -	Bangladesh Taka'>BDT -	Bangladesh Taka</option>
+                                            <option id='BGN -	Bulgaria Lev'>BGN -	Bulgaria Lev</option>
+                                            <option id='BHD -	Bahrain Dinar'>BHD -	Bahrain Dinar</option>
+                                            <option id='BIF -	Burundi Franc'>BIF -	Burundi Franc</option>
+                                            <option id='BMD -	Bermuda Dollar'>BMD -	Bermuda Dollar</option>
+                                            <option id='BND -	Brunei Darussalam Dollar'>BND -	Brunei Darussalam Dollar</option>
+                                            <option id='BOB -	Bolivia Boliviano'>BOB -	Bolivia Boliviano</option>
+                                            <option id='BRL -	Brazil Real'>BRL -	Brazil Real</option>
+                                            <option id='BSD -	Bahamas Dollar'>BSD -	Bahamas Dollar</option>
+                                            <option id='BTN -	Bhutan Ngultrum'>BTN -	Bhutan Ngultrum</option>
+                                            <option id='BWP -	Botswana Pula'>BWP -	Botswana Pula</option>
+                                            <option id='BYR -	Belarus Ruble'>BYR -	Belarus Ruble</option>
+                                            <option id='BZD -	Belize Dollar'>BZD -	Belize Dollar</option>
+                                            <option id='CAD -	Canada Dollar'>CAD -	Canada Dollar</option>
+                                            <option id='CDF -	Congo/Kinshasa Franc'>CDF -	Congo/Kinshasa Franc</option>
+                                            <option id='CHF -	Switzerland Franc'>CHF -	Switzerland Franc</option>
+                                            <option id='CLP -	Chile Peso'>CLP -	Chile Peso</option>
+                                            <option id='CNY -	China Yuan Renminbi'>CNY -	China Yuan Renminbi</option>
+                                            <option id='COP -	Colombia Peso'>COP -	Colombia Peso</option>
+                                            <option id='CRC -	Costa Rica Colon'>CRC -	Costa Rica Colon</option>
+                                            <option id='CUC -	Cuba Convertible Peso'>CUC -	Cuba Convertible Peso</option>
+                                            <option id='CUP -	Cuba Peso'>CUP -	Cuba Peso</option>
+                                            <option id='CVE -	Cape Verde Escudo'>CVE -	Cape Verde Escudo</option>
+                                            <option id='CZK -	Czech Republic Koruna'>CZK -	Czech Republic Koruna</option>
+                                            <option id='DJF -	Djibouti Franc'>DJF -	Djibouti Franc</option>
+                                            <option id='DKK -	Denmark Krone'>DKK -	Denmark Krone</option>
+                                            <option id='DOP -	Dominican Republic Peso'>DOP -	Dominican Republic Peso</option>
+                                            <option id='DZD -	Algeria Dinar'>DZD -	Algeria Dinar</option>
+                                            <option id='EGP -	Egypt Pound'>EGP -	Egypt Pound</option>
+                                            <option id='ERN -	Eritrea Nakfa'>ERN -	Eritrea Nakfa</option>
+                                            <option id='ETB -	Ethiopia Birr'>ETB -	Ethiopia Birr</option>
+                                            <option id='EUR -	Euro Member Countries'>EUR -	Euro Member Countries</option>
+                                            <option id='FJD -	Fiji Dollar'>FJD -	Fiji Dollar</option>
+                                            <option id='FKP -	Falkland Islands (Malvinas) Pound'>FKP -	Falkland Islands (Malvinas) Pound</option>
+                                            <option id='GBP -	United Kingdom Pound'>GBP -	United Kingdom Pound</option>
+                                            <option id='GEL -	Georgia Lari'>GEL -	Georgia Lari</option>
+                                            <option id='GGP -	Guernsey Pound'>GGP -	Guernsey Pound</option>
+                                            <option id='GHS -	Ghana Cedi'>GHS -	Ghana Cedi</option>
+                                            <option id='GIP -	Gibraltar Pound'>GIP -	Gibraltar Pound</option>
+                                            <option id='GMD -	Gambia Dalasi'>GMD -	Gambia Dalasi</option>
+                                            <option id='GNF -	Guinea Franc'>GNF -	Guinea Franc</option>
+                                            <option id='GTQ -	Guatemala Quetzal'>GTQ -	Guatemala Quetzal</option>
+                                            <option id='GYD -	Guyana Dollar'>GYD -	Guyana Dollar</option>
+                                            <option id='HKD -	Hong Kong Dollar'>HKD -	Hong Kong Dollar</option>
+                                            <option id='HNL -	Honduras Lempira'>HNL -	Honduras Lempira</option>
+                                            <option id='HRK -	Croatia Kuna'>HRK -	Croatia Kuna</option>
+                                            <option id='HTG -	Haiti Gourde'>HTG -	Haiti Gourde</option>
+                                            <option id='HUF -	Hungary Forint'>HUF -	Hungary Forint</option>
+                                            <option id='IDR -	Indonesia Rupiah'>IDR -	Indonesia Rupiah</option>
+                                            <option id='ILS -	Israel Shekel'>ILS -	Israel Shekel</option>
+                                            <option id='IMP -	Isle of Man Pound'>IMP -	Isle of Man Pound</option>
+                                            <option id='INR -	India Rupee'>INR -	India Rupee</option>
+                                            <option id='IQD -	Iraq Dinar'>IQD -	Iraq Dinar</option>
+                                            <option id='IRR -	Iran Rial'>IRR -	Iran Rial</option>
+                                            <option id='ISK -	Iceland Krona'>ISK -	Iceland Krona</option>
+                                            <option id='JEP -	Jersey Pound'>JEP -	Jersey Pound</option>
+                                            <option id='JMD -	Jamaica Dollar'>JMD -	Jamaica Dollar</option>
+                                            <option id='JOD -	Jordan Dinar'>JOD -	Jordan Dinar</option>
+                                            <option id='JPY -	Japan Yen'>JPY -	Japan Yen</option>
+                                            <option id='KES -	Kenya Shilling'>KES -	Kenya Shilling</option>
+                                            <option id='KGS -	Kyrgyzstan Som'>KGS -	Kyrgyzstan Som</option>
+                                            <option id='KHR -	Cambodia Riel'>KHR -	Cambodia Riel</option>
+                                            <option id='KMF -	Comoros Franc'>KMF -	Comoros Franc</option>
+                                            <option id='KPW -	Korea (North) Won'>KPW -	Korea (North) Won</option>
+                                            <option id='KRW -	Korea (South) Won'>KRW -	Korea (South) Won</option>
+                                            <option id='KWD -	Kuwait Dinar'>KWD -	Kuwait Dinar</option>
+                                            <option id='KYD -	Cayman Islands Dollar'>KYD -	Cayman Islands Dollar</option>
+                                            <option id='KZT -	Kazakhstan Tenge'>KZT -	Kazakhstan Tenge</option>
+                                            <option id='LAK -	Laos Kip'>LAK -	Laos Kip</option>
+                                            <option id='LBP -	Lebanon Pound'>LBP -	Lebanon Pound</option>
+                                            <option id='LKR -	Sri Lanka Rupee'>LKR -	Sri Lanka Rupee</option>
+                                            <option id='LRD -	Liberia Dollar'>LRD -	Liberia Dollar</option>
+                                            <option id='LSL -	Lesotho Loti'>LSL -	Lesotho Loti</option>
+                                            <option id='LTL -	Lithuania Litas'>LTL -	Lithuania Litas</option>
+                                            <option id='LVL -	Latvia Lat'>LVL -	Latvia Lat</option>
+                                            <option id='LYD -	Libya Dinar'>LYD -	Libya Dinar</option>
+                                            <option id='MAD -	Morocco Dirham'>MAD -	Morocco Dirham</option>
+                                            <option id='MDL-	Moldova Leu '>MDL-	Moldova Leu </option>
+                                            <option id='MGA-	Madagascar Ariary '>MGA-	Madagascar Ariary </option>
+                                            <option id='MKD-	Macedonia Denar '>MKD-	Macedonia Denar </option>
+                                            <option id='MMK-	Myanmar (Burma) Kyat'>MMK-	Myanmar (Burma) Kyat</option>
+                                            <option id='MNT-	Mongolia Tughrik '>MNT-	Mongolia Tughrik </option>
+                                            <option id='MOP-	Macau Pataca '>MOP-	Macau Pataca </option>
+                                            <option id='MRO-	Mauritania Ouguiya '>MRO-	Mauritania Ouguiya </option>
+                                            <option id='MUR-	Mauritius Rupee '>MUR-	Mauritius Rupee </option>
+                                            <option id='MVR-	Maldives (Maldive Islands) Rufiyaa '>MVR-	Maldives (Maldive Islands) Rufiyaa </option>
+                                            <option id='MWK-	Malawi Kwacha '>MWK-	Malawi Kwacha </option>
+                                            <option id='MXN-	Mexico Peso '>MXN-	Mexico Peso </option>
+                                            <option id='MYR-	Malaysia Ringgit '>MYR-	Malaysia Ringgit </option>
+                                            <option id='MZN-	Mozambique Metical '>MZN-	Mozambique Metical </option>
+                                            <option id='NAD-	Namibia Dollar '>NAD-	Namibia Dollar </option>
+                                            <option id='NGN-	Nigeria Naira '>NGN-	Nigeria Naira </option>
+                                            <option id='NIO-	Nicaragua Cordoba '>NIO-	Nicaragua Cordoba </option>
+                                            <option id='NOK-	Norway Krone '>NOK-	Norway Krone </option>
+                                            <option id='NPR-	Nepal Rupee '>NPR-	Nepal Rupee </option>
+                                            <option id='NZD-	New Zealand Dollar'>NZD-	New Zealand Dollar</option>
+                                            <option id='OMR-	Oman Rial '>OMR-	Oman Rial </option>
+                                            <option id='PAB-	Panama Balboa '>PAB-	Panama Balboa </option>
+                                            <option id='PEN-	Peru Nuevo Sol'>PEN-	Peru Nuevo Sol</option>
+                                            <option id='PGK-	Papua New Guinea Kina '>PGK-	Papua New Guinea Kina </option>
+                                            <option id='PHP-	Philippines Peso '>PHP-	Philippines Peso </option>
+                                            <option id='PKR-	Pakistan Rupee '>PKR-	Pakistan Rupee </option>
+                                            <option id='PLN-	Poland Zloty '>PLN-	Poland Zloty </option>
+                                            <option id='PYG-	Paraguay Guarani '>PYG-	Paraguay Guarani </option>
+                                            <option id='QAR-	Qatar Riyal '>QAR-	Qatar Riyal </option>
+                                            <option id='RON-	Romania New Leu'>RON-	Romania New Leu</option>
+                                            <option id='RSD-	Serbia Dinar '>RSD-	Serbia Dinar </option>
+                                            <option id='RUB-	Russia Ruble '>RUB-	Russia Ruble </option>
+                                            <option id='RWF-	Rwanda Franc '>RWF-	Rwanda Franc </option>
+                                            <option id='SAR-	Saudi Arabia Riyal'>SAR-	Saudi Arabia Riyal</option>
+                                            <option id='SBD-	Solomon Islands Dollar'>SBD-	Solomon Islands Dollar</option>
+                                            <option id='SCR-	Seychelles Rupee '>SCR-	Seychelles Rupee </option>
+                                            <option id='SDG-	Sudan Pound '>SDG-	Sudan Pound </option>
+                                            <option id='SEK-	Sweden Krona '>SEK-	Sweden Krona </option>
+                                            <option id='SGD-	Singapore Dollar '>SGD-	Singapore Dollar </option>
+                                            <option id='SHP-	Saint Helena Pound'>SHP-	Saint Helena Pound</option>
+                                            <option id='SLL-	Sierra Leone Leone'>SLL-	Sierra Leone Leone</option>
+                                            <option id='SOS-	Somalia Shilling '>SOS-	Somalia Shilling </option>
+                                            <option id='SPL*-	Seborga Luigino '>SPL*-	Seborga Luigino </option>
+                                            <option id='SRD-	Suriname Dollar '>SRD-	Suriname Dollar </option>
+                                            <option id='STD-	São Tomé and Príncipe Dobra'>STD-	São Tomé and Príncipe Dobra</option>
+                                            <option id='SVC-	El Salvador Colon'>SVC-	El Salvador Colon</option>
+                                            <option id='SYP-	Syria Pound '>SYP-	Syria Pound </option>
+                                            <option id='SZL-	Swaziland Lilangeni '>SZL-	Swaziland Lilangeni </option>
+                                            <option id='THB-	Thailand Baht '>THB-	Thailand Baht </option>
+                                            <option id='TJS-	Tajikistan Somoni '>TJS-	Tajikistan Somoni </option>
+                                            <option id='TMT-	Turkmenistan Manat '>TMT-	Turkmenistan Manat </option>
+                                            <option id='TND-	Tunisia Dinar '>TND-	Tunisia Dinar </option>
+                                            <option id='TOP-	Tonga Pa’anga '>TOP-	Tonga Pa’anga </option>
+                                            <option id='TRY-	Turkey Lira '>TRY-	Turkey Lira </option>
+                                            <option id='TTD-	Trinidad and Tobago Dollar '>TTD-	Trinidad and Tobago Dollar </option>
+                                            <option id='TVD-	Tuvalu Dollar '>TVD-	Tuvalu Dollar </option>
+                                            <option id='TWD-	Taiwan New Dollar'>TWD-	Taiwan New Dollar</option>
+                                            <option id='TZS-	Tanzania Shilling '>TZS-	Tanzania Shilling </option>
+                                            <option id='UAH-	Ukraine Hryvna '>UAH-	Ukraine Hryvna </option>
+                                            <option id='UGX-	Uganda Shilling '>UGX-	Uganda Shilling </option>
+                                            <option id='USD-	United States Dollar'>USD-	United States Dollar</option>
+                                            <option id='UYU-	Uruguay Peso '>UYU-	Uruguay Peso </option>
+                                            <option id='UZS-	Uzbekistan Som '>UZS-	Uzbekistan Som </option>
+                                            <option id='VEF-	Venezuela Bolivar '>VEF-	Venezuela Bolivar </option>
+                                            <option id='VND-	Viet Nam Dong'>VND-	Viet Nam Dong</option>
+                                            <option id='VUV-	Vanuatu Vatu '>VUV-	Vanuatu Vatu </option>
+                                            <option id='WST-	Samoa Tala '>WST-	Samoa Tala </option>
+                                            <option id='XAF-	Communauté Financière Africaine (BEAC) CFA Franc BEAC'>XAF-	Communauté Financière Africaine (BEAC) CFA Franc BEAC</option>
+                                            <option id='XCD-	East Caribbean Dollar'>XCD-	East Caribbean Dollar</option>
+                                            <option id='XDR-	International Monetary Fund (IMF) Special Drawing Rights'>XDR-	International Monetary Fund (IMF) Special Drawing Rights</option>
+                                            <option id='XOF-	Communauté Financière Africaine (BCEAO) Franc'>XOF-	Communauté Financière Africaine (BCEAO) Franc</option>
+                                            <option id='XPF-	Comptoirs Français du Pacifique (CFP) Franc '>XPF-	Comptoirs Français du Pacifique (CFP) Franc </option>
+                                            <option id='YER-	Yemen Rial '>YER-	Yemen Rial </option>
+                                            <option id='ZAR-	South Africa Rand'>ZAR-	South Africa Rand</option>
+                                            <option id='ZMW-	Zambia Kwacha '>ZMW-	Zambia Kwacha </option>
+                                            <option id='ZWD-	Zimbabwe Dollar '>ZWD-	Zimbabwe Dollar </option>
+                                        </select>
+                                        <small class="form-text text-muted">Invoices for this customer will default to this currency.</small>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">Location</label>
+                                    <div class="col-sm-10">
+                                        <select name="" class="form-control" id="">
+                                            <option value="">Select location</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">Company address</label>
+                                    <div class="col-sm-10 mt-2">
+                                        <div class="row">
+                                            <div class="col">
+                                                <input type="text" class="form-control" placeholder="Address" ng-model="address1">
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control" placeholder="Address 2 (optional)" ng-model="address2">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col">
+                                                <select class="form-control" ng-model="country">
+                                                    <option value="">Country</option>
+                                                </select>
+                                            </div>
+                                            <div class="col">
+                                                <select class="form-control" ng-model="state">
+                                                    <option value="">Province, State</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col">
+                                                <input type="text" class="form-control" placeholder="City" ng-model="city">
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control" placeholder="Postal" ng-model="postalCode">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6" style="direction: rtl;">
+                        <div class="row">
+                            <div class="col-12 mt-3 border-bottom">
+                                <h4>معلومات اساسية</h4>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <div class="form-group row">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">عميل</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control">
+                                        <small class="form-text text-muted">اسم شركة أو شخص۔</small>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">اتصال رئيسي</label>
+                                    <div class="col-sm-10 mt-2">
+                                        <div class="row">
+                                            <div class="col">
+                                                <input type="text" class="form-control" placeholder="الاسم الاول">
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control" placeholder="الكنية">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col">
+                                                <input type="email" class="form-control" placeholder="البريد الإلكتروني">
+                                            </div>
+                                            <div class="col">
+                                                <input type="number" class="form-control" placeholder="هاتف">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">رقم حساب</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">موقع إلكتروني</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">تلاحظ</label>
+                                    <div class="col-sm-10">
+                                        <textarea name="" class="form-control" id="" cols="2" rows="2"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 mt-3 border-bottom">
+                                <h4>عنوان الشركة</h4>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">عملة</label>
+                                    <div class="col-sm-10">
+                                        <select name="" id="" class="form-control">
+                                            <option value="">Select</option>
+                                            <option id='AED -	United Arab Emirates Dirham'>AED -	United Arab Emirates Dirham</option>
+                                            <option id='AFN -	Afghanistan Afghani'>AFN -	Afghanistan Afghani</option>
+                                            <option id='ALL -	Albania Lek'>ALL -	Albania Lek</option>
+                                            <option id='AMD -	Armenia Dram'>AMD -	Armenia Dram</option>
+                                            <option id='ANG -	Netherlands Antilles Guilder'>ANG -	Netherlands Antilles Guilder</option>
+                                            <option id='AOA -	Angola Kwanza'>AOA -	Angola Kwanza</option>
+                                            <option id='ARS -	Argentina Peso'>ARS -	Argentina Peso</option>
+                                            <option id='AUD -	Australia Dollar'>AUD -	Australia Dollar</option>
+                                            <option id='AWG -	Aruba Guilder'>AWG -	Aruba Guilder</option>
+                                            <option id='AZN -	Azerbaijan New Manat'>AZN -	Azerbaijan New Manat</option>
+                                            <option id='BAM -	Bosnia and Herzegovina Convertible Marka'>BAM -	Bosnia and Herzegovina Convertible Marka</option>
+                                            <option id='BBD -	Barbados Dollar'>BBD -	Barbados Dollar</option>
+                                            <option id='BDT -	Bangladesh Taka'>BDT -	Bangladesh Taka</option>
+                                            <option id='BGN -	Bulgaria Lev'>BGN -	Bulgaria Lev</option>
+                                            <option id='BHD -	Bahrain Dinar'>BHD -	Bahrain Dinar</option>
+                                            <option id='BIF -	Burundi Franc'>BIF -	Burundi Franc</option>
+                                            <option id='BMD -	Bermuda Dollar'>BMD -	Bermuda Dollar</option>
+                                            <option id='BND -	Brunei Darussalam Dollar'>BND -	Brunei Darussalam Dollar</option>
+                                            <option id='BOB -	Bolivia Boliviano'>BOB -	Bolivia Boliviano</option>
+                                            <option id='BRL -	Brazil Real'>BRL -	Brazil Real</option>
+                                            <option id='BSD -	Bahamas Dollar'>BSD -	Bahamas Dollar</option>
+                                            <option id='BTN -	Bhutan Ngultrum'>BTN -	Bhutan Ngultrum</option>
+                                            <option id='BWP -	Botswana Pula'>BWP -	Botswana Pula</option>
+                                            <option id='BYR -	Belarus Ruble'>BYR -	Belarus Ruble</option>
+                                            <option id='BZD -	Belize Dollar'>BZD -	Belize Dollar</option>
+                                            <option id='CAD -	Canada Dollar'>CAD -	Canada Dollar</option>
+                                            <option id='CDF -	Congo/Kinshasa Franc'>CDF -	Congo/Kinshasa Franc</option>
+                                            <option id='CHF -	Switzerland Franc'>CHF -	Switzerland Franc</option>
+                                            <option id='CLP -	Chile Peso'>CLP -	Chile Peso</option>
+                                            <option id='CNY -	China Yuan Renminbi'>CNY -	China Yuan Renminbi</option>
+                                            <option id='COP -	Colombia Peso'>COP -	Colombia Peso</option>
+                                            <option id='CRC -	Costa Rica Colon'>CRC -	Costa Rica Colon</option>
+                                            <option id='CUC -	Cuba Convertible Peso'>CUC -	Cuba Convertible Peso</option>
+                                            <option id='CUP -	Cuba Peso'>CUP -	Cuba Peso</option>
+                                            <option id='CVE -	Cape Verde Escudo'>CVE -	Cape Verde Escudo</option>
+                                            <option id='CZK -	Czech Republic Koruna'>CZK -	Czech Republic Koruna</option>
+                                            <option id='DJF -	Djibouti Franc'>DJF -	Djibouti Franc</option>
+                                            <option id='DKK -	Denmark Krone'>DKK -	Denmark Krone</option>
+                                            <option id='DOP -	Dominican Republic Peso'>DOP -	Dominican Republic Peso</option>
+                                            <option id='DZD -	Algeria Dinar'>DZD -	Algeria Dinar</option>
+                                            <option id='EGP -	Egypt Pound'>EGP -	Egypt Pound</option>
+                                            <option id='ERN -	Eritrea Nakfa'>ERN -	Eritrea Nakfa</option>
+                                            <option id='ETB -	Ethiopia Birr'>ETB -	Ethiopia Birr</option>
+                                            <option id='EUR -	Euro Member Countries'>EUR -	Euro Member Countries</option>
+                                            <option id='FJD -	Fiji Dollar'>FJD -	Fiji Dollar</option>
+                                            <option id='FKP -	Falkland Islands (Malvinas) Pound'>FKP -	Falkland Islands (Malvinas) Pound</option>
+                                            <option id='GBP -	United Kingdom Pound'>GBP -	United Kingdom Pound</option>
+                                            <option id='GEL -	Georgia Lari'>GEL -	Georgia Lari</option>
+                                            <option id='GGP -	Guernsey Pound'>GGP -	Guernsey Pound</option>
+                                            <option id='GHS -	Ghana Cedi'>GHS -	Ghana Cedi</option>
+                                            <option id='GIP -	Gibraltar Pound'>GIP -	Gibraltar Pound</option>
+                                            <option id='GMD -	Gambia Dalasi'>GMD -	Gambia Dalasi</option>
+                                            <option id='GNF -	Guinea Franc'>GNF -	Guinea Franc</option>
+                                            <option id='GTQ -	Guatemala Quetzal'>GTQ -	Guatemala Quetzal</option>
+                                            <option id='GYD -	Guyana Dollar'>GYD -	Guyana Dollar</option>
+                                            <option id='HKD -	Hong Kong Dollar'>HKD -	Hong Kong Dollar</option>
+                                            <option id='HNL -	Honduras Lempira'>HNL -	Honduras Lempira</option>
+                                            <option id='HRK -	Croatia Kuna'>HRK -	Croatia Kuna</option>
+                                            <option id='HTG -	Haiti Gourde'>HTG -	Haiti Gourde</option>
+                                            <option id='HUF -	Hungary Forint'>HUF -	Hungary Forint</option>
+                                            <option id='IDR -	Indonesia Rupiah'>IDR -	Indonesia Rupiah</option>
+                                            <option id='ILS -	Israel Shekel'>ILS -	Israel Shekel</option>
+                                            <option id='IMP -	Isle of Man Pound'>IMP -	Isle of Man Pound</option>
+                                            <option id='INR -	India Rupee'>INR -	India Rupee</option>
+                                            <option id='IQD -	Iraq Dinar'>IQD -	Iraq Dinar</option>
+                                            <option id='IRR -	Iran Rial'>IRR -	Iran Rial</option>
+                                            <option id='ISK -	Iceland Krona'>ISK -	Iceland Krona</option>
+                                            <option id='JEP -	Jersey Pound'>JEP -	Jersey Pound</option>
+                                            <option id='JMD -	Jamaica Dollar'>JMD -	Jamaica Dollar</option>
+                                            <option id='JOD -	Jordan Dinar'>JOD -	Jordan Dinar</option>
+                                            <option id='JPY -	Japan Yen'>JPY -	Japan Yen</option>
+                                            <option id='KES -	Kenya Shilling'>KES -	Kenya Shilling</option>
+                                            <option id='KGS -	Kyrgyzstan Som'>KGS -	Kyrgyzstan Som</option>
+                                            <option id='KHR -	Cambodia Riel'>KHR -	Cambodia Riel</option>
+                                            <option id='KMF -	Comoros Franc'>KMF -	Comoros Franc</option>
+                                            <option id='KPW -	Korea (North) Won'>KPW -	Korea (North) Won</option>
+                                            <option id='KRW -	Korea (South) Won'>KRW -	Korea (South) Won</option>
+                                            <option id='KWD -	Kuwait Dinar'>KWD -	Kuwait Dinar</option>
+                                            <option id='KYD -	Cayman Islands Dollar'>KYD -	Cayman Islands Dollar</option>
+                                            <option id='KZT -	Kazakhstan Tenge'>KZT -	Kazakhstan Tenge</option>
+                                            <option id='LAK -	Laos Kip'>LAK -	Laos Kip</option>
+                                            <option id='LBP -	Lebanon Pound'>LBP -	Lebanon Pound</option>
+                                            <option id='LKR -	Sri Lanka Rupee'>LKR -	Sri Lanka Rupee</option>
+                                            <option id='LRD -	Liberia Dollar'>LRD -	Liberia Dollar</option>
+                                            <option id='LSL -	Lesotho Loti'>LSL -	Lesotho Loti</option>
+                                            <option id='LTL -	Lithuania Litas'>LTL -	Lithuania Litas</option>
+                                            <option id='LVL -	Latvia Lat'>LVL -	Latvia Lat</option>
+                                            <option id='LYD -	Libya Dinar'>LYD -	Libya Dinar</option>
+                                            <option id='MAD -	Morocco Dirham'>MAD -	Morocco Dirham</option>
+                                            <option id='MDL-	Moldova Leu '>MDL-	Moldova Leu </option>
+                                            <option id='MGA-	Madagascar Ariary '>MGA-	Madagascar Ariary </option>
+                                            <option id='MKD-	Macedonia Denar '>MKD-	Macedonia Denar </option>
+                                            <option id='MMK-	Myanmar (Burma) Kyat'>MMK-	Myanmar (Burma) Kyat</option>
+                                            <option id='MNT-	Mongolia Tughrik '>MNT-	Mongolia Tughrik </option>
+                                            <option id='MOP-	Macau Pataca '>MOP-	Macau Pataca </option>
+                                            <option id='MRO-	Mauritania Ouguiya '>MRO-	Mauritania Ouguiya </option>
+                                            <option id='MUR-	Mauritius Rupee '>MUR-	Mauritius Rupee </option>
+                                            <option id='MVR-	Maldives (Maldive Islands) Rufiyaa '>MVR-	Maldives (Maldive Islands) Rufiyaa </option>
+                                            <option id='MWK-	Malawi Kwacha '>MWK-	Malawi Kwacha </option>
+                                            <option id='MXN-	Mexico Peso '>MXN-	Mexico Peso </option>
+                                            <option id='MYR-	Malaysia Ringgit '>MYR-	Malaysia Ringgit </option>
+                                            <option id='MZN-	Mozambique Metical '>MZN-	Mozambique Metical </option>
+                                            <option id='NAD-	Namibia Dollar '>NAD-	Namibia Dollar </option>
+                                            <option id='NGN-	Nigeria Naira '>NGN-	Nigeria Naira </option>
+                                            <option id='NIO-	Nicaragua Cordoba '>NIO-	Nicaragua Cordoba </option>
+                                            <option id='NOK-	Norway Krone '>NOK-	Norway Krone </option>
+                                            <option id='NPR-	Nepal Rupee '>NPR-	Nepal Rupee </option>
+                                            <option id='NZD-	New Zealand Dollar'>NZD-	New Zealand Dollar</option>
+                                            <option id='OMR-	Oman Rial '>OMR-	Oman Rial </option>
+                                            <option id='PAB-	Panama Balboa '>PAB-	Panama Balboa </option>
+                                            <option id='PEN-	Peru Nuevo Sol'>PEN-	Peru Nuevo Sol</option>
+                                            <option id='PGK-	Papua New Guinea Kina '>PGK-	Papua New Guinea Kina </option>
+                                            <option id='PHP-	Philippines Peso '>PHP-	Philippines Peso </option>
+                                            <option id='PKR-	Pakistan Rupee '>PKR-	Pakistan Rupee </option>
+                                            <option id='PLN-	Poland Zloty '>PLN-	Poland Zloty </option>
+                                            <option id='PYG-	Paraguay Guarani '>PYG-	Paraguay Guarani </option>
+                                            <option id='QAR-	Qatar Riyal '>QAR-	Qatar Riyal </option>
+                                            <option id='RON-	Romania New Leu'>RON-	Romania New Leu</option>
+                                            <option id='RSD-	Serbia Dinar '>RSD-	Serbia Dinar </option>
+                                            <option id='RUB-	Russia Ruble '>RUB-	Russia Ruble </option>
+                                            <option id='RWF-	Rwanda Franc '>RWF-	Rwanda Franc </option>
+                                            <option id='SAR-	Saudi Arabia Riyal'>SAR-	Saudi Arabia Riyal</option>
+                                            <option id='SBD-	Solomon Islands Dollar'>SBD-	Solomon Islands Dollar</option>
+                                            <option id='SCR-	Seychelles Rupee '>SCR-	Seychelles Rupee </option>
+                                            <option id='SDG-	Sudan Pound '>SDG-	Sudan Pound </option>
+                                            <option id='SEK-	Sweden Krona '>SEK-	Sweden Krona </option>
+                                            <option id='SGD-	Singapore Dollar '>SGD-	Singapore Dollar </option>
+                                            <option id='SHP-	Saint Helena Pound'>SHP-	Saint Helena Pound</option>
+                                            <option id='SLL-	Sierra Leone Leone'>SLL-	Sierra Leone Leone</option>
+                                            <option id='SOS-	Somalia Shilling '>SOS-	Somalia Shilling </option>
+                                            <option id='SPL*-	Seborga Luigino '>SPL*-	Seborga Luigino </option>
+                                            <option id='SRD-	Suriname Dollar '>SRD-	Suriname Dollar </option>
+                                            <option id='STD-	São Tomé and Príncipe Dobra'>STD-	São Tomé and Príncipe Dobra</option>
+                                            <option id='SVC-	El Salvador Colon'>SVC-	El Salvador Colon</option>
+                                            <option id='SYP-	Syria Pound '>SYP-	Syria Pound </option>
+                                            <option id='SZL-	Swaziland Lilangeni '>SZL-	Swaziland Lilangeni </option>
+                                            <option id='THB-	Thailand Baht '>THB-	Thailand Baht </option>
+                                            <option id='TJS-	Tajikistan Somoni '>TJS-	Tajikistan Somoni </option>
+                                            <option id='TMT-	Turkmenistan Manat '>TMT-	Turkmenistan Manat </option>
+                                            <option id='TND-	Tunisia Dinar '>TND-	Tunisia Dinar </option>
+                                            <option id='TOP-	Tonga Pa’anga '>TOP-	Tonga Pa’anga </option>
+                                            <option id='TRY-	Turkey Lira '>TRY-	Turkey Lira </option>
+                                            <option id='TTD-	Trinidad and Tobago Dollar '>TTD-	Trinidad and Tobago Dollar </option>
+                                            <option id='TVD-	Tuvalu Dollar '>TVD-	Tuvalu Dollar </option>
+                                            <option id='TWD-	Taiwan New Dollar'>TWD-	Taiwan New Dollar</option>
+                                            <option id='TZS-	Tanzania Shilling '>TZS-	Tanzania Shilling </option>
+                                            <option id='UAH-	Ukraine Hryvna '>UAH-	Ukraine Hryvna </option>
+                                            <option id='UGX-	Uganda Shilling '>UGX-	Uganda Shilling </option>
+                                            <option id='USD-	United States Dollar'>USD-	United States Dollar</option>
+                                            <option id='UYU-	Uruguay Peso '>UYU-	Uruguay Peso </option>
+                                            <option id='UZS-	Uzbekistan Som '>UZS-	Uzbekistan Som </option>
+                                            <option id='VEF-	Venezuela Bolivar '>VEF-	Venezuela Bolivar </option>
+                                            <option id='VND-	Viet Nam Dong'>VND-	Viet Nam Dong</option>
+                                            <option id='VUV-	Vanuatu Vatu '>VUV-	Vanuatu Vatu </option>
+                                            <option id='WST-	Samoa Tala '>WST-	Samoa Tala </option>
+                                            <option id='XAF-	Communauté Financière Africaine (BEAC) CFA Franc BEAC'>XAF-	Communauté Financière Africaine (BEAC) CFA Franc BEAC</option>
+                                            <option id='XCD-	East Caribbean Dollar'>XCD-	East Caribbean Dollar</option>
+                                            <option id='XDR-	International Monetary Fund (IMF) Special Drawing Rights'>XDR-	International Monetary Fund (IMF) Special Drawing Rights</option>
+                                            <option id='XOF-	Communauté Financière Africaine (BCEAO) Franc'>XOF-	Communauté Financière Africaine (BCEAO) Franc</option>
+                                            <option id='XPF-	Comptoirs Français du Pacifique (CFP) Franc '>XPF-	Comptoirs Français du Pacifique (CFP) Franc </option>
+                                            <option id='YER-	Yemen Rial '>YER-	Yemen Rial </option>
+                                            <option id='ZAR-	South Africa Rand'>ZAR-	South Africa Rand</option>
+                                            <option id='ZMW-	Zambia Kwacha '>ZMW-	Zambia Kwacha </option>
+                                            <option id='ZWD-	Zimbabwe Dollar '>ZWD-	Zimbabwe Dollar </option>
+                                        </select>
+                                        <small class="form-text text-muted">سيتم تعيين فواتير هذا العميل بشكل افتراضي إلى هذه العملة۔</small>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">تأجير</label>
+                                    <div class="col-sm-10">
+                                        <select name="" class="form-control" id="">
+                                            <option value="">Select location</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">عنوان الشركة</label>
+                                    <div class="col-sm-10 mt-2">
+                                        <div class="row">
+                                            <div class="col">
+                                                <input type="text" class="form-control" placeholder="تبوك">
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control" placeholder="العنوان 2 (اختياري)">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col">
+                                                <select class="form-control">
+                                                    <option value="">دولة</option>
+                                                </select>
+                                            </div>
+                                            <div class="col">
+                                                <select class="form-control">
+                                                    <option value="">مقاطعة ، ولاية</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col">
+                                                <input type="text" class="form-control" placeholder="مدينة">
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control" placeholder="بريدي">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12 text-center pb-5">
+                        <button class="btn btn-danger">Cancel &nbsp; إلغاء</button>
+                        <button class="btn btn-success" type="button" ng-click="postdata()">Save &nbsp; حفظ</button>
+                    </div>
+                </div>
+            <!-- </form> -->
+        </div>
+    </div>
+    <script>
+
+
+
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('.image-upload-wrap').hide();
+
+                    $('.file-upload-image').attr('src', e.target.result);
+                    $('.file-upload-content').show();
+
+                    $('.image-title').html(input.files[0].name);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+
+            } else {
+                removeUpload();
+            }
+        }
+
+        function removeUpload() {
+            $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+            $('.file-upload-content').hide();
+            $('.image-upload-wrap').show();
+        }
+        $('.image-upload-wrap').bind('dragover', function() {
+            $('.image-upload-wrap').addClass('image-dropping');
+        });
+        $('.image-upload-wrap').bind('dragleave', function() {
+            $('.image-upload-wrap').removeClass('image-dropping');
+        });
+    </script>

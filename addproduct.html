@@ -1,0 +1,124 @@
+
+        <div class="container m-0" ng-controller="productCtrl">
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-6">
+                    <h2><b>Add a Product or Service</b></h2>
+                    <p>Products and services that you buy from vendors are used as items on Bills to record those purchases, and the ones that you sell to customers are used as items on Invoices to record those sales.</p>
+                </div>
+                <div class="col-3"></div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-6 border_right">
+                    <form>
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-3 col-form-label">Name</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" ng-model="name">
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="staticEmail" class="col-sm-3 col-form-label">Description</label>
+                            <div class="col-sm-9">
+                                <textarea name="" class="form-control" id="" cols="2" rows="2"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="staticEmail" class="col-sm-3 col-form-label">Price</label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control" ng-model="price">
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="staticEmail" class="col-sm-3 col-form-label">Code / SKU</label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="staticEmail" class="col-sm-3 col-form-label">Assign chart of Account</label>
+                            <div class="col-sm-9">
+                                <select name="" class="form-control" id="">
+                                    <option value="">Add new</option>
+                                </select>
+                                <small id="emailHelp" class="form-text text-muted">Map your income account</small>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-6">
+                    <form style="direction: rtl;">
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-3 col-form-label">اسم</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="staticEmail" class="col-sm-3 col-form-label">وصف</label>
+                            <div class="col-sm-9">
+                                <textarea name="" class="form-control" id="" cols="2" rows="2"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="staticEmail" class="col-sm-3 col-form-label">السعر</label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="staticEmail" class="col-sm-3 col-form-label"> رمز / SKU</label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="staticEmail" class="col-sm-3 col-form-label">تعيين مخطط الحساب</label>
+                            <div class="col-sm-9">
+                                <select name="" class="form-control" id="">
+                                    <option value="">اضف جديد</option>
+                                </select>
+                                <small id="emailHelp" class="form-text text-muted">ارسم حساب دخلك</small>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12 text-center">
+                    <button class="btn btn-success" type="button" ng-click="saveProduct();">Submit إرسال</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+       // var app = angular.module("productApp", []);
+        
+        app.controller("productCtrl", function($scope,$http) {
+            
+            $scope.name = null;
+            $scope.description = null;
+            $scope.price = null;
+            $scope.code = null;
+            $scope.assignedChartofAccount = "assignedChartofAccounts";
+            $scope.userId = 1;
+            $scope.comapnyID=1
+                $scope.saveProduct = function(){
+                    var data = {
+                        productName: $scope.userName,
+                        description: $scope.description,
+                        price: $scope.price,
+                        code: $scope.code,
+                        assignedChartofAccounts:$scope.assignedChartofAccount,
+                        userId: $scope.userId,
+                        comapnyID:$scope.comapnyID
+                    };
+
+
+    $http.post('https://c5e7-2a0a-a541-4e1c-0-1d7d-997a-321e-c188.ngrok.io/control/saveProductMain', JSON.stringify(data)).then(function (response) {}, function (response) {
+        alert("Product Saved successfully...!")
+            });
+};
+        });
+        </script>
