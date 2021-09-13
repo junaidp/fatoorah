@@ -618,6 +618,12 @@ input:checked+.slider:before {
     border: none !important;
 }
 
+.border-income {
+    padding: 17px 0px;
+    border-radius: 3px;
+    background-color: #ecf0f3;
+}
+
 @media screen and (min-width: 768px) {
     body {
         margin: calc(var(--header-height) + 1rem) 0 0 0;
