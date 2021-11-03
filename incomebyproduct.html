@@ -1,8 +1,8 @@
-<div class="height-100">
+<div class="height-100" ng-controller="gettopproductController">
     <div class="container m-0">
         <div class="row">
             <div class="col-6">
-                <h2>Income by product</h2>
+                <h2>Income by product - الدخل حسب المنتج</h2>
             </div>
             <div class="col-6 addproduct">
                 <div class="dropdown">
@@ -26,15 +26,15 @@
                     <div class="col-6">
                         <div class="row">
                             <div class="col-6">
-                                <input placeholder="From" class="textbox-n form-control" type="text" onfocus="(this.type='date')" id="date">
+                                <input placeholder="From" class="textbox-n form-control" ng-model="startDate" type="text" onfocus="(this.type='date')" id="date">
                             </div>
                             <div class="col-sm-6">
-                                <input placeholder="To" class="textbox-n form-control" type="text" onfocus="(this.type='date')" id="date">
+                                <input placeholder="To" class="textbox-n form-control" ng-model="endDate" type="text" onfocus="(this.type='date')" id="date">
                             </div>
                         </div>
                     </div>
                     <div class="col-6">
-                        <button class="btn btn-success" style="float:right">Update Report</button>
+                        <button class="btn btn-success" ng-click="getproductbydate()" style="float:right">Get Report - احصل على تقرير</button>
                     </div>
                 </div>
             </div>
@@ -45,25 +45,15 @@
                     <thead>
                         <tr>
                             <th scope="col">Product</th>
+                            <th scope="col">Quantity</th>
                             <th scope="col">Total (SAR)</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th>pr1</th>
-                            <td>$0.00</td>
-                        </tr>
-                        <tr>
-                            <th>pr1</th>
-                            <td>$0.00</td>
-                        </tr>
-                        <tr>
-                            <th>pr1</th>
-                            <td>$0.00</td>
-                        </tr>
-                        <tr>
-                            <th>Total Income</th>
-                            <td>$0.00</td>
+                        <tr ng-repeat="x in gettopproduct">
+                            <th>{{x.productName}}</th>
+                            <th>{{x.quantity}}</th>
+                            <td class="totalprice">{{x.taxableAmount}}</td>
                         </tr>
                     </tbody>
                 </table>

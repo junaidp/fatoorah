@@ -1,95 +1,99 @@
-        <div class="container m-0" ng-controller="customerController">
-            <div class="row">
-                <div class="col-6">
-                    <h2>Customers</h2>
-                </div>
-                <div class="col-6 addproduct">
-                    <a href="#" class="import" onclick="$('#addcustomer').show();">Import CSV</a>
-                    <a href="#!addcustomer">Add a customer</a>
-                </div>
+<div class="height-100">
+    <div class="container m-0" ng-controller="customerController">
+        <div class="row">
+            <div class="col-6">
+                <h2>Customers - عملاء</h2>
             </div>
-            <div class="row mt-2">
-                <div class="col-12">
-                    <p>You haven't added any customer yet.</p>
-                </div>
+            <div class="col-6 addproduct">
+                <a href="javascript:void(0)" class="import" onclick="$('#addcustomer').show();">Import CSV</a>
+                <a href="#!addcustomer">Add a customer - إضافة زبون</a>
             </div>
-            <div class="row mt-3">
-                <div class="col-12">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Phone</th>
-                                <th scope="col">Saved Card</th>
-                                <th scope="col">Balance | Overdue</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="customer in customers">
-                                <td>{{customer.customer}}</td>
-                                <td>Otto@gmail.com</td>
-                                <td>{{customer.phone}}</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <a href="#">
-                                        <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
-                                    </a>&nbsp;&nbsp;
-                                    <a href="#">
-                                        <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <!-- <tr>
-                                <td>1</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <a href="#">
-                                        <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
-                                    </a>&nbsp;&nbsp;
-                                    <a href="#">
-                                        <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
-                                    </a>
-                                </td>
-                            </tr> -->
-                        </tbody>
-                    </table>
-                </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="customer in customers|itemsPerPage:30" pagination-id="customer">
+                            <td>{{$index + 1}}</td>
+                            <td>{{customer.customer}}</td>
+                            <td>{{customer.email}}</td>
+                            <td>{{customer.phone}}</td>
+                            <td>
+                                <a ng-click="updateCstomer(customer.id)">
+                                    <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                </a>&nbsp;&nbsp;
+                                <a href="javascript:void(0);" ng-click="deleteCustomers(customer.id)" ng-model="customerid">
+                                    <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-12 text-center">
+                <dir-pagination-controls pagination-id="customer" max-size="5" direction-links="true" boundary-links="true">
+                </dir-pagination-controls>
             </div>
         </div>
     </div>
-    <div id="addcustomer" class="modal">
-        <!-- Modal content -->
-        <div class="modal-dialog recordpayment" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"><b>Import customer</b></h5>
-                    <button type="button" class="close closebutton" onclick="$('#addcustomer').hide();" data-dismiss="modal" aria-label="Close">
+</div>
+
+<div id="addcustomer" class="modal">
+    <!-- Modal content -->
+    <div class="modal-dialog recordpayment" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><b>Import customer</b></h5>
+                <button type="button" class="close closebutton" onclick="$('#addcustomer').hide();" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-12 mt-2">
-                            <form action="">
-                                <div class="form-group row">
-                                    <div class="col-sm-9">
-                                        <input type="file" class="form-control">
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <button class="btn btn-success">Submit</button>
-                                    </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 mt-2">
+                        <form action="">
+                            <div class="form-group row">
+                                <div class="col-sm-9">
+                                    <input id="fileupload" type="file" name="fileupload">
                                 </div>
-                            </form>
-                        </div>
+                                <div class="col-sm-3">
+                                    <button class="btn btn-success" id="upload-button" onclick="uploadFile()">Submit</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
+</div>
+<script>
+    async function uploadFile() {
+        let formData = new FormData();
+        debugger
+        formData.append("file", fileupload.files[0]);
+        await fetch('http://97f1-101-50-88-15.ngrok.io/uploader/uploadCustomers', {
+            method: "POST",
+            body: formData
+        });
+        $.dialog({
+            icon: 'fa fa-spinner fa-spin',
+            title: 'Working!',
+            content: 'we are processing your request!'
+        });
+
+        setTimeout(() => {
+            $.notify("The file has been uploaded successfully...!", "success");
+            window.location.reload();
+        }, 5000);
+    }
+</script>

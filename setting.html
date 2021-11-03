@@ -1,44 +1,44 @@
-<div ng-controller="settingCtrl">
-        <div class="container m-0">
-            <div class="row">
-                <div class="col-6">
-                    <h2>Settings</h2>
-                </div>
-                <div class="col-6 addproduct">
-                </div>
+<div class="height-100" ng-controller="settingCtrl">
+    <div class="container m-0">
+        <div class="row mt-2">
+            <div class="col-6">
+                <h2>Settings - إعدادات</h2>
             </div>
-            <div class="row mt-2">
-                <div class="col-6">
-                    <ul class="setting_links">
-                        <li>
-                            <a ng-href="#!edituserprofile">Profile</a>
-                        </li>
-                        <li>
-                            <a href="#!usermanagement">User management</a>
-                        </li>
-                        <li>
-                            <a href="#">Billing & payments</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);" id="myBtnn">VAT rates</a>
-                        </li>
-                        <li>
-                            <a href="#!chartofaccount" id="myBtnn">Chart of account</a>
-                        </li>
-                        <li>
-                            <a href="#" onclick="$('#emailmodel').show();">Email notifications</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);" onclick="$('#passwordchange').show();">Password management</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);" onclick="$('#location').show();">Location</a>
-                        </li>
-                    </ul>
-                </div>
+            <div class="col-6 addproduct">
             </div>
         </div>
-  
+        <div class="row mt-2">
+            <div class="col-6">
+                <ul class="setting_links">
+                    <li>
+                        <a ng-href="#!edituserprofile">Profile</a>
+                    </li>
+                    <li ng-show="userType === 'company'">
+                        <a href="#!usermanagement">User Management</a>
+                    </li>
+                    <li>
+                        <a href="#">Billing & Payments</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" id="myBtnn">VAT Rates</a>
+                    </li>
+                    <li>
+                        <a href="#!chartofaccount" id="myBtnn">Chart Of Account</a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="$('#emailmodel').show();">Email Notifications</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" onclick="$('#passwordchange').show();">Password Management</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" onclick="$('#location').show();">Location</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
     <div id="myModall" class="modal">
         <!-- Modal content -->
         <div class="modal-dialog recordpayment" role="document">
@@ -52,14 +52,14 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-12 mt-2">
-                            <form action="">
+                            <form action="" name="vatrates" novalidate>
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Add</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" ng-model="vatName">
+                                        <input type="number" min="0" class="form-control is-invalid" ng-model="vatName" required>
                                     </div>
                                     <div class="col-sm-3">
-                                        <button class="btn btn-success" type="button" ng-click="SaveVAT()">Submit</button>
+                                        <button class="btn btn-success" type="button" ng-disabled="vatrates.$invalid" ng-click="SaveVAT()">Submit - إرسال</button>
                                     </div>
                                 </div>
                             </form>
@@ -67,7 +67,8 @@
                     </div>
                     <div class="row mt-3">
                         <div class="col-12">
-                            <table class="table table-bordered">
+                            <!-- class="table table-bordered" -->
+                            <table id="tableVatRates" class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th scope="col">Name</th>
@@ -75,41 +76,23 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="vat in vates">
-                                        <td>{{vat.vatRates}}</td>
+                                    <tr dir-paginate="vat in vates|itemsPerPage:5" pagination-id="vat">
+                                        <td>{{vat.vatRates}} %</td>
                                         <td>
-                                            <a href="#">
-                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                            <a href="javascript:void(0);" ng-click="getCurrentVATDetails(vat.id)">
+                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit" onclick="$('#vatrate').show();"></i>
                                             </a>&nbsp;&nbsp;
-                                            <a href="#">
+                                            <a href="javascript:void(0);" ng-click="deleteVAT(vat.id)">
                                                 <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
                                             </a>
                                         </td>
                                     </tr>
-                                    <!-- <tr>
-                                        <td>Exempt</td>
-                                        <td>
-                                            <a href="#">
-                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
-                                            </a>&nbsp;&nbsp;
-                                            <a href="#">
-                                                <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Zero rate</td>
-                                        <td>
-                                            <a href="#">
-                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
-                                            </a>&nbsp;&nbsp;
-                                            <a href="#">
-                                                <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
-                                            </a>
-                                        </td>
-                                    </tr> -->
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="col-12 text-center">
+                            <dir-pagination-controls pagination-id="vat" max-size="5" direction-links="true" boundary-links="true">
+                            </dir-pagination-controls>
                         </div>
                     </div>
                 </div>
@@ -185,7 +168,7 @@
                                 </div>
                                 <div class="form-group row mt-3">
                                     <div class="col-sm-12 text-center">
-                                        <button class="btn btn-success">Submit</button>
+                                        <button class="btn btn-success">Submit - إرسال</button>
                                     </div>
                                 </div>
                             </form>
@@ -196,6 +179,7 @@
         </div>
 
     </div>
+
     <div id="location" class="modal">
         <!-- Modal content -->
         <div class="modal-dialog recordpayment" role="document">
@@ -209,14 +193,14 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-12 mt-2">
-                            <form action="">
+                            <form action="" name="locationvalidation" novalidate>
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Add</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" ng-model="location">
+                                        <input type="text" class="form-control is-invalid" ng-model="location" required>
                                     </div>
                                     <div class="col-sm-3">
-                                        <button class="btn btn-success" type="button" ng-click="saveAllLocation()">Submit</button>
+                                        <button class="btn btn-success" type="button" ng-disabled="locationvalidation.$invalid" ng-click="saveAllLocation()">Submit - إرسال</button>
                                     </div>
                                 </div>
                             </form>
@@ -232,30 +216,88 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="x in locations">
+                                    <tr dir-paginate="x in locations|itemsPerPage:8" pagination-id="location">
                                         <td>{{x.locationName}}</td>
                                         <td>
-                                            <a href="#">
-                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                            <a href="javascript:void(0);" ng-click="getCurrentLocationDetails(x.id)">
+                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit" onclick="$('#updatelocation').show()"></i>
                                             </a>&nbsp;&nbsp;
-                                            <a href="#">
+                                            <a href="javascript:void(0);" ng-click="deleteLocation(x.id)">
                                                 <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
                                             </a>
                                         </td>
                                     </tr>
-                                    <!-- <tr>
-                                        <td>Pakistan</td>
-                                        <td>
-                                            <a href="#">
-                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
-                                            </a>&nbsp;&nbsp;
-                                            <a href="#">
-                                                <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
-                                            </a>
-                                        </td>
-                                    </tr> -->
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="col-12 text-center">
+                            <dir-pagination-controls pagination-id="location" max-size="5" direction-links="true" boundary-links="true">
+                            </dir-pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- update popup -->
+    <div id="updatelocation" class="modal">
+        <!-- Modal content -->
+        <div class="modal-dialog recordpayment" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><b>Update location</b></h5>
+                    <button type="button" onclick="$('#updatelocation').hide();" class="close closebutton" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 mt-2">
+                            <form action="" name="locationupdate" novalidate>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Location</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control is-invalid" ng-model="locationName" required>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button class="btn btn-success" ng-disabled="locationupdate.$invalid" ng-click="updateLocation()">Update - تحديث</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="vatrate" class="modal">
+        <!-- Modal content -->
+        <div class="modal-dialog recordpayment" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><b>VAT rates</b></h5>
+                    <button type="button" onclick="$('#vatrate').hide();" class="close closebutton" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 mt-2">
+                            <form action="" name="vatupdate" novalidate>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Name</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control is-invalid" ng-model="VatName" required>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button class="btn btn-success" ng-disabled="vatupdate.$invalid" ng-click="updateVAT()">Update - تحديث</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -264,46 +306,45 @@
 
     </div>
 </div>
-    <script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
-    <script>
-        // Get the modal
-        var modal = document.getElementById("myModall");
 
-        // Get the button that opens the modal
-        var btn = document.getElementById("myBtnn");
 
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
 
-        // When the user clicks the button, open the modal 
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
 
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
+<script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModall");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtnn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal 
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
             modal.style.display = "none";
         }
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#editor'))
-            .catch(error => {
-                console.error(error);
-            });
-
-
-        
-
-
-    </script>
+    }
+</script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
 </body>
 
 </html>

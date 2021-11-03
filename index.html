@@ -7,14 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <link href="css/style.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
+    <link href="http://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
     <script src="js/jquery-3.2.1.min.js"></script>
+    <!-- <script src="js/dirPagination.js"></script> -->
+    <script src="js/pagination.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/jquery.js"></script>
+    <script src="js/cacheFactory.js"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="js/dirPagination.js"></script>
+    <script src="js/angular-validate.js"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <script src="js/ui-bootstrap-tpls-2.5.0.min.js"></script>
 
 
     <link type="text/css" rel="stylesheet" href="/css/responsive-tabs.css" />
@@ -25,23 +34,60 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <script src="js/jquery.js"></script>
     <script src="js/jquery.responsiveTabs.js" type="text/javascript"></script>
+    <script src="./NotifyPlugin/notify.min.js"></script>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
+    <!-- chart -->
+    <!-- <script type="text/javascript" src="/angularchart/fusioncharts.js"></script>
+    <script type="text/javascript" src="./angularchart/fusioncharts.theme.fusion.js"></script>
+    <script type="text/javascript" src="./angularchart/angular-fusioncharts.min.js"></script> -->
+    <script src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+    <script src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.1.0/uuidv4.min.js"></script>
+
+    <script src="js/qrcode.js"></script>
+    <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular.min.js"></script> -->
+    <!-- <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.13/ng-file-upload.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
     <script>
         (function() {
-            var basePath = "https://c5e7-2a0a-a541-4e1c-0-1d7d-997a-321e-c188.ngrok.io/";
 
+            let company_Id = sessionStorage.getItem('company_id');
 
-            var app = angular.module("myApp", ["ngRoute"]);
-            //Configuration
+            if (company_Id != null || company_Id != undefined) {
+                if (window.location.href != "http://127.0.0.1:8080/#!/")
+                    window.location.href = window.location.href;
+            } else {
+                window.location.href = "./loginregisterform/index.html";
+            }
+
+            var basePath = "http://97f1-101-50-88-15.ngrok.io/";
+            var translationpath = "http://fad2-101-50-88-15.ngrok.io/";
+
+            var app = angular.module("myApp", ['ngRoute', 'angularUtils.directives.dirPagination']);
+
+            app.run(function($rootScope, $templateCache) {
+                $rootScope.$on('$routeChangeStart', function(event, next, current) {
+                    if (typeof(current) !== 'undefined') {
+                        $templateCache.remove(current.templateUrl);
+                    }
+                });
+            });
+
             app.config(function($routeProvider) {
                 $routeProvider
                     .when("/", {
                         templateUrl: "main.html"
                     })
-                    .when("/login", {
-                        templateUrl: "./loginform/index.html"
-                    })
+                    // .when("/login", {
+                    //     templateUrl: "./loginform/index.html"
+                    // })
                     .when("/customer", {
                         templateUrl: "customer.html"
                     })
@@ -53,9 +99,12 @@
                     })
                     .when("/invoice", {
                         templateUrl: "invoice.html"
-                    }).
-                when("/createinvoice", {
+                    })
+                    .when("/createinvoice", {
                         templateUrl: "createinvoice.html"
+                    })
+                    .when("/editInvoice", {
+                        templateUrl: "editInvoice.html"
                     })
                     .when("/products", {
                         templateUrl: "product.html"
@@ -90,187 +139,938 @@
                     .when("/incomebyperiod", {
                         templateUrl: "incomebyperiod.html"
                     })
+                    .when("/updateProduct", {
+                        templateUrl: "updateProduct.html"
+                    })
+                    .when("/updateCustomer", {
+                        templateUrl: "updatecustomer.html"
+                    })
+                    .when("/registration", {
+                        templateUrl: "./loginregisterform/registration.html"
+                    })
+                    .when("/approval", {
+                        templateUrl: "approval.html"
+                    })
+                    .when("/creditnote", {
+                        templateUrl: "createinvoicebycreditnote.html"
+                    })
+                    .when("/debitnote", {
+                        templateUrl: "createinvoicebydebitnot.html"
+                    })
                     .otherwise({
-                        redirectTo: "/main"
+                        redirectTo: "./loginregisterform/index.html"
                     });
+
             });
 
 
+            app.controller("appController", function($scope, $http) {
+
+                $scope.approve_Persmission = sessionStorage.getItem('approve');
+                $scope.productSetup_Persmission = sessionStorage.getItem('productSetup');
+                $scope.invoiceRaise_Persmission = sessionStorage.getItem('invoiceRaise');
+                $scope.paymentReceipt_Persmission = sessionStorage.getItem('paymentReceipt');
+
+                $scope.userType = sessionStorage.getItem('userType')
+
+                $scope.logout = function() {
+
+                    sessionStorage.removeItem('company_id');
+                    window.location.reload(true);
+                }
+            });
+            //Add Customer
+            var ProductForUpdate = null;
+            var customerForUpdate = null;
+            // var invoiceCustomerForPrint=null;
+            var invoicesForPrint = [];
             //Customer Controller
             app.controller("customerController", function($scope, $http) {
-                $http.get(basePath + "control/getAllCustomers?companyID=1")
+                $http.get(basePath + "control/getAllCustomers?companyID=" + sessionStorage.getItem('company_id'))
                     .then(function(response) {
-                        debugger
                         $scope.customers = response.data;
                     });
+
+                $scope.customerid = null;
+                $scope.deleteCustomers = function(id) {
+                    $.confirm({
+                        title: 'Confirm!',
+                        content: 'Simple confirm!',
+                        buttons: {
+                            confirm: function() {
+                                $http.get(basePath + 'control/deleteCustomers?customerID=' + id).then(function(response) {}, function(response) {
+                                    $.notify("Customer deleted successfully", "success");
+                                    window.location.href = "/#!/customer";
+                                    $http.get(basePath + "control/getAllCustomers?companyID=" + sessionStorage.getItem('company_id'))
+                                        .then(function(response) {
+                                            $scope.customers = response.data;
+                                        });
+                                });
+                            },
+                            cancel: function() {
+
+                            }
+                        }
+                    });
+
+                };
+
+                $scope.updateCstomer = function(cId) {
+
+                    customerForUpdate = $scope.customers.filter(x => x.id == cId)[0];
+                    window.location.href = "#!updateCustomer";
+                }
+
+                async function uploadCustomerFile() {
+                    let formData = new FormData();
+                    formData.append("file", fileupload.files[0]);
+                    await fetch(basePath + '/uploader/uploadCustomers', {
+                        method: "POST",
+                        body: formData
+                    });
+                    $.notify("The file has been uploaded successfully", "success");
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                }
+
             });
 
-            //Add Customer
-
             app.controller("customerCtrl", function($scope, $http, $window) {
+                $scope.customerName = null;
+                $scope.firstNameInArabic = null;
 
 
                 $scope.customerName = null;
                 $scope.firstName = null;
                 $scope.lastName = null;
+                $scope.email = null;
+                $scope.phoneMain = null;
                 $scope.accountNumber = null;
                 $scope.website = null;
+                $scope.relatedParty = null;
                 $scope.notes = null;
                 $scope.currency = null;
+                $scope.billingAddress1 = null;
+                $scope.billingAddress2 = null;
                 $scope.billingCountry = null;
-
                 $scope.billingProvince = null;
                 $scope.billingCity = null;
                 $scope.billingPostal = null;
                 $scope.shippingName = null;
-                $scope.shippingAddress = null;
-
-                $scope.shippingCity = null;
+                $scope.shippingAddress1 = null;
                 $scope.shippingAddress2 = null;
-                $scope.shippingCity = null;
                 $scope.shippingProvince = null;
                 $scope.shippingPostal = null;
+                $scope.shippingCountry = null;
+                $scope.shippingCity = null;
                 $scope.phone = null;
                 $scope.deliveryInstructions = null;
+                $scope.vatNumber_Customer = null;
+                $scope.additionalNumber_Customer = null;
+                $scope.otherSellerid_Customer = null;
 
                 $scope.SaveCustomer = function() {
+                    debugger
                     var data = {
                         customer: $scope.customerName,
                         firstName: $scope.firstName,
-                        LastName: $scope.lastName,
+                        lastName: $scope.lastName,
+                        email: $scope.email,
+                        phoneMain: $scope.phoneMain,
                         accountNumber: $scope.accountNumber,
                         website: $scope.website,
+                        relatedParty: $scope.relatedParty,
                         notes: $scope.notes,
                         currency: $scope.currency,
+                        billingAddress1: $scope.billingAddress1,
+                        billingAddress2: $scope.billingAddress2,
                         billingCountry: $scope.billingCountry,
                         billingProvince: $scope.billingProvince,
                         billingCity: $scope.billingCity,
                         billingPostal: $scope.billingPostal,
                         shippingName: $scope.shippingName,
-                        shippingAddress: $scope.shippingAddress,
-                        shippingCountry: $scope.shippingCity,
+                        shippingAddress1: $scope.shippingAddress1,
                         shippingAddress2: $scope.shippingAddress2,
-                        shippingCity: $scope.shippingCity,
+                        shippingCountry: $scope.shippingCountry,
                         shippingProvince: $scope.shippingProvince,
                         shippingPostal: $scope.shippingPostal,
+                        shippingCity: $scope.shippingCity,
                         phone: $scope.phone,
                         deliveryInstructions: $scope.deliveryInstructions,
-                        userId: 1,
-                        companyID: "1",
+                        vatNumber_Customer: $scope.vatNumber_Customer,
+                        additionalNumber_Customer: $scope.additionalNumber_Customer,
+                        otherSellerid_Customer: $scope.otherSellerid_Customer,
+                        userId: sessionStorage.getItem('id'),
+                        companyID: sessionStorage.getItem('company_id'),
+                    };
+                    var arabic = {
+                        customer: $scope.customerNameArabic,
+                        firstName: $scope.firstNameInArabic,
+                        lastName: $scope.lastNameInArabic,
+                        notes: $scope.notesInArabic,
+                        billingAddress1: $scope.billingAddressoneInArabic,
+                        billingAddress2: $scope.billingAddresstwoInArabic,
+                        billingCountry: $scope.billingCountryInArabic,
+                        billingProvince: $scope.billingProvinceInArabic,
+                        billingCity: $scope.billingCityInArabic,
+                        billingPostal: $scope.billingPostalInArabic,
+                        shippingName: $scope.shippingNameInArabic,
+                        shippingAddress1: $scope.shippingAddress1InArabic,
+                        shippingAddress2: $scope.shippingAddress2InArabic,
+                        shippingCountry: $scope.shippingCountryInArabic,
+                        shippingProvince: $scope.shippingProvinceInArabic,
+                        shippingPostal: $scope.shippingPostalInArabic,
+                        shippingCity: $scope.shippingCityInArabic,
+                        deliveryInstructions: $scope.deliveryInstructionsInArabic,
+                        userId: sessionStorage.getItem('id'),
+                        companyID: sessionStorage.getItem('company_id'),
+                    };
+                    customer = [];
+                    customer.push(data, arabic);
+                    $http.post(basePath + 'control/saveCustomer', JSON.stringify(customer)).then(function(response) {
+
+                        if (response.data.errorStatus == "Error") {
+                            $.notify(response.data.error, "error");
+                            return;
+                        }
+
+                    }, function(response) {
+                        $.notify("Customer Saved successfully", "success");
+                        setTimeout(() => {
+                            window.location.href = "/#!/customer";
+                        }, 2000);
+                    });
+
+                };
+
+                $scope.onNameChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "text": $scope.customerName
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.customerNameArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onFirstNameChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "text": $scope.firstName
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.firstNameInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onLarstNameChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "text": $scope.lastName
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.lastNameInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onsomenotChange = function() {
+                    $scope.emailInArabic = $scope.email;
+                    $scope.phoneMainInArabic = $scope.phoneMain;
+                    $scope.websiteInArabic = $scope.website;
+                    $scope.relatedPartyInArabic = $scope.relatedParty;
+                    $scope.currencyInArabic = $scope.currency;
+                    $scope.accountNumberInArabic = $scope.accountNumber;
+                    $scope.phoneInArabic = $scope.phone;
+                    $scope.additionalNumber_CustomerInArabic = $scope.additionalNumber_Customer;
+                    $scope.vatNumber_CustomerInArabic = $scope.vatNumber_Customer;
+                    $scope.otherSellerid_CustomerInArabic = $scope.otherSellerid_Customer;
+                }
+
+                $scope.onnotesChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "text": $scope.notes
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.notesInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onadressoneChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "text": $scope.billingAddress1
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.billingAddressoneInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onadresstwoChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "text": $scope.billingAddress2
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.billingAddresstwoInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onbillingCountryChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "text": $scope.billingCountry
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.billingCountryInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onbillingProvinceChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "text": $scope.billingProvince
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.billingProvinceInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onbillingCityChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "text": $scope.billingProvince
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.billingCityInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onbillingPostalChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "text": $scope.billingPostal
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.billingPostalInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onshippingNameChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "text": $scope.shippingName
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.shippingNameInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onshippingAddressoneChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "text": $scope.shippingAddress1
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.shippingAddress1InArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onshippingAddresstwoChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "text": $scope.shippingAddress2
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.shippingAddress2InArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onshippingCountryChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "text": $scope.shippingCountry
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.shippingCountryInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onshippingProvinceChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "text": $scope.shippingProvince
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.shippingProvinceInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onshippingCityChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "text": $scope.shippingCity
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.shippingCityInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onshippingPostalChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "text": $scope.shippingPostal
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.shippingPostalInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.ondeliveryInstructionsChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "text": $scope.deliveryInstructions
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.deliveryInstructionsInArabic = response.data;
+                    }, function(response) {});
+                }
+            });
+
+            app.controller("productuoload", function($scope, $http) {
+                $scope.file = null;
+
+                $scope.uploadfile = function() {
+                    debugger
+
+                    var uploadFile = {
+                        file: $scope.file,
+                        companyID: sessionStorage.getItem('company_id'),
+                        loggedInUserID: sessionStorage.getItem('id'),
                     };
 
+                    $http.post(basePath + 'uploader/uploadProducts', JSON.stringify(uploadFile)).then(function(response) {
 
-                    $http.post(basePath + 'control/saveCustomer', JSON.stringify(data)).then(function(response) {}, function(response) {
-                        alert("Customer Saved successfully...!")
+                        if (response.data.errorStatus == "Error") {
+                            $.notify(response.data.error, "error");
+                            return;
+                        }
+
+                    }, function(response) {
+                        $.notify("Invoice Saved successfully", "success");
+
+                        setTimeout(() => {
+                            window.location.href = "/#!/printinvoice";
+                        }, 2000);
                     });
+
                 };
-            });
+            })
 
             //Product Controler
             app.controller("productController", function($scope, $http) {
-                $http.get(basePath + "control/getProductsMain?companyId=1")
+                $scope.id = sessionStorage.getItem('id');
+                $http.get(basePath + "control/getProducts?companyId=" + sessionStorage.getItem('company_id'))
                     .then(function(response) {
-                        $scope.products = response.data;
+                        debugger
+                        $scope.products = response.data[0];
+                        $scope.products_in_arabics = response.data[1];
+                        $scope.productall = {
+                            products: [response.data]
+                        }
                     });
+
+                async function uploadProductFile() {
+                    let formData = new FormData();
+                    formData.append("file", fileupload.files[0]);
+                    await fetch(basePath + '/uploader/uploadProducts', {
+                        method: "POST",
+                        body: formData
+                    });
+                    //alert('The file has been uploaded successfully.');
+                    $.notify("The file has been uploaded successfully", "success");
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                }
+
+
+                $scope.deleteProductById = function(productId) {
+
+                    $.confirm({
+                        title: 'Confirm!',
+                        content: 'Simple confirm!',
+                        buttons: {
+                            confirm: function() {
+                                $http.get(basePath + 'control/deleteProduct?productID=' + productId).then(function(response) {}, function(response) {
+
+                                    $.notify("product deleted successfully", "success");
+                                    window.location.href = "/#!/products";
+                                    $http.get(basePath + "control/getProductsMain?companyId=" + sessionStorage.getItem('company_id'))
+                                        .then(function(response) {
+                                            $scope.products = response.data[0];
+                                        });
+                                });
+                            },
+                            cancel: function() {
+                                window.location.href = "/#!/products";
+                            }
+                        }
+                    });
+                };
+
+                $scope.updateCurrentProduct = function(pId) {
+                    ProductForUpdate = $scope.products.filter(x => x.id == pId)[0];
+                    ProductForUpdate_Arabic = $scope.products_in_arabics[$scope.products.indexOf(ProductForUpdate)];
+                    window.location.href = "#!updateProduct";
+                }
             });
+
             //Setting Controller
             app.controller("settingCtrl", function($scope, $http) {
-
+                //Location
                 $scope.location = null;
                 $scope.vat = null;
+                $scope.locationId = 0;
+
+                //VAT Fields
+                $scope.VatName = null;
+                $scope.vatId = 0;
+                $scope.companyID = sessionStorage.getItem('company_id');
+
+                $scope.userType = sessionStorage.getItem('userType')
+
                 //GET All Locations
-                $http.get(basePath + "control/getAllLocations")
+                $http.get(basePath + "control/getAllLocations?companyID=" + sessionStorage.getItem('company_id'))
                     .then(function(response) {
                         $scope.locations = response.data;
                     });
 
                 //GET ALL VATS
-                $http.get(basePath + "control/getAllVats?companyID=1")
+                $http.get(basePath + "control/getAllVats?companyID=" + sessionStorage.getItem('company_id'))
                     .then(function(response) {
+
                         $scope.vates = response.data;
                     });
                 //Save location
                 $scope.saveAllLocation = function() {
                     var data = {
-                        locationName: $scope.location
+                        locationName: $scope.location,
+                        companyID: $scope.companyID
                     };
-                    $http.post(basePath + 'control/saveLocation', JSON.stringify(data)).then(function(response) {}, function(response) {
-                        alert("Location Saved successfully...!")
+                    $http.post(basePath + 'control/saveLocation', JSON.stringify(data)).then(function(response) {
+
+                        if (response.data.errorStatus == "Error") {
+                            $.notify(response.data.error, "error");
+                            return;
+                        }
+
+                    }, function(response) {
+                        $.notify("Location Saved successfully", "success");
+                        $scope.location = null;
+                        $http.get(basePath + "control/getAllLocations?companyID=" + sessionStorage.getItem('company_id'))
+                            .then(function(response) {
+                                $scope.locations = response.data;
+                            });
                     });
+
                 };
                 //Save VAT
                 $scope.SaveVAT = function() {
                     var data = {
                         vatRates: $scope.vatName,
-                        companyID: "1"
+                        companyID: sessionStorage.getItem('company_id')
                     };
-                    debugger;
-                    $http.post(basePath + 'control/saveVat', JSON.stringify(data)).then(function(response) {}, function(response) {
-                        alert("VAT Saved successfully...!")
+                    $http.post(basePath + 'control/saveVat', JSON.stringify(data)).then(function(response) {
+
+                        if (response.data.errorStatus == "Error") {
+                            $.notify(response.data.error, "error");
+                            return;
+                        }
+
+                    }, function(response) {
+                        $.notify("VAT Saved successfully", "success");
+                        $scope.vatName = null;
+                        $http.get(basePath + "control/getAllVats?companyID=" + sessionStorage.getItem('company_id'))
+                            .then(function(response) {
+                                $scope.vates = response.data;
+                            });
                     });
                 };
 
+                //Delete Locations
+                $scope.deleteVAT = function(locationId) {
+                    $.confirm({
+                        title: 'Confirm!',
+                        content: 'Simple confirm!',
+                        buttons: {
+                            confirm: function() {
+                                $http.get(basePath + 'control/deleteVats?id=' + locationId).then(function(response) {}, function(response) {
+                                    $.notify("VAT deleted successfully", "success");
+                                    $http.get(basePath + "control/getAllVats?companyID=" + sessionStorage.getItem('company_id'))
+                                        .then(function(response) {
+                                            $scope.vates = response.data;
+                                        });
+                                });
+                            },
+                            cancel: function() {
 
+                            }
+                        }
+                    });
+
+                };
+
+
+                //deleet location
+                $scope.deleteLocation = function(locationId) {
+                    $.confirm({
+                        title: 'Confirm!',
+                        content: 'Simple confirm!',
+                        buttons: {
+                            confirm: function() {
+                                $http.get(basePath + 'control/deleteLocations?id=' + locationId).then(function(response) {}, function(response) {
+                                    $.notify("Location deleted successfully", "success");
+                                    $http.get(basePath + "control/getAllLocations?companyID=" + sessionStorage.getItem('company_id'))
+                                        .then(function(response) {
+                                            $scope.locations = response.data;
+                                        });
+                                });
+                            },
+                            cancel: function() {
+
+                            }
+                        }
+                    });
+
+                };
+
+                //update Location
+                $scope.getCurrentLocationDetails = function(id) {
+                    $scope.locationId = id;
+                    //$scope.companyID = companyID;
+                    $scope.locationName = $scope.locations.find(x => x.id == id).locationName;
+                    $scope.companyID = $scope.locations.find(x => x.id == id).companyID;
+                }
+
+                $scope.updateLocation = function() {
+
+                    var data = {
+                        id: $scope.locationId,
+                        companyID: $scope.companyID,
+                        locationName: $scope.locationName
+                    };
+                    $http.post(basePath + 'control/updateLocation', JSON.stringify(data)).then(function(response) {
+
+                        if (response.data.errorStatus == "Error") {
+                            $.notify(response.data.error, "error");
+                            return;
+                        }
+
+                    }, function(response) {
+                        $.notify("Location updated successfully", "success");
+                        $('#updatelocation').hide();
+                        $http.get(basePath + "control/getAllLocations?companyID=" + sessionStorage.getItem('company_id'))
+                            .then(function(response) {
+                                $scope.locations = response.data;
+                            });
+                    });
+                };
+                //update VAT
+                $scope.getCurrentVATDetails = function(id) {
+                    $scope.vatId = id;
+                    $scope.VatName = $scope.vates.find(x => x.id == id).vatRates;
+                }
+
+                $scope.updateVAT = function() {
+                    var data = {
+                        id: $scope.vatId,
+                        vatRates: $scope.VatName,
+                        companyID: sessionStorage.getItem('company_id')
+                    };
+                    $http.post(basePath + 'control/updateVat', JSON.stringify(data)).then(function(response) {
+
+                        if (response.data.errorStatus == "Error") {
+                            $.notify(response.data.error, "error");
+                            return;
+                        }
+
+                    }, function(response) {
+                        $.notify("VAT updated successfully", "success");
+                        $scope.vatName = null;
+                        $('#vatrate').hide();
+                        $http.get(basePath + "control/getAllVats?companyID=" + sessionStorage.getItem('company_id'))
+                            .then(function(response) {
+                                $scope.vates = response.data;
+                            });
+                    });
+                }
 
             });
 
-            //Get Chart of Account 
-
+            //Get Chart of Account
             app.controller("chartOfAccountController", function($scope, $http) {
                 $scope.code = null;
                 $scope.name = null;
                 $scope.accountType = null;
 
-                $http.get(basePath + "control/getAccounts?accountType=Revenue&companyID=1")
+                $http.get(basePath + "control/getAccounts?accountType=Revenue&companyID=" + sessionStorage.getItem('company_id'))
                     .then(function(response) {
-                        $scope.RevenueAccount = response.data;
+                        $scope.RevenueAccount = response.data.filter(x => x.accountType == 'Revenue')
                     });
 
-                $http.get(basePath + "control/getAccounts?accountType=BankAccount&companyID=1")
+                $http.get(basePath + "control/getAccounts?accountType=BankAccount&companyID=" + sessionStorage.getItem('company_id'))
                     .then(function(response) {
-                        $scope.BankAccount = response.data;
+                        $scope.BankAccount = response.data.filter(x => x.accountType == 'Bank')
                     });
 
                 $scope.SaveAccount = function() {
-                    debugger;
                     var accData = {
                         code: $scope.code,
                         name: $scope.name,
                         accountType: $scope.accountType,
-                        companyID: "1"
+                        companyID: sessionStorage.getItem('company_id')
                     };
 
-                    debugger;
-                    $http.post(basePath + 'control/saveAccounts', JSON.stringify(accData)).then(function(response) {}, function(response) {
-                        alert("Account Saved successfully...!")
+                    $http.post(basePath + 'control/saveAccounts', JSON.stringify(accData)).then(function(response) {
+
+                        if (response.data.errorStatus == "Error") {
+                            $.notify(response.data.error, "error");
+                            return;
+                        }
+
+                    }, function(response) {
+                        $.notify("Account Saved successfully", "success");
+
+                        $('#chartofaccount').hide();
+                        $scope.code = null;
+                        $scope.name = null;
+                        $scope.accountType = null;
+
+                        $http.get(basePath + "control/getAccounts?accountType=Revenue&companyID=" + sessionStorage.getItem('company_id'))
+                            .then(function(response) {
+                                $scope.RevenueAccount = response.data.filter(x => x.accountType == 'Revenue')
+                            });
+                        $http.get(basePath + "control/getAccounts?accountType=BankAccount&companyID=" + sessionStorage.getItem('company_id'))
+                            .then(function(response) {
+                                $scope.BankAccount = response.data.filter(x => x.accountType == 'Bank')
+                            });
                     });
                 };
 
+                //Delete Revenue Income Account
+                $scope.deleteRevenueIncome = function(accId) {
 
-                //
+                    $.confirm({
+                        title: 'Confirm!',
+                        content: 'Simple confirm!',
+                        buttons: {
+                            confirm: function() {
+                                $http.get(basePath + 'control/deleteAccount?id=' + accId).then(function(response) {}, function(response) {
+                                    $.notify("Revenue account deleted successfully", "success");
+                                    window.location.href = "/#!/chartofaccount";
+
+                                    $http.get(basePath + "control/getAccounts?accountType=Revenue&companyID=" + sessionStorage.getItem('company_id'))
+                                        .then(function(response) {
+                                            $scope.RevenueAccount = response.data.filter(x => x.accountType == 'Revenue')
+                                        });
+                                });
+                            },
+                            cancel: function() {
+
+                            }
+                        }
+                    });
+
+                };
+                //Delete Bank Account
+                $scope.deleteBankAccount = function(bankaccId) {
+
+                    $.confirm({
+                        title: 'Confirm!',
+                        content: 'Simple confirm!',
+                        buttons: {
+                            confirm: function() {
+
+                                $http.get(basePath + 'control/deleteAccount?id=' + bankaccId).then(function(response) {
+
+                                    if (response.data.errorStatus == "Error") {
+                                        $.notify(response.data.error, "error");
+                                        return;
+                                    }
+
+                                }, function(response) {
+                                    $.notify("Bank account deleted successfully", "success");
+                                    window.location.href = "/#!/chartofaccount";
+
+                                    $http.get(basePath + "control/getAccounts?accountType=BankAccount&companyID=" + sessionStorage.getItem('company_id'))
+                                        .then(function(response) {
+                                            $scope.BankAccount = response.data.filter(x => x.accountType == 'Bank')
+                                        });
+                                });
+                            },
+                            cancel: function() {
+
+                            }
+                        }
+                    });
+
+                };
+
+                $scope.updateAccountCode = null;
+                $scope.updateAccountName = null;
+                $scope.BankId = 0;
+                $scope.AccountTypeToUpdate = null;
+
+                // Update Account
+                $scope.getRevenueAccountDetails = function(id, type) {
+                    $scope.BankId = id;
+                    if (type != "Bank") {
+                        AccountTypeToUpdate = "Revenue";
+                        $scope.updateAccountCode = $scope.RevenueAccount.filter(x => x.id == id)[0].code;
+                        $scope.updateAccountName = $scope.RevenueAccount.filter(x => x.id == id)[0].name;
+                    } else {
+                        AccountTypeToUpdate = "Bank";
+                        $scope.updateAccountCode = $scope.BankAccount.filter(x => x.id == id)[0].code;
+                        $scope.updateAccountName = $scope.BankAccount.filter(x => x.id == id)[0].name;
+                    }
+
+                }
+
+                $scope.updateAccountInfo = function() {
+                    var data = {
+                        id: $scope.BankId,
+                        code: $scope.updateAccountCode,
+                        name: $scope.updateAccountName,
+                        accountType: AccountTypeToUpdate,
+                        companyID: sessionStorage.getItem('company_id')
+                    };
+                    $http.post(basePath + 'control/updateAccounts', JSON.stringify(data)).then(function(response) {}, function(response) {
+                        $.notify(AccountTypeToUpdate + " account updated successfully", "success");
+
+                        $('#chartofaccountupdate').hide();
+                        $http.get(basePath + "control/getAccounts?accountType=Revenue&companyID=" + sessionStorage.getItem('company_id'))
+                            .then(function(response) {
+                                $scope.RevenueAccount = response.data.filter(x => x.accountType == 'Revenue')
+                            });
+                        $http.get(basePath + "control/getAccounts?accountType=BankAccount&companyID=" + sessionStorage.getItem('company_id'))
+                            .then(function(response) {
+                                $scope.BankAccount = response.data.filter(x => x.accountType == 'Bank')
+                            });
+
+                    });
+                };
+
             });
             //Edit Profile
             app.controller("userProileCtrl", function($scope, $http) {
 
-                $scope.companyName = null;
-                $scope.email = null;
-                $scope.password = null;
-                $scope.address1 = null;
-                $scope.address2 = null;
-                $scope.cellNo = null;
-                $scope.notes = null;
-                $scope.website = null;
+                $scope.id = sessionStorage.getItem('id');
+                $scope.company_id = sessionStorage.getItem('company_id');
+                $scope.email = sessionStorage.getItem('email');
+                $scope.companyName = sessionStorage.getItem('companyName');
+                $scope.firstName = sessionStorage.getItem('firstName');
+                $scope.lastName = sessionStorage.getItem('lastName');
+                // $scope.password = null;
+                $scope.address1 = sessionStorage.getItem('address1');
+                $scope.address2 = sessionStorage.getItem('address2');
+                $scope.cellNo = parseInt(sessionStorage.getItem('cellNo'));
+                $scope.notes = sessionStorage.getItem('notes');
+                $scope.website = sessionStorage.getItem('website');
+                $scope.password = sessionStorage.getItem('password');
 
-                $scope.currency = null;
-                $scope.country = null;
-                $scope.state = null;
-                $scope.city = null;
-                $scope.postalCode = null;
-                $scope.userType = null;
+                $scope.currency = sessionStorage.getItem('currency');
+                $scope.country = sessionStorage.getItem('country');
+                $scope.state = sessionStorage.getItem('state');
+                $scope.city = sessionStorage.getItem('city');
+                $scope.postalCode = sessionStorage.getItem('postalCode');
+                $scope.logo = sessionStorage.getItem('logo');
+                $scope.userType = sessionStorage.getItem('userType');
+                $scope.vatNumber_Company = sessionStorage.getItem('vatNumber_Company');
+                $scope.additionalNumber_Company = sessionStorage.getItem('additionalNumber_Company');
+                $scope.otherSellerid_Company = sessionStorage.getItem('otherSellerid_Company');
 
                 $scope.postdata = function() {
                     var data = {
+                        id: $scope.id,
+                        companyID: $scope.company_id,
                         companyName: $scope.companyName,
+                        firstName: $scope.firstName,
+                        lastName: $scope.lastName,
                         email: $scope.email,
                         password: $scope.password,
                         address1: $scope.address1,
@@ -283,86 +1083,629 @@
                         state: $scope.state,
                         city: $scope.city,
                         postalCode: $scope.postalCode,
-                        userType: $scope.userType
+                        logo: $scope.logo,
+                        userType: $scope.userType,
+                        vatNumber_Company: $scope.vatNumber_Company,
+                        additionalNumber_Company: $scope.additionalNumber_Company,
+                        otherSellerid_Company: $scope.otherSellerid_Company
                     };
 
-
-                    $http.post(basePath + 'control/saveCompany', JSON.stringify(data)).then(function(response) {}, function(response) {
-                        alert("Company Saved successfully...!")
+                    $http.post(basePath + 'control/updateCompany', JSON.stringify(data)).then(function(response) {}, function(response) {
+                        //$.notify("Company Saved successfully", "success");
+                        setTimeout(() => {
+                            window.location.href = "/#!/edituserprofile";
+                        }, 2000);
                     });
                 };
+
+
+                $scope.updatecompany = function() {
+
+                    var data = {
+                        id: $scope.id,
+                        companyID: $scope.company_id,
+                        companyName: $scope.companyName,
+                        firstName: $scope.firstName,
+                        lastName: $scope.lastName,
+                        email: $scope.email,
+                        password: $scope.password,
+                        address1: $scope.address1,
+                        address2: $scope.address2,
+                        cellNo: $scope.cellNo,
+                        notes: $scope.notes,
+                        website: $scope.website,
+                        currency: $scope.currency,
+                        country: $scope.country,
+                        state: $scope.state,
+                        city: $scope.city,
+                        logo: $scope.logo,
+                        postalCode: $scope.postalCode,
+                        userType: $scope.userType,
+                        vatNumber_Company: $scope.vatNumber_Company,
+                        additionalNumber_Company: $scope.additionalNumber_Company,
+                        otherSellerid_Company: $scope.otherSellerid_Company
+
+                    };
+
+                    $http.post(basePath + 'control/updateCompany', JSON.stringify(data)).then(function(response) {}, function(response) {
+
+                        $.notify("Update company successfully", "success");
+
+                        setTimeout(() => {
+                            window.location.href = "/#!/edituserprofile";
+                        }, 2000);
+                    });
+                }
+
+
+                $scope.oncompanynameChange = function() {
+
+
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var data = {
+                        "text": $scope.companyName
+                    }
+                    $http.get(basePath + 'control/getTranslation?english=' + $scope.companyName).then(function(response) {
+
+                        if (response.data.errorStatus != "Error") {
+                            $scope.companyNameInArabic = response.data.arabic;
+                        } else {
+                            $http.post(translationpath + 'Translate/translate-text', JSON.stringify(data), config).then(function(response) {
+
+                                $scope.companyNameInArabic = response.data;
+                            }, function(response) {});
+                        }
+
+                    });
+                }
+                $scope.onfirstnameChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "text": $scope.firstName
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.firstNameInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onlastnameChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "english": $scope.lastName
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.lastNameInArabic = response.data;
+                    }, function(response) {});
+
+                }
+                $scope.oncomnotesChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "english": $scope.notes
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.companynotesInArabic = response.data;
+                    }, function(response) {});
+
+                }
+                $scope.oncompanyadressoneChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "english": $scope.address1
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.companyadressoneInArabic = response.data;
+                    }, function(response) {});
+
+                }
+                $scope.oncompanyadresstwoChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "english": $scope.address2
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.companyadresstwoInArabic = response.data;
+                    }, function(response) {});
+
+                }
+                $scope.oncompanycountryChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "english": $scope.country
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.companycountryInArabic = response.data;
+                    }, function(response) {});
+
+                }
+                $scope.oncompanystateChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "english": $scope.state
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.companystateInArabic = response.data;
+                    }, function(response) {});
+
+                }
+                $scope.oncompanycityChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "english": $scope.city
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.companycityInArabic = response.data;
+                    }, function(response) {});
+
+                }
+                $scope.onsomenotChange = function() {
+                    $scope.companyemailArabic = $scope.email;
+                    $scope.cellNoArabic = $scope.cellNo;
+                    $scope.cellNoArabic = $scope.website;
+                    $scope.postalCodeArabic = $scope.postalCode;
+                    $scope.vatNumber_CompanyArabic = $scope.vatNumber_Company;
+                    $scope.additionalNumber_CompanyArabic = $scope.additionalNumber_Company;
+                    $scope.otherSellerid_CompanyArabic = $scope.otherSellerid_Company;
+                }
+
+                $scope.oncompanynameChange();
             });
 
             //User management Controller
-
             app.controller("userCtrl", function($scope, $http) {
 
+                $http.get(basePath + "control/getAllUsers?companyID=" + sessionStorage.getItem('company_id'))
+                    .then(function(response) {
 
+                        $scope.getusers = response.data;
+                    });
+
+                $scope.valid = false;
+                $scope.submit = function() {
+                    $scope.valid = true;
+                }
+
+                $scope.close = function() {
+                    $scope.valid = false;
+                }
                 $scope.username = null;
+                $scope.userId = null;
                 $scope.email = null;
-                $scope.password = "National$0";
+                $scope.password = null;
                 $scope.location = null;
-                $scope.companyID = "1";
-                $scope.listRoles = [];
+                $scope.phonenumber = null;
+                $scope.companyID = sessionStorage.getItem('company_id');
+
+                $scope.productsetup = false;
+                $scope.Invoiceraise = false;
+                $scope.Paymentreceipt = false;
+                $scope.Approve = false;
+
 
                 $scope.saveUser = function() {
-                    debugger;
+
                     if ($('#productsetup:checkbox:checked').length > 0) {
-                        $scope.listRoles.push("productsetup");
+                        $scope.productsetup = true;
                     }
                     if ($('#Invoiceraise:checkbox:checked').length > 0) {
-                        $scope.listRoles.push("Invoiceraise");
+                        $scope.Invoiceraise = true;
                     }
                     if ($('#Paymentreceipt:checkbox:checked').length > 0) {
-                        $scope.listRoles.push("Paymentreceipt");
+                        $scope.Paymentreceipt = true;
                     }
                     if ($('#Approve:checkbox:checked').length > 0) {
-                        $scope.listRoles.push("Approve");
+                        $scope.Approve = true;
                     }
 
                     var data = {
-                        name: $scope.userName,
+                        name: $scope.username,
+                        userId: $scope.userId,
                         email: $scope.email,
                         password: $scope.password,
                         role: "admin",
                         location: $scope.location,
-                        companyID: $scope.comapnyID,
-                        listRoles: $scope.listRoles
+                        phone: $scope.phonenumber,
+                        companyID: $scope.companyID,
+                        approve: $scope.Approve,
+                        productSetup: $scope.productsetup,
+                        invoiceRaise: $scope.Invoiceraise,
+                        paymentReceipt: $scope.Paymentreceipt
                     };
 
 
-                    $http.post(basePath + 'control/saveUser', JSON.stringify(data)).then(function(response) {}, function(response) {
-                        alert("User Saved successfully...!")
+                    $http.post(basePath + 'control/saveUser', JSON.stringify(data)).then(function(response) {
+
+                        if (response.data.errorStatus == "Error") {
+                            $.notify(response.data.error, "error");
+                            return;
+                        }
+
+                    }, function(response) {
+                        $.notify("User Saved successfully", "success");
+                        $('#addnewuser').hide();
+                        $http.get(basePath + "control/getAllUsers?companyID=" + sessionStorage.getItem('company_id'))
+                            .then(function(response) {
+                                $scope.getusers = response.data;
+                            });
                     });
                 };
 
-
-                $http.get(basePath + "control/getAllLocations")
+                $http.get(basePath + "control/getAllLocations?companyID=" + sessionStorage.getItem('company_id'))
                     .then(function(response) {
-                        debugger
                         $scope.locations = response.data;
                     });
+                //Delete User by id
+                $scope.deleteUserById = function(id) {
+                    $.confirm({
+                        title: 'Confirm!',
+                        content: 'Simple confirm!',
+                        buttons: {
+                            confirm: function() {
+                                $http.get(basePath + 'control/deleteUser?id=' + id).then(function(response) {}, function(response) {
+                                    $.notify("User deleted successfully", "success");
+                                    window.location.href = "/#!/usermanagement";
+                                    $http.get(basePath + "control/getAllUsers?companyID=" + sessionStorage.getItem('company_id'))
+                                        .then(function(response) {
+                                            $scope.getusers = response.data;
+                                        });
+                                });
+                            },
+                            cancel: function() {
+
+                            }
+                        }
+                    });
+                };
+
+                //Update user
+                $scope.getCurrentUserDetails = function(id) {
+                    $scope.id = id;
+                    $scope.userId = $scope.getusers.filter(x => x.id == id)[0].userId;
+                    $scope.username = $scope.getusers.filter(x => x.id == id)[0].name;
+                    $scope.email = $scope.getusers.filter(x => x.id == id)[0].email;
+                    $scope.location = $scope.getusers.filter(x => x.id == id)[0].location;
+                    $scope.password = parseInt($scope.getusers.filter(x => x.id == id)[0].password);
+                    $scope.phonenumber = $scope.getusers.filter(x => x.id == id)[0].phone;
+
+                    $scope.productsetup = $scope.getusers.filter(x => x.id == id)[0].productSetup;
+                    $scope.Invoiceraise = $scope.getusers.filter(x => x.id == id)[0].invoiceRaise;
+                    $scope.Paymentreceipt = $scope.getusers.filter(x => x.id == id)[0].paymentReceipt;
+                    $scope.Approve = $scope.getusers.filter(x => x.id == id)[0].approve;
+
+                }
+                $scope.updateuser = function() {
+                    var data = {
+                        id: $scope.id,
+                        userId: $scope.userId,
+                        name: $scope.username,
+                        email: $scope.email,
+                        location: $scope.location,
+                        phone: $scope.phonenumber,
+                        password: $scope.password,
+                        approve: $scope.productsetup,
+                        productSetup: $scope.productsetup,
+                        invoiceRaise: $scope.Invoiceraise,
+                        paymentReceipt: $scope.Paymentreceipt,
+                        companyID: sessionStorage.getItem('company_id')
+                    };
+                    $http.post(basePath + 'control/updateUser', JSON.stringify(data)).then(function(response) {}, function(response) {
+
+                        $.notify("update use successfully", "success");
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 2000);
+                        $http.get(basePath + "control/getAllUsers?companyID=" + sessionStorage.getItem('company_id'))
+                            .then(function(response) {
+                                $scope.getusers = response.data;
+                            });
+                    });
+                };
             });
 
-            //Create Invoice 
-
+            //Create Invoice
             app.controller("createInvoiceCtrl", function($scope, $http) {
 
-                $http.get(basePath + "control/getAllCustomers?companyID=1")
-                    .then(function(response) {
-                        debugger
-                        $scope.customers = response.data;
+                var uuid = uuidv4();
+                //alert(uuid);
+                $scope.products = null;
+
+                $scope.businessName = sessionStorage.getItem('companyName');
+                $scope.businessAddress = sessionStorage.getItem('address1') + ' ' + sessionStorage.getItem('address2');
+
+                $scope.ProductId = 0;
+                $scope.price = 0;
+                $scope.productName = null;
+                $scope.quantity = 0;
+                $scope.taxableAmount = 0;
+                $scope.totalAmount = 0;
+                $scope.discountAmount = 0;
+                $scope.taxAmount = 0;
+                $scope.vat = 0;
+                $scope.amountBeforeTax = 0;
+                //Totals fields
+
+                $scope.totalExcludingVAT = 0;
+                $scope.totalDiscount = 0;
+                $scope.totaltaxableAmount = 0;
+                $scope.TotalVat = 0;
+
+                $scope.invoiceName = null;
+                $scope.invoiceDescription = null;
+
+                $scope.subTotal = 0;
+                $scope.TotalVatAmount = 0;
+                $scope.totalAmountDue = 0;
+
+
+                $scope.lineitemArray = [];
+                $scope.cartItem = [];
+
+                $scope.deleteItem = function(item) {
+                    $scope.cartItem.splice(item, 1);
+                }
+
+                $scope.clearFields = function() {
+                    $scope.ProductId = 0;
+                    $scope.price = null;
+                    $scope.productName = null;
+                    $scope.quantity = null;
+                    $scope.totalAmount = null;
+                    $scope.discountAmount = null;
+                    $scope.taxAmount = null;
+                    $scope.vat = null;
+                    $scope.taxableAmount = null;
+                    $scope.amountBeforeTax = null;
+                    $scope.description = null;
+                }
+
+                $scope.addItemToCart = function() {
+
+                    $scope.clearFields();
+                    const obj = {
+                        product: $scope.products,
+                        //productarabic: $scope.productsarabicname,
+                        price: 0,
+                        quantity: 0,
+                        taxableAmount: 0,
+                        discount: 0,
+                        discountAmount: 0,
+                        taxRate: 0,
+                        taxAmount: 0,
+                        amountBeforeTax: 0,
+                        itemSubTotal: 0,
+                        vat: null,
+                        productName: null,
+                        description: null
+                    }
+                    $scope.cartItem.push(obj);
+                }
+
+                $scope.selectedProductDetails = function(item, index, p) {
+
+                    $(".listOfproduct :selected").map(function(i, el) {
+                        $scope.cartItem[index].productName = $scope.cartItem[index].product.filter(x => x.productName == $(el).attr('value'))[0].productName;
+
+                        $scope.cartItem[index].price = parseInt($scope.cartItem[index].product.filter(x => x.productName == $(el).attr('value'))[0].price);
+
                     });
 
-                $http.get(basePath + "control/getAllVats?companyID=1")
+                }
+
+                $scope.quantityChange = function(qnty, index) {
+
+                    $scope.cartItem[index].taxableAmount = $scope.cartItem[index].price * qnty;
+                    //$scope.cartItem[index].taxAmount = $scope.cartItem[index].price * qnty;
+                    $scope.cartItem[index].amountBeforeTax = (parseInt($scope.cartItem[index].taxableAmount) - parseInt($scope.cartItem[index].discount));
+
+                    if ($scope.cartItem[index].vat > 0) {
+                        $scope.cartItem[index].taxAmount = ((parseInt($scope.cartItem[index].taxableAmount) -
+                            parseInt($scope.cartItem[index].discount)) * (parseInt($scope.cartItem[index].vat) / 100)).toFixed(2);
+                    }
+                    debugger
+                    $scope.totalExcludingVAT = 0;
+                    $scope.TotalVat = 0;
+                    $scope.totalAmountDue = 0;
+
+                    for (let i = 0; i < $scope.cartItem.length; i++) {
+                        if (!isNaN($scope.totalExcludingVAT) && !isNaN($scope.cartItem[i].taxableAmount))
+                            $scope.totalExcludingVAT = parseInt($scope.totalExcludingVAT) + parseInt($scope.cartItem[i].taxableAmount);
+
+
+                        if (!isNaN($scope.TotalVat) && !isNaN($scope.cartItem[i].taxAmount))
+                            $scope.TotalVat = parseInt($scope.TotalVat) + parseInt($scope.cartItem[i].taxAmount);
+                    }
+                    $scope.totaltaxableAmount = $scope.totalExcludingVAT - $scope.totalDiscount;
+                    $scope.totalAmountDue = $scope.totaltaxableAmount + $scope.TotalVat;
+                    $scope.amountBeforeTax = $scope.totaltaxableAmount - $scope.discount;
+
+                    if ($scope.totalAmountDue > 0) {
+                        sessionStorage.setItem('currenttotalAmountDue', $scope.totalAmountDue);
+                        word();
+                    }
+                    // the value is not comming as per requirement, need to verify
+
+                    $scope.cartItem[index].itemSubTotal = (parseInt($scope.cartItem[index].taxableAmount) -
+                        parseInt($scope.cartItem[index].discount)) + parseInt($scope.cartItem[index].taxAmount);
+
+
+                }
+
+                $scope.amountbeforeTax = function(dis, index) {
+
+                    //$scope.amountbeforeTax = $scope.totalExcludingVAT - $scope.totalDiscount;
+                    $scope.amountBeforeTax = $scope.totaltaxableAmount - $scope.discount;
+                }
+                $scope.discountchange = function(dis, index) {
+                    debugger
+                    if ($scope.cartItem[index].vat != null && $scope.cartItem[index].vat > 0) {
+                        //$scope.cartItem[index].taxAmount = ((parseInt($scope.cartItem[index].taxableAmount) - parseInt($scope.cartItem[index].discount)) * (parseInt($scope.cartItem[index].vat) / 100)).toFixed(2);
+                        $scope.cartItem[index].amountBeforeTax = (parseInt($scope.cartItem[index].taxableAmount) - parseInt($scope.cartItem[index].discount));
+
+                    } else {
+                        //$scope.cartItem[index].taxAmount = (parseInt($scope.cartItem[index].taxableAmount) - parseInt($scope.cartItem[index].discount)).toFixed(2);
+                        $scope.cartItem[index].amountBeforeTax = (parseInt($scope.cartItem[index].taxableAmount) - parseInt($scope.cartItem[index].discount));
+                    }
+                    if ($scope.cartItem[index].vat > 0) {
+                        $scope.cartItem[index].taxAmount = ((parseInt($scope.cartItem[index].taxableAmount) -
+                            parseInt($scope.cartItem[index].discount)) * (parseInt($scope.cartItem[index].vat) / 100)).toFixed(2);
+                    }
+                    $scope.cartItem[index].itemSubTotal = (parseInt($scope.cartItem[index].taxableAmount) -
+                        parseInt($scope.cartItem[index].discount)) + parseInt($scope.cartItem[index].taxAmount);
+
+                    $scope.totalDiscount = 0;
+                    $scope.TotalVat = 0;
+                    $scope.totalAmountDue = 0;
+
+                    for (let i = 0; i < $scope.cartItem.length; i++) {
+                        if (!isNaN($scope.totalDiscount) && !isNaN($scope.cartItem[i].discount))
+                            $scope.totalDiscount = parseInt($scope.totalDiscount) + parseInt($scope.cartItem[i].discount);
+
+                        if (!isNaN($scope.TotalVat) && !isNaN($scope.cartItem[i].taxAmount))
+                            $scope.TotalVat = parseInt($scope.TotalVat) + parseInt($scope.cartItem[i].taxAmount);
+
+                    }
+                    $scope.totaltaxableAmount = $scope.totalExcludingVAT - $scope.totalDiscount;
+                    $scope.totalAmountDue = $scope.totaltaxableAmount + $scope.TotalVat;
+                    $scope.amountBeforeTax = $scope.totaltaxableAmount - $scope.discount;
+                    if ($scope.totalAmountDue > 0) {
+                        sessionStorage.setItem('currenttotalAmountDue', $scope.totalAmountDue);
+                        word();
+                    }
+                }
+
+                $scope.onVatChange = function(item, index) {
+
+                    debugger
+                    $scope.cartItem[index].taxAmount = ((parseInt($scope.cartItem[index].taxableAmount) -
+                        parseInt($scope.cartItem[index].discount)) * (parseInt($scope.cartItem[index].vat) / 100)).toFixed(2);
+
+                    $scope.cartItem[index].itemSubTotal = (parseInt($scope.cartItem[index].taxableAmount) -
+                        parseInt($scope.cartItem[index].discount)) + parseInt($scope.cartItem[index].taxAmount);
+
+                    $scope.TotalVat = 0;
+
+                    for (let i = 0; i < $scope.cartItem.length; i++) {
+                        if (!isNaN($scope.totalDiscount) && !isNaN($scope.cartItem[i].discount))
+                            $scope.totalDiscount = parseInt($scope.totalDiscount);
+
+                        if (!isNaN($scope.TotalVat) && !isNaN($scope.cartItem[i].taxAmount))
+                            $scope.TotalVat = parseInt($scope.TotalVat) + parseInt($scope.cartItem[i].taxAmount);
+
+                    }
+                    $scope.totalAmountDue = $scope.totaltaxableAmount + $scope.TotalVat;
+                    if ($scope.totalAmountDue > 0) {
+                        sessionStorage.setItem('currenttotalAmountDue', $scope.totalAmountDue);
+                        word();
+                    }
+                }
+
+                $http.get(basePath + "control/getAllCustomers?companyID=" + sessionStorage.getItem('company_id'))
                     .then(function(response) {
-                        debugger;
+                        $scope.customers = response.data;
+                    });
+                $http.get(basePath + "control/getInvoicesByCompany?companyID=" + sessionStorage.getItem('company_id'))
+                    .then(function(response) {
+                        $scope.incoicenumber = response.data;
+                    });
+
+
+                let arrayBufferToBase64 = (buffer) => {
+                    var binary = '';
+                    var bytes = new Uint8Array(buffer);
+                    var len = bytes.byteLength;
+                    for (var i = 0; i < len; i++) {
+                        binary += String.fromCharCode(bytes[i]);
+                    }
+                    return window.btoa(binary);
+                }
+
+
+                $http.get(basePath + "uploader/getLogo?companyID=" + sessionStorage.getItem('company_id'), {
+                        responseType: "arraybuffer"
+                    })
+                    .then(function(response) {
+                        $scope.companylogo = arrayBufferToBase64(response.data);
+                    });
+
+
+                $http.get(basePath + "control/getAllVats?companyID=" + sessionStorage.getItem('company_id'))
+                    .then(function(response) {
                         $scope.vates = response.data;
                     });
 
+                $http.get(basePath + "control/getProducts?companyId=" + sessionStorage.getItem('company_id'))
+                    .then(function(response) {
 
+                        $scope.products = response.data[0];
 
-                $scope.invoiceNumber = null;
+                        $scope.products.map(function(x, i) {
+
+                            response.data[0][i]["arabicName"] = response.data[1][i].productName;
+                        });
+
+                        //$scope.productsarabicname = response.data[1];
+                    });
+
+                $scope.getbuyergetails = function() {
+
+                    $http.get(basePath + "control/getCustomer?customerID=" + $scope.billTo)
+                        .then(function(response) {
+                            $scope.buyer = response.data[0];
+                            $scope.currency = response.data[0].currency;
+                            $scope.customerName = response.data[0].customer;
+                        });
+                };
+                $http.get(basePath + "control/getAvailableInvoiceNo?companyID=" + sessionStorage.getItem('company_id'))
+                    .then(function(response) {
+                        $scope.invoiceNumber = response.data;
+                        sessionStorage.setItem('invoiceNumber', $scope.invoiceNumber);
+                        $scope.invoiceNumber = sessionStorage.getItem('invoiceNumber');
+                    });
+
+                $scope.invoiceNumber = $scope.invoiceNumber;
                 $scope.posoNumber = null;
                 $scope.billTo = null;
                 $scope.invoiceDate = null;
@@ -372,8 +1715,25 @@
                 $scope.totalTaxableAmount = null;
                 $scope.totalVat = null;
                 $scope.totalAmountDue = null;
+                //$scope.customerName = null;
+                $scope.invoiceName = null;
+                $scope.invoiceDescription = null;
+                $scope.supplyDate = null;
+                $scope.type = null;
+                //$scope.uuid = uuid;
+                $scope.status = "UNAPPROVED";
+                $scope.currency = null;
+                $scope.paymentType = null;
+                $scope.originalRefNo = null;
+                $scope.reasonChangingStandard = null;
+                $scope.notes = null;
 
                 $scope.SaveAndContinueInvoice = function() {
+                    debugger
+                    $scope.cartItem.map(function(el, i) {
+                        debugger
+                        $scope.cartItem[i].productName = $scope.cartItem[i].productName + ' - ' + $scope.cartItem[i].product.filter(x => x.productName == el.productName)[0].arabicName;
+                    });
                     var data = {
                         invoiceNumber: $scope.invoiceNumber,
                         posoNumber: $scope.posoNumber,
@@ -381,63 +1741,1647 @@
                         invoiceDate: $scope.invoiceDate,
                         paymentDue: $scope.paymentDue,
                         total: $scope.total,
-                        discount: $scope.discount,
-                        totalTaxableAmount: $scope.totalTaxableAmount,
-                        totalVat: $scope.totalVat,
-                        totalAmountDue: $scope.totalAmountDue
+                        invoiceName: $scope.invoiceName,
+                        invoiceDescription: $scope.invoiceDescription,
+                        discount: $scope.totalDiscount,
+                        totalTaxableAmount: $scope.totaltaxableAmount,
+                        totalVat: $scope.TotalVat,
+                        totalAmountDue: $scope.totalAmountDue,
+                        companyID: sessionStorage.getItem('company_id'),
+                        lineItemList: $scope.cartItem,
+                        totalExcludingVAT: $scope.totalExcludingVAT,
+                        customerName: $scope.customerName,
+                        //uuid: $scope.uuid,
+                        status: $scope.status,
+                        type: $scope.type,
+                        supplyDate: $scope.supplyDate,
+                        currency: $scope.currency,
+                        paymentType: $scope.paymentType,
+                        originalRefNo: $scope.originalRefNo,
+                        reasonChangingStandard: $scope.reasonChangingStandard,
+                        notes: $scope.notes,
                     };
 
 
-                    $http.post('http://cd38-2a0a-a540-b1bf-0-ed14-4006-ff2f-4065.ngrok.io/control/saveInvoice', JSON.stringify(data)).then(function(response) {}, function(response) {
-                        alert("Invoice Saved successfully...!")
+                    invoicesForPrint.push(data);
+                    $http.post(basePath + 'control/saveInvoice', JSON.stringify(data)).then(function(response) {
+
+                        if (response.data.errorStatus == "Error") {
+                            $.notify(response.data.error, "error");
+                            return;
+                        }
+
+                    }, function(response) {
+                        $.notify("Invoice Saved successfully", "success");
+
+                        setTimeout(() => {
+                            window.location.href = "/#!/printinvoice";
+                        }, 2000);
                     });
+
                 };
             });
 
-            //Invoice Main Page
-            app.controller("invoiceController", function($scope, $http) {
-                $http.get(basePath + "control/getInvoices?companyID=2")
+            // create creadit note invoice
+            app.controller("creatcreditnoteeInvoiceCtrl", function($scope, $http) {
+
+                var uuid = uuidv4();
+                //alert(uuid);
+                $scope.products = null;
+
+                $scope.businessName = sessionStorage.getItem('companyName');
+                $scope.businessAddress = sessionStorage.getItem('address1') + ' ' + sessionStorage.getItem('address2');
+
+                $scope.ProductId = 0;
+                $scope.price = 0;
+                $scope.productName = null;
+                $scope.quantity = 0;
+                $scope.taxableAmount = 0;
+                $scope.totalAmount = 0;
+                $scope.discountAmount = 0;
+                $scope.taxAmount = 0;
+                $scope.vat = 0;
+                $scope.amountBeforeTax = 0;
+                //Totals fields
+
+                $scope.totalExcludingVAT = 0;
+                $scope.totalDiscount = 0;
+                $scope.totaltaxableAmount = 0;
+                $scope.TotalVat = 0;
+
+                $scope.invoiceName = null;
+                $scope.invoiceDescription = null;
+
+                $scope.subTotal = 0;
+                $scope.TotalVatAmount = 0;
+                $scope.totalAmountDue = 0;
+
+
+                $scope.lineitemArray = [];
+                $scope.cartItem = [];
+
+                $scope.deleteItem = function(item) {
+                    $scope.cartItem.splice(item, 1);
+                }
+
+                $scope.clearFields = function() {
+                    $scope.ProductId = 0;
+                    $scope.price = null;
+                    $scope.productName = null;
+                    $scope.quantity = null;
+                    $scope.totalAmount = null;
+                    $scope.discountAmount = null;
+                    $scope.taxAmount = null;
+                    $scope.vat = null;
+                    $scope.taxableAmount = null;
+                    $scope.amountBeforeTax = null;
+                }
+
+                $scope.addItemToCart = function() {
+
+                    $scope.clearFields();
+                    const obj = {
+                        product: $scope.products,
+                        //productarabic: $scope.productsarabicname,
+                        price: 0,
+                        quantity: 0,
+                        taxableAmount: 0,
+                        discount: 0,
+                        discountAmount: 0,
+                        taxRate: 0,
+                        taxAmount: 0,
+                        amountBeforeTax: 0,
+                        itemSubTotal: 0,
+                        vat: null,
+                        productName: null
+                    }
+                    $scope.cartItem.push(obj);
+                }
+
+                $scope.selectedProductDetails = function(item, index, p) {
+
+                    $(".listOfproduct :selected").map(function(i, el) {
+                        $scope.cartItem[index].productName = $scope.cartItem[index].product.filter(x => x.productName == $(el).attr('value'))[0].productName;
+
+                        $scope.cartItem[index].price = parseInt(-($scope.cartItem[index].product.filter(x => x.productName == $(el).attr('value'))[0].price));
+
+                    });
+
+                }
+
+                $scope.quantityChange = function(qnty, index) {
+
+                    $scope.cartItem[index].taxableAmount = (-($scope.cartItem[index].price * qnty));
+                    //$scope.cartItem[index].taxAmount = $scope.cartItem[index].price * qnty;
+                    $scope.cartItem[index].amountBeforeTax = (-(parseInt($scope.cartItem[index].taxableAmount) - parseInt($scope.cartItem[index].discount)));
+
+                    if ($scope.cartItem[index].vat > 0) {
+                        $scope.cartItem[index].taxAmount = ((parseInt($scope.cartItem[index].taxableAmount) -
+                            parseInt($scope.cartItem[index].discount)) * (parseInt($scope.cartItem[index].vat) / 100)).toFixed(2);
+                    }
+                    debugger
+                    $scope.totalExcludingVAT = 0;
+                    $scope.TotalVat = 0;
+                    $scope.totalAmountDue = 0;
+
+                    for (let i = 0; i < $scope.cartItem.length; i++) {
+                        if (!isNaN($scope.totalExcludingVAT) && !isNaN($scope.cartItem[i].taxableAmount))
+                            $scope.totalExcludingVAT = parseInt($scope.totalExcludingVAT) + parseInt($scope.cartItem[i].taxableAmount);
+
+
+                        if (!isNaN($scope.TotalVat) && !isNaN($scope.cartItem[i].taxAmount))
+                            $scope.TotalVat = parseInt($scope.TotalVat) + parseInt($scope.cartItem[i].taxAmount);
+                    }
+                    $scope.totaltaxableAmount = $scope.totalExcludingVAT - $scope.totalDiscount;
+                    $scope.totalAmountDue = $scope.totaltaxableAmount + $scope.TotalVat;
+                    $scope.amountBeforeTax = $scope.totaltaxableAmount - $scope.discount;
+
+                    if ($scope.totalAmountDue > 0) {
+                        sessionStorage.setItem('currenttotalAmountDue', $scope.totalAmountDue);
+                        word();
+                    }
+                    // the value is not comming as per requirement, need to verify
+
+                    $scope.cartItem[index].itemSubTotal = (-(parseInt($scope.cartItem[index].taxableAmount) -
+                        parseInt($scope.cartItem[index].discount)) + parseInt($scope.cartItem[index].taxAmount));
+
+
+                }
+
+                $scope.amountbeforeTax = function(dis, index) {
+
+                    //$scope.amountbeforeTax = $scope.totalExcludingVAT - $scope.totalDiscount;
+                    $scope.amountBeforeTax = (-($scope.totaltaxableAmount - $scope.discount));
+                }
+                $scope.discountchange = function(dis, index) {
+                    debugger
+                    if ($scope.cartItem[index].vat != null && $scope.cartItem[index].vat > 0) {
+                        //$scope.cartItem[index].taxAmount = ((parseInt($scope.cartItem[index].taxableAmount) - parseInt($scope.cartItem[index].discount)) * (parseInt($scope.cartItem[index].vat) / 100)).toFixed(2);
+                        $scope.cartItem[index].amountBeforeTax = (-(parseInt($scope.cartItem[index].taxableAmount) - parseInt($scope.cartItem[index].discount)));
+
+                    } else {
+                        //$scope.cartItem[index].taxAmount = (parseInt($scope.cartItem[index].taxableAmount) - parseInt($scope.cartItem[index].discount)).toFixed(2);
+                        $scope.cartItem[index].amountBeforeTax = (-(parseInt($scope.cartItem[index].taxableAmount) - parseInt($scope.cartItem[index].discount)));
+                    }
+                    if ($scope.cartItem[index].vat > 0) {
+                        $scope.cartItem[index].taxAmount = ((parseInt($scope.cartItem[index].taxableAmount) -
+                            parseInt($scope.cartItem[index].discount)) * (parseInt($scope.cartItem[index].vat) / 100)).toFixed(2);
+                    }
+                    $scope.cartItem[index].itemSubTotal = (parseInt($scope.cartItem[index].taxableAmount) -
+                        parseInt($scope.cartItem[index].discount)) + parseInt($scope.cartItem[index].taxAmount);
+
+                    $scope.totalDiscount = 0;
+                    $scope.TotalVat = 0;
+                    $scope.totalAmountDue = 0;
+
+                    for (let i = 0; i < $scope.cartItem.length; i++) {
+                        if (!isNaN($scope.totalDiscount) && !isNaN($scope.cartItem[i].discount))
+                            $scope.totalDiscount = parseInt($scope.totalDiscount) + parseInt($scope.cartItem[i].discount);
+
+                        if (!isNaN($scope.TotalVat) && !isNaN($scope.cartItem[i].taxAmount))
+                            $scope.TotalVat = parseInt($scope.TotalVat) + parseInt($scope.cartItem[i].taxAmount);
+
+                    }
+                    $scope.totaltaxableAmount = $scope.totalExcludingVAT - $scope.totalDiscount;
+                    $scope.totalAmountDue = $scope.totaltaxableAmount + $scope.TotalVat;
+                    $scope.amountBeforeTax = $scope.totaltaxableAmount - $scope.discount;
+                    if ($scope.totalAmountDue > 0) {
+                        sessionStorage.setItem('currenttotalAmountDue', $scope.totalAmountDue);
+                        word();
+                    }
+                }
+
+                $scope.onVatChange = function(item, index) {
+
+                    debugger
+                    $scope.cartItem[index].taxAmount = (-((parseInt($scope.cartItem[index].taxableAmount) -
+                        parseInt($scope.cartItem[index].discount)) * (parseInt($scope.cartItem[index].vat) / 100)).toFixed(2));
+
+                    $scope.cartItem[index].itemSubTotal = (-(parseInt($scope.cartItem[index].taxableAmount) -
+                        parseInt($scope.cartItem[index].discount)) + parseInt($scope.cartItem[index].taxAmount));
+
+                    $scope.TotalVat = 0;
+
+                    for (let i = 0; i < $scope.cartItem.length; i++) {
+                        if (!isNaN($scope.totalDiscount) && !isNaN($scope.cartItem[i].discount))
+                            $scope.totalDiscount = (-(parseInt($scope.totalDiscount)));
+
+                        if (!isNaN($scope.TotalVat) && !isNaN($scope.cartItem[i].taxAmount))
+                            $scope.TotalVat = (-(parseInt($scope.TotalVat) + parseInt($scope.cartItem[i].taxAmount)));
+
+                    }
+                    $scope.totalAmountDue = (-($scope.totaltaxableAmount + $scope.TotalVat));
+                    if ($scope.totalAmountDue > 0) {
+                        sessionStorage.setItem('currenttotalAmountDue', $scope.totalAmountDue);
+                        word();
+                    }
+                }
+
+                $http.get(basePath + "control/getAllCustomers?companyID=" + sessionStorage.getItem('company_id'))
+                    .then(function(response) {
+                        $scope.customers = response.data;
+                    });
+                $http.get(basePath + "control/getInvoicesByCompany?companyID=" + sessionStorage.getItem('company_id'))
+                    .then(function(response) {
+                        $scope.incoicenumber = response.data;
+                    });
+
+
+                let arrayBufferToBase64 = (buffer) => {
+                    var binary = '';
+                    var bytes = new Uint8Array(buffer);
+                    var len = bytes.byteLength;
+                    for (var i = 0; i < len; i++) {
+                        binary += String.fromCharCode(bytes[i]);
+                    }
+                    return window.btoa(binary);
+                }
+
+
+                $http.get(basePath + "uploader/getLogo?companyID=" + sessionStorage.getItem('company_id'), {
+                        responseType: "arraybuffer"
+                    })
+                    .then(function(response) {
+                        $scope.companylogo = arrayBufferToBase64(response.data);
+                    });
+
+
+                $http.get(basePath + "control/getAllVats?companyID=" + sessionStorage.getItem('company_id'))
+                    .then(function(response) {
+                        $scope.vates = response.data;
+                    });
+
+                $http.get(basePath + "control/getProducts?companyId=" + sessionStorage.getItem('company_id'))
+                    .then(function(response) {
+
+                        $scope.products = response.data[0];
+
+                        $scope.products.map(function(x, i) {
+
+                            response.data[0][i]["arabicName"] = response.data[1][i].productName;
+                        });
+
+                        //$scope.productsarabicname = response.data[1];
+                    });
+
+                $scope.getbuyergetails = function() {
+
+                    $http.get(basePath + "control/getCustomer?customerID=" + $scope.billTo)
+                        .then(function(response) {
+                            $scope.buyer = response.data[0];
+                            $scope.currency = response.data[0].currency;
+                            $scope.customerName = response.data[0].customer;
+                        });
+                };
+                $http.get(basePath + "control/getAvailableInvoiceNo?companyID=" + sessionStorage.getItem('company_id'))
                     .then(function(response) {
                         debugger
+                        $scope.invoiceNumber = response.data;
+                        sessionStorage.setItem('invoiceNumber', $scope.invoiceNumber);
+                        $scope.invoiceNumber = sessionStorage.getItem('invoiceNumber');
+                    });
+
+                $scope.invoiceNumber = $scope.invoiceNumber;
+                $scope.posoNumber = null;
+                $scope.billTo = null;
+                $scope.invoiceDate = null;
+                $scope.paymentDue = null;
+                $scope.total = null;
+                $scope.discount = null;
+                $scope.totalTaxableAmount = null;
+                $scope.totalVat = null;
+                $scope.totalAmountDue = null;
+                //$scope.customerName = null;
+                $scope.invoiceName = null;
+                $scope.invoiceDescription = null;
+                $scope.supplyDate = null;
+                $scope.type = null;
+                //$scope.uuid = uuid;
+                $scope.status = "UNAPPROVED";
+                $scope.currency = null;
+                $scope.paymentType = null;
+                $scope.originalRefNo = null;
+                $scope.reasonChangingStandard = null;
+                $scope.notes = null;
+
+                $scope.SaveAndContinueInvoice = function() {
+                    debugger
+                    $scope.cartItem.map(function(el, i) {
+                        debugger
+                        $scope.cartItem[i].productName = $scope.cartItem[i].productName + ' - ' + $scope.cartItem[i].product.filter(x => x.productName == el.productName)[0].arabicName;
+                    });
+                    var data = {
+                        invoiceNumber: $scope.invoiceNumber,
+                        posoNumber: $scope.posoNumber,
+                        billTo: $scope.billTo,
+                        invoiceDate: $scope.invoiceDate,
+                        paymentDue: $scope.paymentDue,
+                        total: $scope.total,
+                        invoiceName: $scope.invoiceName,
+                        invoiceDescription: $scope.invoiceDescription,
+                        discount: $scope.totalDiscount,
+                        totalTaxableAmount: $scope.totaltaxableAmount,
+                        totalVat: $scope.TotalVat,
+                        totalAmountDue: $scope.totalAmountDue,
+                        companyID: sessionStorage.getItem('company_id'),
+                        lineItemList: $scope.cartItem,
+                        totalExcludingVAT: $scope.totalExcludingVAT,
+                        customerName: $scope.customerName,
+                        //uuid: $scope.uuid,
+                        status: $scope.status,
+                        type: $scope.type,
+                        supplyDate: $scope.supplyDate,
+                        currency: $scope.currency,
+                        paymentType: $scope.paymentType,
+                        originalRefNo: $scope.originalRefNo,
+                        reasonChangingStandard: $scope.reasonChangingStandard,
+                        notes: $scope.notes,
+                    };
+
+
+                    invoicesForPrint.push(data);
+                    $http.post(basePath + 'control/saveInvoice', JSON.stringify(data)).then(function(response) {
+
+                        if (response.data.errorStatus == "Error") {
+                            $.notify(response.data.error, "error");
+                            return;
+                        }
+
+                    }, function(response) {
+                        $.notify("Invoice Saved successfully", "success");
+
+                        setTimeout(() => {
+                            window.location.href = "/#!/printinvoice";
+                        }, 2000);
+                    });
+
+                };
+            });
+
+            //Edit Invoice
+            app.controller("editInvoiceCtrl", function($scope, $http) {
+                let getLocalDataFromGMTDate = (date) => {
+                    var getDateFormat = new Date(date);
+                    let mnth = ("0" + (getDateFormat.getMonth() + 1)).slice(-2);
+                    let dat = ("0" + (getDateFormat.getDate())).slice(-2);
+
+                    return getDateFormat.getFullYear() + "-" + mnth + "-" + dat;
+                }
+
+
+                $scope.allExistingData = getInvoiceByIdData[0][0];
+                $scope.products = null;
+
+                $scope.businessName = sessionStorage.getItem('companyName');
+                $scope.businessAddress = sessionStorage.getItem('address1') + ' ' + sessionStorage.getItem('address2');
+
+                $scope.ProductId = 0;
+                $scope.price = 0;
+                $scope.productName = null;
+                $scope.quantity = 0;
+                $scope.taxableAmount = 0;
+                $scope.totalAmount = 0;
+                $scope.discountAmount = 0;
+                $scope.taxAmount = 0;
+                $scope.vat = 0;
+                $scope.amountBeforeTax = 0;
+                //Totals fields
+                $scope.uuid = null;
+
+                $scope.totalExcludingVAT = $scope.allExistingData.totalExcludingVAT != null ? $scope.allExistingData.totalExcludingVAT : 0;
+                $scope.totalDiscount = $scope.allExistingData.discount != null ? $scope.allExistingData.discount : 0;
+                $scope.totaltaxableAmount = $scope.allExistingData.totalTaxableAmount != null ? $scope.allExistingData.totalTaxableAmount : 0;
+                $scope.TotalVat = $scope.allExistingData.totalVat != null ? $scope.allExistingData.totalVat : 0;
+
+                $scope.subTotal = 0;
+                $scope.TotalVatAmount = $scope.allExistingData.totalVat != null ? $scope.allExistingData.totalVat : 0;
+                $scope.totalAmountDue = $scope.allExistingData.totalAmountDue != null ? $scope.allExistingData.totalAmountDue : 0;
+
+                // $scope.invoiceNumber = $scope.allExistingData.invoiceNumber != null ? $scope.allExistingData.invoiceNumber : null;
+                // $scope.posoNumber = $scope.allExistingData.posoNumber != null ? $scope.allExistingData.posoNumber : null;
+
+
+                $scope.invoiceName = $scope.allExistingData.invoiceName;
+                $scope.invoiceDescription = $scope.allExistingData.invoiceDescription;
+
+                $scope.NewinvoiceDate = getLocalDataFromGMTDate($scope.allExistingData.invoiceDate);
+                $scope.newPaymentDate = getLocalDataFromGMTDate($scope.allExistingData.paymentDue);
+                $scope.supplyDate = getLocalDataFromGMTDate($scope.allExistingData.supplyDate);
+
+                $scope.paymentDueDate = $scope.allExistingData.paymentDue;
+
+                $scope.lineitemArray = [];
+                $scope.cartItem = [];
+
+                for (const iterator of $scope.allExistingData.lineItemList) {
+
+                    iterator.quantity = parseInt(iterator.quantity);
+                    iterator.discount = parseInt(iterator.discount);
+                    iterator.price = parseInt(iterator.price);
+
+                    $scope.cartItem.push(iterator);
+                }
+
+                $scope.deleteItem = function(item) {
+                    $scope.cartItem.splice(item, 1);
+                }
+
+                $scope.clearFields = function() {
+                    $scope.ProductId = 0;
+                    $scope.price = null;
+                    $scope.productName = null;
+                    $scope.quantity = null;
+                    $scope.totalAmount = null;
+                    $scope.discountAmount = null;
+                    $scope.taxAmount = null;
+                    $scope.vat = null;
+                    $scope.taxableAmount = null;
+                    $scope.amountBeforeTax = null;
+                }
+
+                $scope.addItemToCart = function() {
+                    $scope.clearFields();
+                    const obj = {
+                        product: $scope.products,
+                        price: 0,
+                        quantity: 0,
+                        taxableAmount: 0,
+                        discount: 0,
+                        taxRate: 0,
+                        taxAmount: 0,
+                        itemSubTotal: 0,
+                        amountBeforeTax: 0,
+                        vat: null,
+                        productName: null
+                    }
+                    $scope.cartItem.push(obj);
+                }
+
+                $scope.selectedProductDetails = function(item, index, p) {
+
+                    $(".listOfproduct :selected").map(function(i, el) {
+                        console.log($(el).attr('value'));
+                        $scope.cartItem[index].productName = $scope.cartItem[index].product.filter(x => x.productName == $(el).attr('value'))[0].productName;
+
+                        $scope.cartItem[index].price = parseInt($scope.cartItem[index].product.filter(x => x.productName == $(el).attr('value'))[0].price);
+
+                    });
+                    // $scope.cartItem[index].productName = item.productName;
+                    // $scope.cartItem[index].price = parseInt(item.product.filter(x => x.productName == item.productName)[0].price);
+                }
+
+                $scope.quantityChange = function(qnty, index) {
+
+                    $scope.cartItem[index].taxableAmount = $scope.cartItem[index].price * qnty;
+                    //$scope.cartItem[index].taxAmount = $scope.cartItem[index].price * qnty;
+                    $scope.cartItem[index].amountBeforeTax = (parseInt($scope.cartItem[index].taxableAmount) - parseInt($scope.cartItem[index].discount));
+
+                    if ($scope.cartItem[index].vat > 0) {
+                        $scope.cartItem[index].taxAmount = ((parseInt($scope.cartItem[index].taxableAmount) -
+                            parseInt($scope.cartItem[index].discount)) * (parseInt($scope.cartItem[index].vat) / 100)).toFixed(2);
+                    }
+                    debugger
+                    $scope.totalExcludingVAT = 0;
+                    $scope.TotalVat = 0;
+                    $scope.totalAmountDue = 0;
+
+                    for (let i = 0; i < $scope.cartItem.length; i++) {
+                        if (!isNaN($scope.totalExcludingVAT) && !isNaN($scope.cartItem[i].taxableAmount))
+                            $scope.totalExcludingVAT = parseInt($scope.totalExcludingVAT) + parseInt($scope.cartItem[i].taxableAmount);
+
+
+                        if (!isNaN($scope.TotalVat) && !isNaN($scope.cartItem[i].taxAmount))
+                            $scope.TotalVat = parseInt($scope.TotalVat) + parseInt($scope.cartItem[i].taxAmount);
+                    }
+                    $scope.totaltaxableAmount = $scope.totalExcludingVAT - $scope.totalDiscount;
+                    $scope.totalAmountDue = $scope.totaltaxableAmount + $scope.TotalVat;
+                    $scope.amountBeforeTax = $scope.totaltaxableAmount - $scope.discount;
+
+                    if ($scope.totalAmountDue > 0) {
+                        sessionStorage.setItem('currenttotalAmountDue', $scope.totalAmountDue);
+                        word();
+                    }
+                    // the value is not comming as per requirement, need to verify
+
+                    $scope.cartItem[index].itemSubTotal = (parseInt($scope.cartItem[index].taxableAmount) -
+                        parseInt($scope.cartItem[index].discount)) + parseInt($scope.cartItem[index].taxAmount);
+
+
+                }
+
+                $scope.amountbeforeTax = function(dis, index) {
+
+                    //$scope.amountbeforeTax = $scope.totalExcludingVAT - $scope.totalDiscount;
+                    $scope.amountBeforeTax = $scope.totaltaxableAmount - $scope.discount;
+                }
+                $scope.discountchange = function(dis, index) {
+                    debugger
+                    if ($scope.cartItem[index].vat != null && $scope.cartItem[index].vat > 0) {
+                        //$scope.cartItem[index].taxAmount = ((parseInt($scope.cartItem[index].taxableAmount) - parseInt($scope.cartItem[index].discount)) * (parseInt($scope.cartItem[index].vat) / 100)).toFixed(2);
+                        $scope.cartItem[index].amountBeforeTax = (parseInt($scope.cartItem[index].taxableAmount) - parseInt($scope.cartItem[index].discount));
+
+                    } else {
+                        //$scope.cartItem[index].taxAmount = (parseInt($scope.cartItem[index].taxableAmount) - parseInt($scope.cartItem[index].discount)).toFixed(2);
+                        $scope.cartItem[index].amountBeforeTax = (parseInt($scope.cartItem[index].taxableAmount) - parseInt($scope.cartItem[index].discount));
+                    }
+                    if ($scope.cartItem[index].vat > 0) {
+                        $scope.cartItem[index].taxAmount = ((parseInt($scope.cartItem[index].taxableAmount) -
+                            parseInt($scope.cartItem[index].discount)) * (parseInt($scope.cartItem[index].vat) / 100)).toFixed(2);
+                    }
+                    $scope.cartItem[index].itemSubTotal = (parseInt($scope.cartItem[index].taxableAmount) -
+                        parseInt($scope.cartItem[index].discount)) + parseInt($scope.cartItem[index].taxAmount);
+
+                    $scope.totalDiscount = 0;
+                    $scope.TotalVat = 0;
+                    $scope.totalAmountDue = 0;
+
+                    for (let i = 0; i < $scope.cartItem.length; i++) {
+                        if (!isNaN($scope.totalDiscount) && !isNaN($scope.cartItem[i].discount))
+                            $scope.totalDiscount = parseInt($scope.totalDiscount) + parseInt($scope.cartItem[i].discount);
+
+                        if (!isNaN($scope.TotalVat) && !isNaN($scope.cartItem[i].taxAmount))
+                            $scope.TotalVat = parseInt($scope.TotalVat) + parseInt($scope.cartItem[i].taxAmount);
+
+                    }
+                    $scope.totaltaxableAmount = $scope.totalExcludingVAT - $scope.totalDiscount;
+                    $scope.totalAmountDue = $scope.totaltaxableAmount + $scope.TotalVat;
+                    $scope.amountBeforeTax = $scope.totaltaxableAmount - $scope.discount;
+                    if ($scope.totalAmountDue > 0) {
+                        sessionStorage.setItem('currenttotalAmountDue', $scope.totalAmountDue);
+                        word();
+                    }
+                }
+
+                $scope.onVatChange = function(item, index) {
+
+                    debugger
+                    $scope.cartItem[index].taxAmount = ((parseInt($scope.cartItem[index].taxableAmount) -
+                        parseInt($scope.cartItem[index].discount)) * (parseInt($scope.cartItem[index].vat) / 100)).toFixed(2);
+
+                    $scope.cartItem[index].itemSubTotal = (parseInt($scope.cartItem[index].taxableAmount) -
+                        parseInt($scope.cartItem[index].discount)) + parseInt($scope.cartItem[index].taxAmount);
+
+                    $scope.TotalVat = 0;
+
+                    for (let i = 0; i < $scope.cartItem.length; i++) {
+                        if (!isNaN($scope.totalDiscount) && !isNaN($scope.cartItem[i].discount))
+                            $scope.totalDiscount = parseInt($scope.totalDiscount);
+
+                        if (!isNaN($scope.TotalVat) && !isNaN($scope.cartItem[i].taxAmount))
+                            $scope.TotalVat = parseInt($scope.TotalVat) + parseInt($scope.cartItem[i].taxAmount);
+
+                    }
+                    $scope.totalAmountDue = $scope.totaltaxableAmount + $scope.TotalVat;
+                    if ($scope.totalAmountDue > 0) {
+                        sessionStorage.setItem('currenttotalAmountDue', $scope.totalAmountDue);
+                        word();
+                    }
+                }
+
+                $http.get(basePath + "control/getAllCustomers?companyID=" + sessionStorage.getItem('company_id'))
+                    .then(function(response) {
+                        $scope.customers = response.data;
+                    });
+                //$scope.getbuyergetails();
+                $scope.getbuyergetails = function() {
+
+                    $http.get(basePath + "control/getCustomer?customerID=" + $scope.billTo)
+                        .then(function(response) {
+                            $scope.buyer = response.data[0];
+                        });
+                };
+
+                let arrayBufferToBase64 = (buffer) => {
+                    var binary = '';
+                    var bytes = new Uint8Array(buffer);
+                    var len = bytes.byteLength;
+                    for (var i = 0; i < len; i++) {
+                        binary += String.fromCharCode(bytes[i]);
+                    }
+                    return window.btoa(binary);
+                }
+
+
+                $http.get(basePath + "uploader/getLogo?companyID=" + sessionStorage.getItem('company_id'), {
+                        responseType: "arraybuffer"
+                    })
+                    .then(function(response) {
+                        $scope.companylogo = arrayBufferToBase64(response.data);
+                    });
+
+                $http.get(basePath + "control/getAllVats?companyID=" + sessionStorage.getItem('company_id'))
+                    .then(function(response) {
+                        $scope.vates = response.data;
+                    });
+                $http.get(basePath + "control/getProducts?companyId=" + sessionStorage.getItem('company_id'))
+                    .then(function(response) {
+                        $scope.products = response.data[0];
+                        $scope.products.map(function(x, i) {
+
+                            response.data[0][i]["arabicName"] = response.data[1][i].productName;
+                        });
+                    });
+
+
+                $scope.invoiceNumber = $scope.allExistingData.invoiceNumber != null ? $scope.allExistingData.invoiceNumber : null;
+                $scope.currency = $scope.allExistingData.currency != null ? $scope.allExistingData.currency : null;
+                $scope.type = $scope.allExistingData.type != null ? $scope.allExistingData.type : null;
+                $scope.posoNumber = $scope.allExistingData.posoNumber != null ? $scope.allExistingData.posoNumber : null;
+                $scope.billTo = $scope.allExistingData.billTo != null ? $scope.allExistingData.billTo : null;;
+                $scope.paymentType = $scope.allExistingData.paymentType != null ? $scope.allExistingData.paymentType : null;;
+                $scope.originalRefNo = $scope.allExistingData.originalRefNo != null ? $scope.allExistingData.originalRefNo : null;;
+                $scope.notes = $scope.allExistingData.notes != null ? $scope.allExistingData.notes : null;;
+                $scope.reasonChangingStandard = $scope.allExistingData.reasonChangingStandard != null ? $scope.allExistingData.reasonChangingStandard : null;;
+                $scope.invoiceDate = null; //$scope.allExistingData.invoiceDate != null ? $scope.allExistingData.invoiceDate : null;
+                $scope.paymentDue = null; //$scope.allExistingData.paymentDue != null ? $scope.allExistingData.paymentDue : null;
+                $scope.total = null;
+                $scope.discount = null; //$scope.allExistingData.discount != null ? $scope.allExistingData.discount : null;
+                $scope.totalTaxableAmount = null; //$scope.allExistingData.totalTaxableAmount != null ? $scope.allExistingData.totalTaxableAmount : null;
+                $scope.totalVat = null; //$scope.allExistingData.totalVat != null ? $scope.allExistingData.totalVat : null;
+                $scope.totalAmountDue = $scope.allExistingData.totalAmountDue != null ? $scope.allExistingData.totalAmountDue : null;
+
+                $scope.updateAndContinueInvoice = function() {
+                    var data = {
+                        invoiceNumber: $scope.invoiceNumber,
+                        posoNumber: $scope.posoNumber,
+                        billTo: $scope.billTo,
+                        invoiceDate: $scope.invoiceDate,
+                        paymentDue: $scope.paymentDue,
+                        total: $scope.total,
+                        discount: $scope.totalDiscount,
+                        totalTaxableAmount: $scope.totaltaxableAmount,
+                        totalVat: $scope.TotalVat,
+                        totalAmountDue: $scope.totalAmountDue,
+                        companyID: sessionStorage.getItem('company_id'),
+                        lineItemList: $scope.cartItem,
+                        totalExcludingVAT: $scope.totalExcludingVAT,
+                        status: "UNAPPROVED",
+                        uuid: $scope.uuid,
+                        type: $scope.type,
+                        supplyDate: $scope.supplyDate,
+                        currency: $scope.currency,
+                        paymentType: $scope.paymentType,
+                        originalRefNo: $scope.originalRefNo,
+                        notes: $scope.notes,
+                        reasonChangingStandard: $scope.reasonChangingStandard,
+                    };
+
+
+                    invoicesForPrint.push(data);
+                    $http.post(basePath + 'control/updateInvoice', JSON.stringify(data)).then(function(response) {
+
+                        if (response.data.errorStatus == "Error") {
+                            $.notify(response.data.error, "error");
+                            return;
+                        }
+
+                    }, function(response) {
+                        $.notify("Invoice updated successfully", "success");
+
+                        setTimeout(() => {
+                            window.location.href = "/#!/printinvoice";
+                        }, 2000);
+                    });
+
+                };
+                $scope.getbuyergetails();
+            });
+
+            var getInvoiceByIdData = [];
+            //Invoice Main Page
+            app.controller("invoiceController", function($scope, $http) {
+
+                //get invoice by customer
+                $scope.getinvoicebycustomer = function() {
+
+                    $http.get(basePath + "control/getInvoicesByCustomer?customerName=" + $scope.customerName)
+                        .then(function(response) {
+                            let Approvedinvoices = [];
+                            let UnApprovedinvoices = [];
+                            let pendingApprovedinvoices = [];
+                            let allInvoices = [];
+
+                            response.data.map(function(x) {
+                                if (x.status == "APPROVED") {
+                                    Approvedinvoices.push(x);
+                                } else if (x.status == "FORAPPROVAL") {
+                                    pendingApprovedinvoices.push(x);
+                                } else if (x.status == "FORAPPROVAL" || x.status == "UNAPPROVED") {
+                                    UnApprovedinvoices.push(x);
+                                }
+                            });
+
+                            $scope.Approvedinvoices = Approvedinvoices;
+                            $scope.ApprovedCounter = Approvedinvoices.length;
+
+                            $scope.UnApprovedinvoices = UnApprovedinvoices;
+                            $scope.UnApprovedCounter = UnApprovedinvoices.length;
+
+                            $scope.pendingApprovedinvoices = pendingApprovedinvoices;
+                            $scope.pendingApprovedCounter = pendingApprovedinvoices.length;
+
+                            $scope.invoices = response.data;
+                        });
+                }
+
+                //get invoice by invoice number
+                $scope.getinvoicebyinvoicenumber = function() {
+
+                    $http.get(basePath + "control/getInvoicesByInvoiceNo?invoiceNo=" + $scope.invoiceNo)
+                        .then(function(response) {
+                            let Approvedinvoices = [];
+                            let UnApprovedinvoices = [];
+                            let pendingApprovedinvoices = [];
+                            let allInvoices = [];
+
+                            response.data.map(function(x) {
+                                if (x.status == "APPROVED") {
+                                    Approvedinvoices.push(x);
+                                } else if (x.status == "FORAPPROVAL") {
+                                    pendingApprovedinvoices.push(x);
+                                } else if (x.status == "FORAPPROVAL" || x.status == "UNAPPROVED") {
+                                    UnApprovedinvoices.push(x);
+                                }
+                            });
+
+                            $scope.Approvedinvoices = Approvedinvoices;
+                            $scope.ApprovedCounter = Approvedinvoices.length;
+
+                            $scope.UnApprovedinvoices = UnApprovedinvoices;
+                            $scope.UnApprovedCounter = UnApprovedinvoices.length;
+
+                            $scope.pendingApprovedinvoices = pendingApprovedinvoices;
+                            $scope.pendingApprovedCounter = pendingApprovedinvoices.length;
+
+                            $scope.invoices = response.data;
+                        });
+                }
+
+                //get invoice by invoice date
+                $scope.getinvoicebydate = function() {
+
+                    $http.get(basePath + "control/getInvoicesByDuration?startDate=" + $scope.startDate.toString() + "&endDate=" + $scope.endDate.toString() + "&companyID=" + sessionStorage.getItem('company_id'))
+                        .then(function(response) {
+                            let Approvedinvoices = [];
+                            let UnApprovedinvoices = [];
+                            let pendingApprovedinvoices = [];
+                            let allInvoices = [];
+
+                            response.data.map(function(x) {
+                                if (x.status == "APPROVED") {
+                                    Approvedinvoices.push(x);
+                                } else if (x.status == "FORAPPROVAL") {
+                                    pendingApprovedinvoices.push(x);
+                                } else if (x.status == "FORAPPROVAL" || x.status == "UNAPPROVED") {
+                                    UnApprovedinvoices.push(x);
+                                }
+                            });
+
+                            $scope.Approvedinvoices = Approvedinvoices;
+                            $scope.ApprovedCounter = Approvedinvoices.length;
+
+                            $scope.UnApprovedinvoices = UnApprovedinvoices;
+                            $scope.UnApprovedCounter = UnApprovedinvoices.length;
+
+                            $scope.pendingApprovedinvoices = pendingApprovedinvoices;
+                            $scope.pendingApprovedCounter = pendingApprovedinvoices.length;
+
+                            $scope.invoices = response.data;
+                        });
+                }
+
+                //get main invoice
+                $http.get(basePath + "control/getInvoicesByCompany?companyID=" + sessionStorage.getItem('company_id'))
+                    .then(function(response) {
+
+                        let Approvedinvoices = [];
+                        let UnApprovedinvoices = [];
+                        let pendingApprovedinvoices = [];
+                        let allInvoices = [];
+
+                        response.data.map(function(x) {
+                            if (x.status == "APPROVED") {
+                                Approvedinvoices.push(x);
+                            } else if (x.status == "FORAPPROVAL") {
+                                pendingApprovedinvoices.push(x);
+                            } else if (x.status == "FORAPPROVAL" || x.status == "UNAPPROVED") {
+                                UnApprovedinvoices.push(x);
+                            }
+                        });
+
+                        $scope.Approvedinvoices = Approvedinvoices;
+                        $scope.ApprovedCounter = Approvedinvoices.length;
+
+                        $scope.UnApprovedinvoices = UnApprovedinvoices;
+                        $scope.UnApprovedCounter = UnApprovedinvoices.length;
+
+                        $scope.pendingApprovedinvoices = pendingApprovedinvoices;
+                        $scope.pendingApprovedCounter = pendingApprovedinvoices.length;
+
                         $scope.invoices = response.data;
                     });
 
-                $http.get(basePath + "control/getAllCustomers?companyID=1")
+
+                $http.get(basePath + "control/getAllCustomers?companyID=" + sessionStorage.getItem('company_id'))
                     .then(function(response) {
                         $scope.customers = response.data;
                     });
 
+                $scope.deleteinvoice = function(id) {
+                    $.confirm({
+                        title: 'Confirm!',
+                        content: 'Simple confirm!',
+                        buttons: {
+                            confirm: function() {
+                                $http.get(basePath + 'control/deleteInvoices?inoviceID=' + id).then(function(response) {}, function(response) {
+                                    $.notify("Invoice deleted successfully", "success");
+                                    $http.get(basePath + "control/getInvoicesByCompany?companyID=" + sessionStorage.getItem('company_id'))
+                                        .then(function(response) {
+                                            $scope.invoices = response.data;
+                                        });
+                                });
+                            },
+                            cancel: function() {
+
+                            }
+                        }
+                    });
+                };
+                //Edit Invoice request
+                $scope.requestForUpdateInvoice = function(id) {
+
+                        $http.get(basePath + "/control/getInvoicesByID?id=" + id)
+                            .then(function(response) {
+                                getInvoiceByIdData.push(response.data);
+                                window.location.href = "#!editInvoice";
+                            });
+                    }
+                    // View Invoice
+                $scope.viewInvoice = function(id) {
+                    debugger
+                    $http.get(basePath + "/control/getInvoicesByID?id=" + id)
+                        .then(function(response) {
+                            let getapiData = response.data[0];
+
+                            var data = {
+                                invoiceNumber: getapiData.invoiceNumber,
+                                posoNumber: getapiData.posoNumber,
+                                billTo: getapiData.billTo,
+                                invoiceDate: getapiData.invoiceDate,
+                                paymentDue: getapiData.paymentDue,
+                                total: $scope.total,
+                                invoiceName: getapiData.invoiceName,
+                                invoiceDescription: getapiData.invoiceDescription,
+                                discount: getapiData.discount,
+                                totalTaxableAmount: getapiData.totalTaxableAmount,
+                                totalVat: getapiData.totalVat,
+                                totalAmountDue: getapiData.totalAmountDue,
+                                companyID: sessionStorage.getItem('company_id'),
+                                lineItemList: getapiData.lineItemList,
+                                totalExcludingVAT: getapiData.totalExcludingVAT,
+                                customerID: getapiData.billTo
+                            };
+                            invoicesForPrint = [];
+
+                            invoicesForPrint.push(data);
+                            window.location.href = "/#!/printinvoice";
+                        });
+                }
+
+                $scope.updateinvoicestatusforapproval = function(id) {
+                    $http.post(basePath + 'control/setInvoiceStatus?id=' + id + '&status=FORAPPROVAL').then(function(response) {}, function(response) {
+                        $.notify("Submit for approvel", "success");
+
+                        $http.get(basePath + "control/getInvoicesByCompany?companyID=" + sessionStorage.getItem('company_id'))
+                            .then(function(response) {
+                                let Approvedinvoices = [];
+                                let UnApprovedinvoices = [];
+                                let pendingApprovedinvoices = [];
+                                let allInvoices = [];
+
+                                response.data.map(function(x) {
+                                    if (x.status == "APPROVED") {
+                                        Approvedinvoices.push(x);
+                                    } else if (x.status == "FORAPPROVAL") {
+                                        pendingApprovedinvoices.push(x);
+                                    } else if (x.status == "FORAPPROVAL" || x.status == "UNAPPROVED") {
+                                        UnApprovedinvoices.push(x);
+                                    }
+                                });
+
+                                $scope.Approvedinvoices = Approvedinvoices;
+                                $scope.ApprovedCounter = Approvedinvoices.length;
+
+                                $scope.UnApprovedinvoices = UnApprovedinvoices;
+                                $scope.UnApprovedCounter = UnApprovedinvoices.length;
+
+                                $scope.pendingApprovedinvoices = pendingApprovedinvoices;
+                                $scope.pendingApprovedCounter = pendingApprovedinvoices.length;
+
+                                $scope.invoices = response.data;
+                            });
+                    });
+                };
+                $scope.updateinvoicestatus = function(id) {
+                    $http.post(basePath + 'control/setInvoiceStatus?id=' + id + '&status=APPROVED').then(function(response) {}, function(response) {
+                        $.notify("Invoice approve successfully", "success");
+
+                        $http.get(basePath + "control/getInvoicesByCompany?companyID=" + sessionStorage.getItem('company_id'))
+                            .then(function(response) {
+                                let Approvedinvoices = [];
+                                let UnApprovedinvoices = [];
+                                let pendingApprovedinvoices = [];
+                                let allInvoices = [];
+
+                                response.data.map(function(x) {
+                                    if (x.status == "APPROVED") {
+                                        Approvedinvoices.push(x);
+                                    } else if (x.status == "FORAPPROVAL") {
+                                        pendingApprovedinvoices.push(x);
+                                    } else if (x.status == "FORAPPROVAL" || x.status == "UNAPPROVED") {
+                                        UnApprovedinvoices.push(x);
+                                    }
+                                });
+
+                                $scope.Approvedinvoices = Approvedinvoices;
+                                $scope.ApprovedCounter = Approvedinvoices.length;
+
+                                $scope.UnApprovedinvoices = UnApprovedinvoices;
+                                $scope.UnApprovedCounter = UnApprovedinvoices.length;
+
+                                $scope.pendingApprovedinvoices = pendingApprovedinvoices;
+                                $scope.pendingApprovedCounter = pendingApprovedinvoices.length;
+
+                                $scope.invoices = response.data;
+                            });
+                        // Get Updated Data End for Approval
+
+                    });
+                };
+
             });
 
+            //approve controller
+            app.controller("invoiceApproveController", function($scope, $http) {
+
+                $http.get(basePath + "control/getInvoicesByCompany?companyID=" + sessionStorage.getItem('company_id'))
+                    .then(function(response) {
+                        let Approvedinvoices = [];
+                        let UnApprovedinvoices = [];
+                        let pendingApprovedinvoices = [];
+                        let allInvoices = [];
+
+                        response.data.map(function(x) {
+                            if (x.status == "OK") {
+                                Approvedinvoices.push(x);
+                            } else if (x.status == "forapproval") {
+                                pendingApprovedinvoices.push(x);
+                            } else if (x.status == "forapproval" || x.status == "unapprove") {
+                                UnApprovedinvoices.push(x);
+                            }
+                        });
+
+                        $scope.Approvedinvoices = Approvedinvoices;
+                        $scope.ApprovedCounter = Approvedinvoices.length;
+
+                        $scope.UnApprovedinvoices = UnApprovedinvoices;
+                        $scope.UnApprovedCounter = UnApprovedinvoices.length;
+
+                        $scope.pendingApprovedinvoices = pendingApprovedinvoices;
+                        $scope.pendingApprovedCounter = pendingApprovedinvoices.length;
+
+                        $scope.invoices = response.data;
+                    });
+
+                $scope.updateinvoicestatus = function(id) {
+                    $http.post(basePath + 'control/setInvoiceStatus?id=' + id + '&status=OK').then(function(response) {}, function(response) {
+                        $.notify("Invoice approve successfully", "success");
+
+                        // setTimeout(() => {
+                        //     window.location.href = "/#!/approval";
+                        // }, 2000);
+
+                        //Get Updated Data for Approval Start
+                        $http.get(basePath + "control/getInvoicesByCompany?companyID=" + sessionStorage.getItem('company_id'))
+                            .then(function(response) {
+                                let Approvedinvoices = [];
+                                let UnApprovedinvoices = [];
+                                let pendingApprovedinvoices = [];
+                                let allInvoices = [];
+
+                                response.data.map(function(x) {
+                                    if (x.status == "OK") {
+                                        Approvedinvoices.push(x);
+                                    } else if (x.status == "forapproval") {
+                                        pendingApprovedinvoices.push(x);
+                                    } else if (x.status == "forapproval" || x.status == "unapprove") {
+                                        UnApprovedinvoices.push(x);
+                                    }
+                                });
+
+                                $scope.Approvedinvoices = Approvedinvoices;
+                                $scope.ApprovedCounter = Approvedinvoices.length;
+
+                                $scope.UnApprovedinvoices = UnApprovedinvoices;
+                                $scope.UnApprovedCounter = UnApprovedinvoices.length;
+
+                                $scope.pendingApprovedinvoices = pendingApprovedinvoices;
+                                $scope.pendingApprovedCounter = pendingApprovedinvoices.length;
+
+                                $scope.invoices = response.data;
+                            });
+                        // Get Updated Data End for Approval
+
+                    });
+                };
+
+
+            });
+
+            //Save Product
+            app.controller("productCtrl", function($scope, $http) {
+
+                $http.get(basePath + "control/getAccounts?accountType=Revenue&companyID=" + sessionStorage.getItem('company_id'))
+                    .then(function(response) {
+                        $scope.chartAccounts = response.data;
+                    });
+
+
+                $scope.productName = null;
+                $scope.description = null;
+                $scope.price = null;
+                $scope.code = null;
+                $scope.assignedChartofAccount = null;
+                $scope.userId = sessionStorage.getItem('id');
+                $scope.companyID = sessionStorage.getItem('company_id');
+                $scope.lineitemArray = [];
+                $scope.cartItem = [];
+
+                $scope.onproductNameChange = function() {
+                    debugger
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "text": $scope.productName
+                    }
+                    $http.get(basePath + 'control/getTranslation?english=' + $scope.productName).then(function(response) {
+
+                        if (response.data.errorStatus != "Error") {
+                            $scope.productNameInArabic = response.data.arabic;
+                        } else {
+                            $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                                $scope.productNameInArabic = response.data;
+                            }, function(response) {});
+                        };
+
+                    });
+                }
+                $scope.onproductdecriptionChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "text": $scope.description
+                    }
+                    $http.get(basePath + 'control/getTranslation?english=' + $scope.description).then(function(response) {
+
+                        if (response.data.errorStatus != "Error") {
+                            $scope.descriptionInArabic = response.data.arabic;
+                        } else {
+                            $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                                $scope.descriptionInArabic = response.data;
+                            }, function(response) {});
+                        };
+
+                    });
+                }
+
+                $scope.saveProduct = function() {
+
+
+                    var data = {
+                        productName: $scope.productName,
+                        description: $scope.description,
+                        price: $scope.price,
+                        code: $scope.code,
+                        assignedChartofAccounts: $scope.assignedChartofAccount,
+                        userId: $scope.userId,
+                        companyID: $scope.companyID,
+                    };
+                    var arabic = {
+                        productName: $scope.productNameInArabic,
+                        description: $scope.descriptionInArabic,
+                        price: $scope.price,
+                        code: $scope.code,
+                        assignedChartofAccounts: $scope.assignedChartofAccount,
+                        userId: $scope.userId,
+                        companyID: $scope.companyID,
+                    };
+                    products = [];
+                    products.push(data, arabic);
+                    $http.post(basePath + 'control/saveProductMain', JSON.stringify(products)).then(function(response) {
+
+                        if (response.data.errorStatus == "Error") {
+                            $.notify(response.data.error, "error");
+                            return;
+                        }
+
+                    }, function(response) {
+                        $.notify("Product Saved successfully", "success");
+
+                        setTimeout(() => {
+                            window.location.href = "/#!/products";
+                        }, 2000);
+                    });
+                };
+
+
+                $scope.onsomenotChange = function() {
+                    $scope.priceArabic = $scope.price;
+                    $scope.codeArabic = $scope.code;
+                }
+            });
+
+            app.controller("updateproductCtrl", function($scope, $http) {
+
+                $http.get(basePath + "control/getAccounts?accountType=Revenue&companyID=" + sessionStorage.getItem('company_id'))
+                    .then(function(response) {
+                        $scope.chartAccounts = response.data;
+                    });
+
+                $scope.ProductName_in_Arabic = ProductForUpdate_Arabic.productName;
+                $scope.Description_in_Arabic = ProductForUpdate_Arabic.description;
+
+                $scope.id = ProductForUpdate.id;
+                $scope.productName = ProductForUpdate.productName;
+                $scope.description = ProductForUpdate.description;
+                $scope.price = parseInt(ProductForUpdate.price);
+                $scope.code = parseInt(ProductForUpdate.code);
+
+                $scope.assignedChartofAccount = ProductForUpdate.assignedChartofAccounts;
+                $scope.userId = sessionStorage.getItem('id');
+                $scope.companyID = sessionStorage.getItem('company_id');
+
+                $scope.onproductNameChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "text": $scope.productName
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.ProductName_in_Arabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onproductdecriptionChange = function() {
+                    var config = {
+                        headers: {
+                            'X-Force-Content-Type': 'application/json'
+                        }
+                    }
+                    var obj = {
+                        "text": $scope.description
+                    }
+                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+
+                        $scope.Description_in_Arabic = response.data;
+                    }, function(response) {});
+                }
+
+                $scope.updateProduct = function() {
+
+                    var data = {
+                        id: $scope.id,
+                        productName: $scope.productName,
+                        description: $scope.description,
+                        price: $scope.price,
+                        code: $scope.code,
+                        assignedChartofAccounts: $scope.assignedChartofAccount,
+                        userId: $scope.userId,
+                        companyID: $scope.companyID
+                    };
+                    var arabic = {
+                        productName: $scope.ProductName_in_Arabic,
+                        description: $scope.Description_in_Arabic,
+                    };
+                    products = [];
+                    products.push(data, arabic);
+                    $http.post(basePath + 'control/updateProductMain', JSON.stringify(products)).then(function(response) {
+
+                        if (response.data.errorStatus == "Error") {
+                            $.notify(response.data.error, "error");
+                            return;
+                        }
+
+                    }, function(response) {
+                        $.notify("Product updated successfully", "success");
+                        setTimeout(() => {
+                            window.location.href = "/#!/products";
+                        }, 2000);
+                    });
+                };
+
+            });
+
+            app.controller("updatecustomerCtrl", function($scope, $http) {
+
+                $scope.id = customerForUpdate.id;
+                $scope.customerName = customerForUpdate.customer;
+                $scope.firstName = customerForUpdate.firstName;
+                $scope.lastName = customerForUpdate.lastName;
+                $scope.email = customerForUpdate.email;
+                $scope.phoneMain = parseInt(customerForUpdate.phoneMain);
+                $scope.accountNumber = parseInt(customerForUpdate.accountNumber);
+                $scope.website = customerForUpdate.website;
+                $scope.relatedParty = customerForUpdate.relatedParty;
+                $scope.notes = customerForUpdate.notes;
+                $scope.currency = customerForUpdate.currency;
+                $scope.billingAddress1 = customerForUpdate.billingAddress1;
+                $scope.billingAddress2 = customerForUpdate.billingAddress2;
+                $scope.billingCountry = customerForUpdate.billingCountry;
+                $scope.billingProvince = customerForUpdate.billingProvince;
+                $scope.billingCity = customerForUpdate.billingCity;
+                $scope.billingPostal = customerForUpdate.billingPostal;
+                $scope.shippingName = customerForUpdate.shippingName;
+                $scope.shippingAddress1 = customerForUpdate.shippingAddress1;
+                $scope.shippingAddress2 = customerForUpdate.shippingAddress2;
+                $scope.shippingCountry = customerForUpdate.shippingCountry;
+                $scope.shippingProvince = customerForUpdate.shippingProvince;
+                $scope.shippingCity = customerForUpdate.shippingCity;
+                $scope.shippingPostal = customerForUpdate.shippingPostal;
+                $scope.phone = customerForUpdate.phone;
+                $scope.deliveryInstructions = customerForUpdate.deliveryInstructions;
+                $scope.vatNumber_Customer = customerForUpdate.vatNumber_Customer;
+                $scope.additionalNumber_Customer = customerForUpdate.additionalNumber_Customer;
+                $scope.otherSellerid_Customer = customerForUpdate.otherSellerid_Customer;
+
+
+                $scope.updatecustomer = function() {
+                    var data = {
+                        id: $scope.id,
+                        customer: $scope.customerName,
+                        firstName: $scope.firstName,
+                        lastName: $scope.lastName,
+                        email: $scope.email,
+                        phoneMain: $scope.phoneMain,
+                        accountNumber: $scope.accountNumber,
+                        website: $scope.website,
+                        relatedParty: $scope.relatedParty,
+                        notes: $scope.notes,
+                        currency: $scope.currency,
+                        billingAddress1: $scope.billingAddress1,
+                        billingAddress2: $scope.billingAddress2,
+                        billingCountry: $scope.billingCountry,
+                        billingProvince: $scope.billingProvince,
+                        billingCity: $scope.billingCity,
+                        billingPostal: $scope.billingPostal,
+                        shippingName: $scope.shippingName,
+                        shippingAddress1: $scope.shippingAddress1,
+                        shippingAddress2: $scope.shippingAddress2,
+                        shippingCountry: $scope.shippingCountry,
+                        shippingProvince: $scope.shippingProvince,
+                        shippingPostal: $scope.shippingPostal,
+                        shippingCity: $scope.shippingCity,
+                        phone: $scope.phone,
+                        deliveryInstructions: $scope.deliveryInstructions,
+                        vatNumber_Customer: $scope.vatNumber_Customer,
+                        additionalNumber_Customer: $scope.additionalNumber_Customer,
+                        otherSellerid_Customer: $scope.otherSellerid_Customer,
+                        userId: sessionStorage.getItem('id'),
+                        companyID: sessionStorage.getItem('company_id'),
+                    };
+                    $http.post(basePath + 'control/updateCustomer', JSON.stringify(data)).then(function(response) {
+
+                        if (response.data.errorStatus == "Error") {
+                            $.notify(response.data.error, "error");
+                            return;
+                        }
+
+                    }, function(response) {
+                        $.notify("Update customer Saved successfully", "success");
+
+                        setTimeout(() => {
+                            window.location.href = "/#!/customer";
+                        }, 2000);
+                    });
+                }
+            });
+
+            app.controller("printInvoiceController", function($scope, $http) {
+                let arrayBufferToBase64 = (buffer) => {
+                    var binary = '';
+                    var bytes = new Uint8Array(buffer);
+                    var len = bytes.byteLength;
+                    for (var i = 0; i < len; i++) {
+                        binary += String.fromCharCode(bytes[i]);
+                    }
+                    return window.btoa(binary);
+                }
+
+
+                $http.get(basePath + "uploader/getLogo?companyID=" + sessionStorage.getItem('company_id'), {
+                        responseType: "arraybuffer"
+                    })
+                    .then(function(response) {
+                        $scope.companylogo = arrayBufferToBase64(response.data);
+                    });
+
+                // let getLocalDataFromGMTDate = (date) => {
+                //     var getDateFormat = new Date(date);
+                //     return getDateFormat.getFullYear() + '/' + getDateFormat.getMonth() + '/' + getDateFormat.getDay();
+                // }
+                let getLocalDataFromGMTDate = (date) => {
+                    var getDateFormat = new Date(date);
+                    let mnth = ("0" + (getDateFormat.getMonth() + 1)).slice(-2);
+                    let dat = ("0" + (getDateFormat.getDate())).slice(-2);
+
+                    return getDateFormat.getFullYear() + "-" + mnth + "-" + dat;
+                }
+
+                if (invoicesForPrint.length > 0) {
+
+                    invoicesForPrint[0].lineItemList.map(function(elm, i) {
+                        debugger
+                        invoicesForPrint[0].lineItemList[i]['arabic'] = invoicesForPrint[0].lineItemList[i].product.filter(x => x.productName == invoicesForPrint[0].lineItemList[i].productName.split('-')[0].trim())[0].arabicName;
+                        //invoicesForPrint[0].lineItemList[i]['arabic'] = invoicesForPrint[0].lineItemList[i].product.filter(x => x.productName == invoicesForPrint[0].lineItemList[i].productName)[0].arabicName;
+                    });
+
+                    sessionStorage.setItem('lineItemList_printInv', JSON.stringify(invoicesForPrint[0].lineItemList));
+                    $scope.itemsList = JSON.parse(sessionStorage.getItem('lineItemList_printInv'));
+
+                    // customer Name
+                    sessionStorage.setItem('customerId_printInv', invoicesForPrint[0].billTo);
+                    $scope.customerId = sessionStorage.getItem('customerId_printInv');
+
+                    //invoice number
+                    sessionStorage.setItem('invoiceNumber_printInv', invoicesForPrint[0].invoiceNumber);
+                    $scope.invoiceNumber = sessionStorage.getItem('invoiceNumber_printInv');
+
+                    //invoice date
+                    sessionStorage.setItem('invoiceDate_printInv', invoicesForPrint[0].invoiceDate);
+                    $scope.invoiceIssueDate = getLocalDataFromGMTDate(sessionStorage.getItem('invoiceDate_printInv'));
+
+                    sessionStorage.setItem('invoiceDatesupply_printInv', invoicesForPrint[0].supplyDate);
+                    $scope.invoicedateofsupply = getLocalDataFromGMTDate(sessionStorage.getItem('invoiceDatesupply_printInv'));
+
+
+                    //$scope.dateOfSupply = null;
+                    //TotalExcludingVat
+
+                    // sessionStorage.setItem('TotalExcludingVat_printInv', invoicesForPrint[0]);
+                    // $scope.TotalExcludingVat = sessionStorage.getItem('TotalExcludingVat_printInv');
+
+                    //Discount
+                    sessionStorage.setItem('Discount_printInv', invoicesForPrint[0].discount);
+                    $scope.Discount = sessionStorage.getItem('Discount_printInv');
+
+                    //reasonChangingStandard
+                    sessionStorage.setItem('reasonChangingStandard', invoicesForPrint[0].reasonChangingStandard);
+                    $scope.reasonChangingStandard = sessionStorage.getItem('reasonChangingStandard');
+
+                    //type
+                    sessionStorage.setItem('type', invoicesForPrint[0].type);
+                    $scope.type = sessionStorage.getItem('type');
+
+                    //invoicename
+                    sessionStorage.setItem('invoiceName', invoicesForPrint[0].invoiceName);
+                    $scope.invoiceName = sessionStorage.getItem('invoiceName');
+
+                    //TotalTaxableAmount
+                    sessionStorage.setItem('TotalTaxableAmount_printInv', invoicesForPrint[0].totalTaxableAmount);
+                    $scope.TotalTaxableAmount = sessionStorage.getItem('TotalTaxableAmount_printInv');
+
+                    //TotalVAT
+                    sessionStorage.setItem('TotalVAT_printInv', invoicesForPrint[0].totalVat);
+                    $scope.TotalVAT = sessionStorage.getItem('TotalVAT_printInv');
+
+                    //currency
+                    sessionStorage.setItem('currency', invoicesForPrint[0].currency);
+                    $scope.currency = sessionStorage.getItem('currency');
+
+                    //notes
+                    sessionStorage.setItem('notes', invoicesForPrint[0].notes);
+                    $scope.notes = sessionStorage.getItem('notes');
+
+                    // TotalAmountDue
+                    sessionStorage.setItem('TotalAmountDue_printInv', invoicesForPrint[0].totalAmountDue);
+                    $scope.TotalAmountDue = sessionStorage.getItem('TotalAmountDue_printInv');
+
+                    // totalExcludingVAT
+                    sessionStorage.setItem('totalExcludingVAT_printInv', invoicesForPrint[0].totalExcludingVAT);
+                    $scope.totalExcludingVAT = sessionStorage.getItem('totalExcludingVAT_printInv');
+
+                } else {
+                    $scope.invoiceNumber = sessionStorage.getItem('invoiceNumber_printInv');
+                    $scope.invoiceIssueDate = getLocalDataFromGMTDate(sessionStorage.getItem('invoiceDate_printInv'));
+                    $scope.invoicedateofsupply = getLocalDataFromGMTDate(sessionStorage.getItem('invoiceDatesupply_printInv'));
+
+                    $scope.customerId = sessionStorage.getItem('customerId_printInv');
+                    $scope.invoiceName = sessionStorage.getItem('invoiceName');
+                    $scope.currency = sessionStorage.getItem('currency');
+                    $scope.notes = sessionStorage.getItem('notes');
+                    $scope.reasonChangingStandard = sessionStorage.getItem('reasonChangingStandard');
+
+                    $scope.Discount = sessionStorage.getItem('Discount_printInv');
+                    $scope.type = sessionStorage.getItem('type');
+                    $scope.TotalTaxableAmount = sessionStorage.getItem('TotalTaxableAmount_printInv');
+                    $scope.TotalVAT = sessionStorage.getItem('TotalVAT_printInv');
+                    $scope.TotalAmountDue = sessionStorage.getItem('TotalAmountDue_printInv');
+                    $scope.totalExcludingVAT = sessionStorage.getItem('totalExcludingVAT_printInv');
+
+                    word();
+
+                    $scope.itemsList = JSON.parse(sessionStorage.getItem('lineItemList_printInv'));
+                }
+
+                $http.get(basePath + "control/getCustomer?customerID=" + $scope.customerId)
+                    .then(function(response) {
+                        $scope.buyer = response.data[0];
+                    });
+
+                $http.get(basePath + "control/getCompany?companyID=" + sessionStorage.getItem('company_id'))
+                    .then(function(response) {
+
+                        $scope.seller = response.data;
+
+                        sessionStorage.setItem('current_seller_name_for_print_invoice', $scope.seller.companyName);
+                        sessionStorage.setItem('current_vat_registration_number_for_print_invoice', $scope.seller.vatNumber_Company);
+                        sessionStorage.setItem('current_total_vat_for_print_invoice', $scope.TotalVAT);
+                    });
+
+
+                $scope.recordpaymentInvoice = function() {
+
+                    var data = {
+                        paymentDate: $scope.paymentDate,
+                        amount: $scope.amount,
+                        paymentAccount: $scope.paymentAccount,
+                        notes: $scope.notes,
+                        invoiceNo: $scope.invoiceNo,
+                        invoiceTotal: $scope.TotalAmountDue,
+                    };
+
+                    invoicesForPrint.push(data);
+                    $http.post(basePath + 'control/saveRecordPayment', JSON.stringify(data)).then(function(response) {
+
+                        if (response.data.errorStatus == "Error") {
+                            $.notify(response.data.error, "error");
+                            return;
+                        }
+
+                    }, function(response) {
+                        $.notify("Payment Record successfully", "success");
+
+                        setTimeout(() => {
+                            window.reload();
+                        }, 2000);
+                    });
+
+                };
+            });
+
+            app.controller("gettopcustomerController", function($scope, $http) {
+
+                $http.get(basePath + "control/getTopCustomerInvoices?companyID=" + sessionStorage.getItem('company_id'))
+                    .then(function(response) {
+                        $scope.gettopcustomer = response.data;
+                    });
+
+                $scope.startDate = null;
+                $scope.endDate = null;
+
+                $scope.getcustomerbydate = function() {
+                    $http.get(basePath + "control/getTopCustomerInvoicesByDates?startDate=" + $scope.startDate.toString() + "&endDate=" + $scope.endDate.toString() + "&companyID=" + sessionStorage.getItem('company_id'))
+                        .then(function(response) {
+                            $scope.gettopcustomer = response.data;
+                        });
+                }
+
+            });
+            app.controller("gettopproductController", function($scope, $http) {
+
+                $http.get(basePath + "control/getTopSoldProducts?companyID=" + sessionStorage.getItem('company_id'))
+                    .then(function(response) {
+                        $scope.gettopproduct = response.data;
+                    });
+
+
+                $scope.startDate = null;
+                $scope.endDate = null;
+
+                $scope.getproductbydate = function() {
+                    $http.get(basePath + "control/getTopSoldProductsByDate?startDate=" + $scope.startDate.toString() + "&endDate=" + $scope.endDate.toString() + "&companyID=" + sessionStorage.getItem('company_id'))
+                        .then(function(response) {
+                            $scope.gettopproduct = response.data;
+                        });
+                }
+
+            });
+            app.controller("getinvoicebyperiodController", function($scope, $http) {
+
+                $http.get(basePath + "control/getInvoicesByYear?companyID=" + sessionStorage.getItem('company_id'))
+                    .then(function(response) {
+                        $scope.getinvoicebyyear = response.data;
+                    });
+
+
+                $scope.startDate = null;
+                $scope.endDate = null;
+
+                $scope.gettotalperiodbydate = function() {
+                    $http.get(basePath + "control/getTotalSalesByDate?startDate=" + $scope.startDate.toString() + "&endDate=" + $scope.endDate.toString() + "&companyID=" + sessionStorage.getItem('company_id'))
+                        .then(function(response) {
+                            $scope.getinvoicebyyear = response.data;
+                        });
+                }
+
+            });
         }());
     </script>
 
 </head>
 
-<body id="body-pd" ng-app="myApp">
+<body id="body-pd" ng-app="myApp" ng-controller="appController">
     <header class="header" id="header">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
-        <div class="header_img"> <img ng-src="#!https://i.imgur.com/hczKIze.jpg" alt=""> </div>
+        <div class="header_img"> <img ng-src="#!http://i.imgur.com/hczKIze.jpg" alt=""> </div>
     </header>
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
             <div>
-                <a ng-href="#!main" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">BBBootstrap</span> </a>
+                <a ng-href="#!main" class="nav_logo"><img src="img/sideicon.png" style="width: 30px;" alt=""> <span class="nav_logo-name"><img src="img/logo.png" alt="" style="width: 87px;"></span> </a>
                 <div class="nav_list">
-                    <a ng-href="#!main" class="nav_link active"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span> </a>
-                    <a ng-href="#!products" class="nav_link"> <i class='bx bx-box nav_icon'></i> <span class="nav_name">Product</span> </a>
-                    <a ng-href="#!customer" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Customer</span> </a>
-                    <a ng-href="/#!invoice" class="nav_link"> <i class="fas fa-file-invoice"></i> <span class="nav_name">Invoice</span> </a>
-                    <a ng-href="/#!report" class="nav_link"> <i class="fas fa-chart-bar"></i> <span class="nav_name">Invoice</span> </a>
-                    <a ng-href="/#!setting" class="nav_link"> <i class="fas fa-cog nav_icon"></i></i> <span class="nav_name">Settings</span> </a>
+                    <a ng-href="#!main" ng-show="userType == 'company' || userType == 'individual'" class="nav_link active"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span> </a>
+                    <a ng-href="#!products" ng-show="productSetup_Persmission == 'true' || userType == 'company' || userType == 'individual'" class="nav_link"> <i class='bx bx-box nav_icon'></i> <span class="nav_name">Product</span> </a>
+                    <a ng-href="#!customer" ng-show="userType == 'company' || userType == 'individual'" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Customer</span>
+                    </a>
+                    <a ng-href="/#!invoice" ng-show="approve_Persmission == 'true' || userType == 'company' || userType == 'individual'" class="nav_link"> <i class="fas fa-file-invoice"></i> <span class="nav_name">Invoice</span> </a>
+                    <a ng-href="/#!report" ng-show="userType == 'company' || userType == 'individual'" class="nav_link">
+                        <i class="fas fa-chart-bar"></i> <span class="nav_name">Reports</span> </a>
+                    <a ng-href="/#!setting" ng-show="userType == 'company' || userType == 'individual'" class="nav_link"> <i class="fas fa-cog nav_icon"></i></i> <span class="nav_name">Settings</span></a>
+                    <!-- <a ng-href="/#!approval" ng-show="userType == 'Approve' || userType == 'individual'" class="nav_link"> <i class="fas fa-clipboard-check nav_icon"></i></i> <span class="nav_name">Settings</span></a> -->
                 </div>
             </div>
-            <a href="#!" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span>
+            <a href="javascript:void(0);" class="nav_link" ng-click="logout()"> <i class='bx bx-log-out nav_icon'></i>
+                <span class="nav_name">SignOut</span>
             </a>
         </nav>
     </div>
     <div ng-view></div>
     <!--Container Main start-->
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+
+        const showNavbar = (toggleId, navId, bodyId, headerId) => {
+            const toggle = document.getElementById(toggleId),
+                nav = document.getElementById(navId),
+                bodypd = document.getElementById(bodyId),
+                headerpd = document.getElementById(headerId)
+
+            // Validate that all variables exist
+            if (toggle && nav && bodypd && headerpd) {
+                toggle.addEventListener('click', () => {
+                    // show navbar
+                    nav.classList.toggle('show')
+                        // change icon
+                    toggle.classList.toggle('bx-x')
+                        // add padding to body
+                    bodypd.classList.toggle('body-pd')
+                        // add padding to header
+                    headerpd.classList.toggle('body-pd')
+                })
+            }
+        }
+
+        showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
+
+        /*===== LINK ACTIVE =====*/
+        const linkColor = document.querySelectorAll('.nav_link')
+
+        function colorLink() {
+            if (linkColor) {
+                linkColor.forEach(l => l.classList.remove('active'))
+                this.classList.add('active')
+            }
+        }
+        linkColor.forEach(l => l.addEventListener('click', colorLink))
+
+        // Your code to run since DOM is loaded and ready
+    });
+    $(function() {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+</script>
 
 </html>

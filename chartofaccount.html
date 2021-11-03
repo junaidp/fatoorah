@@ -1,5 +1,5 @@
 <div ng-controller="chartOfAccountController">
-    <div class="height-100" >
+    <div class="height-100">
         <div class="container m-0">
             <div class="row">
                 <div class="col-6">
@@ -29,10 +29,10 @@
                                         <td>{{Raccount.code}}</td>
                                         <td>{{Raccount.name}}</td>
                                         <td>
-                                            <a href="#">
-                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                            <a href="javascript:void(0);" ng-click="getRevenueAccountDetails(Raccount.id,'Revenue')">
+                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit" onclick="$('#chartofaccountupdate').show();"></i>
                                             </a>&nbsp;&nbsp;
-                                            <a href="#">
+                                            <a href="javascript:void(0);" ng-click="deleteRevenueIncome(Raccount.id)">
                                                 <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
                                             </a>
                                         </td>
@@ -61,10 +61,202 @@
                                         <td>{{Baccount.code}}</td>
                                         <td>{{Baccount.name}}</td>
                                         <td>
-                                            <a href="#">
-                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                            <a href="javascript:void(0);" ng-click="getRevenueAccountDetails(Baccount.id,'Bank')">
+                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit" onclick="$('#chartofaccountupdate').show();"></i>
                                             </a>&nbsp;&nbsp;
-                                            <a href="#">
+                                            <a href="javascript:void(0);" ng-click="deleteBankAccount(Baccount.id)">
+                                                <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3>Account Receivable</h3>
+                        </div>
+                        <div class="col-6 mt-2">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Code</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>22</td>
+                                        <td>Account Receivable</td>
+                                        <td>
+                                            <a href="javascript:void(0);" ng-click="getRevenueAccountDetails(Baccount.id,'Bank')">
+                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit" onclick="$('#chartofaccountupdate').show();"></i>
+                                            </a>&nbsp;&nbsp;
+                                            <a href="javascript:void(0);" ng-click="deleteBankAccount(Baccount.id)">
+                                                <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3>Discount</h3>
+                        </div>
+                        <div class="col-6 mt-2">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Code</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>33</td>
+                                        <td>Discount</td>
+                                        <td>
+                                            <a href="javascript:void(0);" ng-click="getRevenueAccountDetails(Baccount.id,'Bank')">
+                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit" onclick="$('#chartofaccountupdate').show();"></i>
+                                            </a>&nbsp;&nbsp;
+                                            <a href="javascript:void(0);" ng-click="deleteBankAccount(Baccount.id)">
+                                                <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3>VAT Payable</h3>
+                        </div>
+                        <div class="col-6 mt-2">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Code</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="Baccount in BankAccount">
+                                        <td>77</td>
+                                        <td>VAT Payable</td>
+                                        <td>
+                                            <a href="javascript:void(0);" ng-click="getRevenueAccountDetails(Baccount.id,'Bank')">
+                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit" onclick="$('#chartofaccountupdate').show();"></i>
+                                            </a>&nbsp;&nbsp;
+                                            <a href="javascript:void(0);" ng-click="deleteBankAccount(Baccount.id)">
+                                                <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3>Retention Receivable</h3>
+                        </div>
+                        <div class="col-6 mt-2">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Code</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="Baccount in BankAccount">
+                                        <td>77</td>
+                                        <td>Retention Receivable</td>
+                                        <td>
+                                            <a href="javascript:void(0);" ng-click="getRevenueAccountDetails(Baccount.id,'Bank')">
+                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit" onclick="$('#chartofaccountupdate').show();"></i>
+                                            </a>&nbsp;&nbsp;
+                                            <a href="javascript:void(0);" ng-click="deleteBankAccount(Baccount.id)">
+                                                <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3>Bank Charges</h3>
+                        </div>
+                        <div class="col-6 mt-2">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Code</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="Baccount in BankAccount">
+                                        <td>33</td>
+                                        <td>Bank Charges</td>
+                                        <td>
+                                            <a href="javascript:void(0);" ng-click="getRevenueAccountDetails(Baccount.id,'Bank')">
+                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit" onclick="$('#chartofaccountupdate').show();"></i>
+                                            </a>&nbsp;&nbsp;
+                                            <a href="javascript:void(0);" ng-click="deleteBankAccount(Baccount.id)">
+                                                <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3>Tax Deduction</h3>
+                        </div>
+                        <div class="col-6 mt-2">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Code</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="Baccount in BankAccount">
+                                        <td>22</td>
+                                        <td>Tax Deduction</td>
+                                        <td>
+                                            <a href="javascript:void(0);" ng-click="getRevenueAccountDetails(Baccount.id,'Bank')">
+                                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit" onclick="$('#chartofaccountupdate').show();"></i>
+                                            </a>&nbsp;&nbsp;
+                                            <a href="javascript:void(0);" ng-click="deleteBankAccount(Baccount.id)">
                                                 <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
                                             </a>
                                         </td>
@@ -90,26 +282,26 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-12 mt-2">
-                            <!-- <form action=""> -->
+                            <form action="" name="chartofaccountadd" novalidate>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Select A/C</label>
-                                    <select name="" class="form-control" id="" ng-model="accountType">
-                                        <option value="">Revenue</option>
-                                        <option value="">Bank account</option>
+                                    <select name="" class="form-control is-invalid" id="" ng-model="accountType" required>
+                                        <option value="Revenue">Revenue</option>
+                                        <option value="Bank">Bank account</option>
                                     </select>
                                 </div>
                                 <div class="form-group mt-3">
                                     <label for="exampleInputEmail1">GL code</label>
-                                    <input type="text" class="form-control" ng-model="code">
+                                    <input type="text" class="form-control is-invalid" ng-model="code" required>
                                 </div>
                                 <div class="form-group mt-3">
                                     <label for="exampleInputEmail1">GL name</label>
-                                    <input type="text" class="form-control" ng-model="name">
+                                    <input type="text" class="form-control is-invalid" ng-model="name" required>
                                 </div>
                                 <div class="form-group mt-3 text-center">
-                                    <button class="btn btn-success" type="button" ng-click="SaveAccount()">Submit</button>
+                                    <button class="btn btn-success" type="button" ng-disabled="chartofaccountadd.$invalid" ng-click="SaveAccount()">Submit</button>
                                 </div>
-                            <!-- </form> -->
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -117,4 +309,79 @@
         </div>
 
     </div>
+
+    <!-- update -->
+
+    <!-- <div id="chartofaccountupdate" class="modal">
+        <div class="modal-dialog recordpayment" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><b>VAT rates</b></h5>
+                    <button type="button" onclick="$('#chartofaccountupdate').hide();" class="close closebutton" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 mt-2">
+                            <form action="">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Name</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" ng-model="updatevatName">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button class="btn btn-success" ng-click="updateRevenuRate()">Update</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> -->
+
+    <div id="chartofaccountupdate" class="modal">
+        <!-- Modal content -->
+        <div class="modal-dialog recordpayment" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><b>Chart of account</b></h5>
+                    <button type="button" onclick="$('#chartofaccountupdate').hide();" class="close closebutton" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 mt-2">
+                            <form action="" name="chartofaccountupdate" novalidate>
+                                <div class="form-group d-none">
+                                    <label for="exampleInputEmail1">Select A/C</label>
+                                    <select name="" class="form-control" id="" ng-model="accountType">
+                                        <option value="Revenue">Revenue</option>
+                                        <option value="Bank">Bank account</option>
+                                    </select>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="exampleInputEmail1">GL code</label>
+                                    <input type="text" class="form-control is-invalid" ng-model="updateAccountCode" required>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="exampleInputEmail1">GL name</label>
+                                    <input type="text" class="form-control is-invalid" ng-model="updateAccountName" required>
+                                </div>
+                                <div class="form-group mt-3 text-center">
+                                    <button class="btn btn-success" ng-disabled="chartofaccountupdate.$invalid" type="button" ng-click="updateAccountInfo()">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 </div>

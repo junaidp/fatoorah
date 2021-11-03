@@ -1,0 +1,48 @@
+<div class="height-100" ng-controller="invoiceApproveController">
+    <div class="container m-0">
+        <div class="row  mt-2">
+            <div class="col-6">
+                <h2>Approve</h2>
+            </div>
+            <div class="col-6 ">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mt-5">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Status</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Number</th>
+                            <th scope="col">Customer</th>
+                            <th scope="col">Amount due</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in UnApprovedinvoices">
+                            <td><span class="badge badge-pill badge-secondary">draft</span></td>
+                            <td>{{x.invoiceDate}}</td>
+                            <td>{{x.invoiceNumber}}</td>
+                            <td>{{x.billTo}}</td>
+                            <td>{{x.paymentDue}}</td>
+                            <td>
+                                <!-- <a href="#">
+                                    <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                </a>&nbsp;&nbsp;
+                                <a href="#">
+                                    <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+                                </a> &nbsp;&nbsp; -->
+                                <a href="javascript:void(0);" ng-click="updateinvoicestatus(x.id)">
+                                    <span class="badge badge-pill badge-secondary successapprove">Approve</span>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

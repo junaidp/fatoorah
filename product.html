@@ -1,68 +1,61 @@
-<div class="container m-0" ng-controller="productController">
-    <div class="row">
-        <div class="col-6">
-            <h2>Products & Services (Sales)</h2>
+<div class="height-100">
+    <div class="container m-0" ng-controller="productController">
+        <div class="row  mt-2">
+            <div class="col-6">
+                <h2>Products - منتجات</h2>
+            </div>
+            <div class="col-6 addproduct">
+                <a href="javascript:void(0)" class="import" onclick="$('#addproduct').show();">Import CSV</a>
+                <a href="#!addproduct">Add a product - إضافة منتج</a>
+            </div>
         </div>
-        <div class="col-6 addproduct">
-            <a href="#" class="import" onclick="$('#addproduct').show();">Import CSV</a>
-            <a href="#!addproduct">Add a product</a>
+        <div class="row mt-2">
+            <div class="col-12">
+                <p>You haven't added any products yet.</p>
+            </div>
         </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-12">
-            <p>You haven't added any products yet.</p>
-        </div>
-    </div>
-    <div class="row mt-3">
-        <div class="col-12">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Product name</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Code</th>
-                        <th scope="col">Assign chart of Account</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="x in products">
-                        <td>{{x.productName}}</td>
-                        <td>{{x.description}}</td>
-                        <td>{{x.price}}</td>
-                        <td>{{x.code}}</td>
-                        <td>{{x.assign}}</td>
-                        <td>
-                            <a href="#">
-                                <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
-                            </a>&nbsp;&nbsp;
-                            <a href="#">
-                                <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <!-- <tr>
-                                <td>item 1</td>
-                                <td>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document</td>
-                                <td>20</td>
-                                <td>1</td>
-                                <td>
-                                    <a href="#">
-                                        <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
-                                    </a>&nbsp;&nbsp;
-                                    <a href="#">
-                                        <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
-                                    </a>
-                                </td>
-                            </tr> -->
-                </tbody>
-            </table>
+        <div class="row mt-3">
+            <div class="col-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">Product name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Code</th>
+                            <th scope="col">Assign chart of Account</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="x in products|itemsPerPage:30" pagination-id="product">
+                            <td>{{$index + 1}}</td>
+                            <td>{{x.productName}}</td>
+                            <td>{{x.description}}</td>
+                            <td>{{x.price | number}}</td>
+                            <td>{{x.code}}</td>
+                            <td>{{x.assignedChartofAccounts}}</td>
+                            <td>
+                                <a ng-click="updateCurrentProduct(x.id)">
+                                    <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                </a>&nbsp;&nbsp;
+                                <a href="javascript:void(0);">
+                                    <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" ng-click="deleteProductById(x.id)" title="Delete"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-12 text-center">
+                <dir-pagination-controls pagination-id="product" max-size="5" direction-links="true" boundary-links="true">
+                </dir-pagination-controls>
+            </div>
         </div>
     </div>
 </div>
-</div>
-<div id="addproduct" class="modal">
+<div id="addproduct" class="modal" ng-controller="productuoload">
     <!-- Modal content -->
     <div class="modal-dialog recordpayment" role="document">
         <div class="modal-content">
@@ -74,14 +67,19 @@
             </div>
             <div class="modal-body">
                 <div class="row">
+                    <div class="col-12">
+                        <p>download tenplate here
+                            <a href="xml/custom.xml" download="download">here</a>
+                        </p>
+                    </div>
                     <div class="col-12 mt-2">
                         <form action="">
                             <div class="form-group row">
                                 <div class="col-sm-9">
-                                    <input type="file" class="form-control">
+                                    <input id="fileupload" type="file" name="fileupload">
                                 </div>
                                 <div class="col-sm-3">
-                                    <button class="btn btn-success">Submit</button>
+                                    <button class="btn btn-success" id="upload-button" onclick="uploadFile()">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -91,4 +89,75 @@
         </div>
     </div>
 
+    <!-- update product -->
+
+
 </div>
+<script>
+    async function uploadFile() {
+        let formData = new FormData();
+        debugger
+        formData.append("file", fileupload.files[0]);
+        await fetch('http://97f1-101-50-88-15.ngrok.io/uploader/uploadProducts', {
+            method: "POST",
+            body: formData
+        });
+        $.dialog({
+            icon: 'fa fa-spinner fa-spin',
+            title: 'Working!',
+            content: 'we are processing your request!'
+        });
+
+        setTimeout(() => {
+            $.notify("The file has been uploaded successfully...!", "success");
+            window.location.reload();
+        }, 5000);
+    }
+</script>
+
+<!-- <script>
+    function uploadFile() {
+        let formData = new FormData();
+        formData.append("file", fileupload.files[0]);
+        debugger
+        // await fetch('http://97f1-101-50-88-15.ngrok.io/uploader/uploadProducts?file=' + formData + '&companyID=' + sessionStorage.getItem('company_id') + '&loggedInUserID=' + sessionStorage.getItem('id'), {
+        //     //method: "POST",
+        //     //body: formData
+        // });
+        var uploadFile = {
+            file: formData,
+            companyID: sessionStorage.getItem('company_id'),
+            loggedInUserID: 12861,
+        }
+        $http.post('http://97f1-101-50-88-15.ngrok.io/uploader/uploadProducts?file', JSON.stringify(uploadFile)).then(function(response) {
+
+            if (response.data.errorStatus == "Error") {
+                $.notify(response.data.error, "error");
+                return;
+            }
+
+        })
+
+
+        // await fetch('http://97f1-101-50-88-15.ngrok.io/uploader/uploadProducts', {
+        //     method: "POST",
+        //     body = {
+        //         uploadFile: {
+        //             file: formData,
+        //             companyID: sessionStorage.getItem('company_id'),
+        //             loggedInUserID: sessionStorage.getItem('id'),
+        //         }
+        //     }
+        // });
+        $.dialog({
+            icon: 'fa fa-spinner fa-spin',
+            title: 'Working!',
+            content: 'we are processing your request!'
+        });
+
+        setTimeout(() => {
+            $.notify("The file has been uploaded successfully...!", "success");
+            window.location.reload();
+        }, 5000);
+    }
+</script> -->

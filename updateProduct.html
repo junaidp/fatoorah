@@ -1,0 +1,92 @@
+<div class="container m-0" ng-controller="updateproductCtrl">
+    <div class="row">
+        <div class="col-6 mt-4">
+            <h2><b>Update Product</b></h2>
+        </div>
+        <div class="col-6 mt-4" style="direction: rtl;">
+            <h2><b>تحديث المنتج</b></h2>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-6 border_right">
+            <form>
+                <div class="form-group row">
+                    <label for="staticEmail" class="col-sm-3 col-form-label">Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" ng-blur="onproductNameChange()" ng-model="productName">
+                    </div>
+                </div>
+                <div class="form-group row mt-2">
+                    <label for="staticEmail" class="col-sm-3 col-form-label">Description</label>
+                    <div class="col-sm-9">
+                        <textarea name="" class="form-control" id="" ng-blur="onproductdecriptionChange()" cols="2" rows="2" ng-model="description"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row mt-2">
+                    <label for="staticEmail" class="col-sm-3 col-form-label">Price</label>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control" ng-model="price">
+                    </div>
+                </div>
+                <div class="form-group row mt-2">
+                    <label for="staticEmail" class="col-sm-3 col-form-label">Code / SKU</label>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control" ng-model="code">
+                    </div>
+                </div>
+                <div class="form-group row mt-2">
+                    <label for="staticEmail" class="col-sm-3 col-form-label">Assign chart of Account</label>
+                    <div class="col-sm-9">
+                        <select name="" class="form-control" id="" ng-model="assignedChartofAccount">
+                                    <option ng-repeat="chart in chartAccounts">{{chart.name}}</option>
+                                </select>
+                        <small id="emailHelp" class="form-text text-muted">Map your income account</small>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-6">
+            <form style="direction: rtl;">
+                <div class="form-group row">
+                    <label for="staticEmail" class="col-sm-3 col-form-label">اسم</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" ng-model="ProductName_in_Arabic">
+                    </div>
+                </div>
+                <div class="form-group row mt-2">
+                    <label for="staticEmail" class="col-sm-3 col-form-label">وصف</label>
+                    <div class="col-sm-9">
+                        <textarea name="" class="form-control" id="" cols="2" rows="2" ng-model="Description_in_Arabic"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row mt-2">
+                    <label for="staticEmail" class="col-sm-3 col-form-label">السعر</label>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control" ng-model="price">
+                    </div>
+                </div>
+                <div class="form-group row mt-2">
+                    <label for="staticEmail" class="col-sm-3 col-form-label"> رمز / SKU</label>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control" ng-model="code">
+                    </div>
+                </div>
+                <div class="form-group row mt-2">
+                    <label for="staticEmail" class="col-sm-3 col-form-label">تعيين مخطط الحساب</label>
+                    <div class="col-sm-9">
+                        <select name="" class="form-control" id="" ng-model="assignedChartofAccount">
+                            <option ng-repeat="chart in chartAccounts">{{chart.name}}</option>
+                        </select>
+                        <small id="emailHelp" class="form-text text-muted">ارسم حساب دخلك</small>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-12 text-center">
+            <button class="btn btn-success" type="button" ng-click="updateProduct();">Submit إرسال</button>
+        </div>
+    </div>
+    </form>
+</div>
+</div>

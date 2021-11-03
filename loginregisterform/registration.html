@@ -22,31 +22,31 @@
     <!--===============================================================================================-->
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-
+    <script src="../NotifyPlugin/notify.min.js"></script>
 </head>
 
-<body  ng-app="registerApp" ng-controller="registerCtrl">
+<body ng-app="registerApp" ng-controller="registerCtrl">
 
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
                 <div class="login100-pic js-tilt" data-tilt>
-                    <img src="images/fatoorah.jpeg" alt="IMG">
+                    <img src="images/Logo_GoFatoora_v1-03.png" style="width: 200px;" alt="IMG">
                 </div>
 
-                <!-- <form class="login100-form validate-form"> -->
+                <form class="login100-form validate-form">
                     <span class="login100-form-title">
 						User Register
 					</span>
                     <div class="wrap-input100 validate-input" data-validate="Name">
-                        <input class="input100" type="text" name="name" placeholder="Name" ng-model="{{firstName lastName}}">
+                        <input class="input100" type="text" name="name" placeholder="Name" ng-model="firstName">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
 							<i class="fa fa-user" aria-hidden="true"></i>
 						</span>
                     </div>
-                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: LoginName" ng-model="email">
-                        <input class="input100" type="text" name="loginname" placeholder="Login Name">
+                    <div class="wrap-input100 validate-input" data-validate="login name required: LoginName">
+                        <input class="input100" type="text" name="loginname" ng-model="loginname" placeholder="Login Name">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
 							<i class="fa fa-user" aria-hidden="true"></i>
@@ -60,11 +60,11 @@
 							<i class="fa fa-envelope" aria-hidden="true"></i>
 						</span>
                     </div>
-                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: LoginName" ng-model="userType">
-                        <select name="" class="input100" id="">
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: LoginName">
+                        <select name="" class="input100" ng-model="userType" id="">
 							<option value="">Select Company or Individual</option>
-							<option value="">Company</option>
-							<option value="">Invividual</option>
+							<option value="company">company</option>
+							<option value="individual">individual</option>
 						</select>
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
@@ -81,7 +81,7 @@
                     </div>
 
                     <div class="container-login100-form-btn">
-                        <button class="login100-form-btn" type="button" ng-click="registerUser()">
+                        <button class="login100-form-btn" type="button" ng-click="registercompany()">
 							Register
 						</button>
                     </div>
@@ -101,7 +101,7 @@
 							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
 						</a>-->
                     </div>
-                <!-- </form> -->
+                </form>
             </div>
         </div>
     </div>
@@ -124,32 +124,50 @@
 
 
     <script>
+        (function() {
+            var app = angular.module("registerApp", []);
 
-        var app = angular.module("registerApp", []);
-        
-        app.controller("registerCtrl", function($scope,$http,$window) {
-            
-            $scope.email=null;
-            $scope.firstName=null;
-            $scope.lastName=null;
-            $scope.userType=null;
-            $scope.password=null;
-            
-            $scope.registerUser = function () {
-                var data = {
-                    email: $scope.email,
-                    userType: $scope.userType,
-                    password: $scope.password,
+            app.controller("registerCtrl", function($scope, $http) {
+
+                $scope.email = null;
+                $scope.firstName = null;
+                $scope.lastName = null;
+                $scope.userType = null;
+                $scope.password = null;
+                $scope.loginname = null;
+                debugger
+
+                $scope.registercompany = function() {
+                    debugger
+                    var data = {
+                        email: $scope.email,
+                        userType: $scope.userType,
+                        password: $scope.password,
+                        companyID: $scope.loginname,
+                    };
+
+                    try {
+                        $http.post('http://97f1-101-50-88-15.ngrok.io/control/saveCompany', JSON.stringify(data)).then(function(response) {
+                            debugger;
+                            if (response.data.errorStatus == "Error") {
+                                $.notify(response.data.error, "error");
+                                return;
+                            }
+
+                        }, function(response) {
+                            $.notify("Company Saved successfully", "success");
+                            setTimeout(() => {
+                                window.location.href = "index.html";
+                            }, 2000);
+                        });
+                    } catch (error) {
+                        debugger;
+                        console.log(error);
+                    }
                 };
-
-                $http.post('https://c5e7-2a0a-a541-4e1c-0-1d7d-997a-321e-c188.ngrok.io/control/saveCompany', JSON.stringify(data)).then(function (response) {
-                }, function (response) {
-                    alert("Customer Saved successfully...!")
-                });
-            };
-        });
-        
-        </script>
+            });
+        }());
+    </script>
 
 </body>
 

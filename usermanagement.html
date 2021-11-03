@@ -24,43 +24,38 @@
                                 <th scope="col">Email</th>
                                 <th scope="col">Phone</th>
                                 <th scope="col">Location</th>
-                                <th scope="col">Roll</th>
+                                <th scope="col">Role</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>username</td>
-                                <td>user.email</td>
-                                <td>0333333333</td>
-                                <td>Saudia</td>
-                                <td><span class="w3-tag w3-blue">Admin!</span> &nbsp;<span class="w3-tag w3-blue">Admin!</span></td>
+                            <tr dir-paginate="x in getusers|itemsPerPage:20" pagination-id="user">
+                                <td>{{x.name}}</td>
+                                <td>{{x.email}}</td>
+                                <td>{{x.phone}}</td>
+                                <td>{{x.location}}</td>
                                 <td>
-                                    <a href="#">
-                                        <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                    <span class="w3-tag w3-blue" ng-show="x.approve"> Approve</span>
+                                    <span class="w3-tag w3-blue" ng-show="x.productSetup"> Product Setup</span>
+                                    <span class="w3-tag w3-blue" ng-show="x.invoiceRaise"> Invoice Raise</span>
+                                    <span class="w3-tag w3-blue" ng-show="x.paymentReceipt"> Payment Receipt</span>
+                                    <!-- <span ng-repeat="role in x.listRoles" class="w3-tag w3-blue"> {{role }}  </span> -->
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0);" ng-click=getCurrentUserDetails(x.id)>
+                                        <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit" onclick="$('#updateuser').show();"></i>
                                     </a>&nbsp;&nbsp;
-                                    <a href="#">
-                                        <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+                                    <a href="javascript:void(0);">
+                                        <i class="bx bx-archive" data-toggle="tooltip" ng-click="deleteUserById(x.id)" data-placement="bottom" title="Delete"></i>
                                     </a>
                                 </td>
                             </tr>
-                            <!-- <tr>
-                                <td>Ali</td>
-                                <td>@Mark</td>
-                                <td>0333333333</td>
-                                <td>Saudia</td>
-                                <td><span class="w3-tag w3-blue">Admin!</span> &nbsp;<span class="w3-tag w3-blue">Admin!</span></td>
-                                <td>
-                                    <a href="#">
-                                        <i class="bx bx-pen" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
-                                    </a>&nbsp;&nbsp;
-                                    <a href="#">
-                                        <i class="bx bx-archive" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
-                                    </a>
-                                </td>
-                            </tr> -->
                         </tbody>
                     </table>
+                </div>
+                <div class="col-12 text-center">
+                    <dir-pagination-controls pagination-id="user" max-size="5" direction-links="true" boundary-links="true">
+                    </dir-pagination-controls>
                 </div>
             </div>
         </div>
@@ -79,31 +74,52 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-12 mt-2">
-                            <form action="">
+                            <form action="" name="userform" novalidate>
                                 <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">User ID</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control is-invalid" ng-model="userId" required>
+                                        <div class="invalid-feedback" ng-show="userform.userId.$error.required">
+                                            userId is required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-3">
                                     <label class="col-sm-3 col-form-label">User Name</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" ng-model="username">
+                                        <input type="text" name="username" id="username" class="form-control is-invalid" ng-model="username" required>
+                                        <div class="invalid-feedback" ng-show="userform.username.$error.required">
+                                            username is required
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group row mt-3">
                                     <label class="col-sm-3 col-form-label">Email</label>
                                     <div class="col-sm-9">
-                                        <input type="email" class="form-control" ng-model="email">
+                                        <input type="email" name="email" class="form-control is-invalid" ng-model="email" id="email" required ng-pattern="/^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/">
+                                        <div class="invalid-feedback" ng-show="userform.email.$error.required">
+                                            Please provide a valid city.
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group row mt-3">
                                     <label class="col-sm-3 col-form-label">Contact number</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control">
+                                        <input type="number" class="form-control is-invalid" ng-model="phonenumber" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-3">
+                                    <label class="col-sm-3 col-form-label">New Password</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control is-invalid" ng-model="password" required>
                                     </div>
                                 </div>
                                 <div class="form-group row mt-3">
                                     <label class="col-sm-3 col-form-label">Location</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control" name="" id="" ng-model="location">
+                                        <select class="form-control is-invalid" name="" id="" ng-model="location" required>
                                             <option value="">--Select Location--</option>
-                                            <option value="{{item.id}}" ng-repeat="item in locations">{{item.locationName}}</option>
+                                            <option value="{{item.locationName}}" ng-repeat="item in locations">{{item.locationName}}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -130,7 +146,92 @@
                                 </div>
                                 <div class="form-group row mt-3">
                                     <div class="col-sm-12 text-center">
-                                        <button class="btn btn-success" type="button" ng-click="saveUser()">Submit</button>
+                                        <button class="btn btn-success" ng-disabled="userform.$invalid" type="button" ng-click="saveUser()">Submit</button>
+                                        <!--ng-disabled="userform.$invalid || student.studrespass != student.password"-->
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- upadte user -->
+
+    <div id="updateuser" class="modal">
+        <!-- Modal content -->
+        <div class="modal-dialog recordpayment" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><b>Update User</b></h5>
+                    <button type="button" onclick="$('#updateuser').hide();" class="close closebutton" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 mt-2">
+                            <form action="">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">User Name</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" ng-model="username">
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-3">
+                                    <label class="col-sm-3 col-form-label">Email</label>
+                                    <div class="col-sm-9">
+                                        <input type="email" class="form-control" ng-model="email">
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-3">
+                                    <label class="col-sm-3 col-form-label">Contact number</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" ng-model="phonenumber">
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-3">
+                                    <label class="col-sm-3 col-form-label">New password</label>
+                                    <div class="col-sm-9">
+                                        <input type="password" class="form-control is-invalid" ng-model="password" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-3">
+                                    <label class="col-sm-3 col-form-label">Location</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" name="" id="" ng-model="location">
+                                            <option value="">--Select Location--</option>
+                                            <option value="{{item.locationName}}" ng-repeat="item in locations">{{item.locationName}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-3">
+                                    <label class="col-sm-3 col-form-label">Role</label>
+                                    <div class="col-sm-9">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" ng-true-value="true" ng-false-value="false" ng-model="productsetup" id="productsetup">
+                                            <label class="form-check-label" for="productsetup">Product Setup</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" ng-true-value="true" ng-false-value="false" ng-model="Invoiceraise" id="Invoiceraise">
+                                            <label class="form-check-label" for="Invoiceraise">Invoice raise</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" ng-true-value="true" ng-false-value="false" ng-model="Paymentreceipt" id="Paymentreceipt">
+                                            <label class="form-check-label" for="Paymentreceipt">Payment receipt</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" ng-true-value="true" ng-false-value="false" ng-model="Approve" id="Approve">
+                                            <label class="form-check-label" for="Approve">Approve</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-3">
+                                    <div class="col-sm-12 text-center">
+                                        <button class="btn btn-success" type="button" ng-click="updateuser()">Submit</button>
                                     </div>
                                 </div>
                             </form>

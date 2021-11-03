@@ -1,0 +1,544 @@
+<div class="height-100" ng-controller="editInvoiceCtrl">
+    <div class="container m-0">
+        <div class="row">
+            <div class="col-6">
+                <h2>Edit invoice</h2>
+            </div>
+            <div class="col-6 addproduct">
+                <a href="javascript:void(0)" ng-click="updateAndContinueInvoice()">Update and continue</a>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-12 mt-4">
+                <div class="card">
+                    <div class="card-header">
+                        Business address and contact details, title, summary, and logo
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <img ng-src="data:image/JPEG;base64,{{companylogo}}" height="200" width="300">
+                            </div>
+                            <div class="col-6">
+                                <div class="row" style="direction: rtl;">
+                                    <div class="col-12 mt-2">
+                                        <input type="text" ng-model="invoiceName" class="form-control" placeholder="Invoice فاتورة">
+                                    </div>
+                                    <!-- <div class="col-12 mt-2">
+                                        <input type="text" ng-model="invoiceDescription" class="form-control" placeholder="Summary (e.g. project name, description of invoice) ملخص (مثل اسم المشروع ووصف الفاتورة)">
+                                    </div> -->
+                                    <div class="col-12 mt-2">
+                                        <h4 class="m-0">{{businessName}}</h4>
+                                    </div>
+                                    <div class="col-12 mt-2">
+                                        <h5 class="m-0">{{businessAddress}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mt-2">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h4>Bill to</h4>
+                                    </div>
+                                    <div class="col-10">
+                                        <select class="form-control" name="state" ng-model="billTo">
+                                            <option value="{{customer.id}}" ng-repeat="customer in customers">{{customer.customer}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-12">
+                                        <p class="m-0">{{buyer.shippingAddress1}}</p>
+                                    </div>
+                                    <div class="col-12">
+                                        <p class="m-0">{{buyer.email}}</p>
+                                    </div>
+                                    <div class="col-12">
+                                        <p class="m-0">{{buyer.phoneMain}}, {{buyer.shippingPostal}}</p>
+                                    </div>
+                                    <div class="col-3"></div>
+                                </div>
+                            </div>
+                            <div class="col-6" style="text-align: right;">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-1"></div>
+                                            <div class="col-11">
+                                                <div class="form-group row">
+                                                    <label for="staticEmail" class="col-sm-6 col-form-label">Invoice Number <br> رقم الفاتورة</label>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="invoiceNumber">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="row mt-2">
+                                            <div class="col-1"></div>
+                                            <div class="col-11">
+                                                <div class="form-group row">
+                                                    <label for="staticEmail" class="col-sm-6 col-form-label">P.O./S.O. number</label>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="posoNumber">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="row mt-2">
+                                            <div class="col-1"></div>
+                                            <div class="col-11">
+                                                <div class="form-group row">
+                                                    <label for="staticEmail" class="col-sm-6 col-form-label">Invoice date</label>
+                                                    <div class="col-sm-6">
+                                                        <input type="date" class="form-control" value="{{NewinvoiceDate}}" ng-model="NewinvoiceDate">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="row mt-2">
+                                            <div class="col-1"></div>
+                                            <div class="col-11">
+                                                <div class="form-group row">
+                                                    <label for="staticEmail" class="col-sm-6 col-form-label">Payment due</label>
+                                                    <div class="col-sm-6">
+                                                        <input type="date" class="form-control" value="{{newPaymentDate}}" ng-model="newPaymentDate">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mt-2">
+                                        <div class="row">
+                                            <div class="col-1"></div>
+                                            <div class="col-11">
+                                                <div class="form-group row">
+                                                    <label for="staticEmail" class="col-sm-6 col-form-label">Invoice Type</label>
+                                                    <div class="col-sm-6">
+                                                        <select name="" class="form-control" ng-model="type" id="">
+                                                            <option value="">select</option>
+                                                            <option value="Nominal">Nominal</option>
+                                                            <option value="Export">Export</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mt-2">
+                                        <div class="row">
+                                            <div class="col-1"></div>
+                                            <div class="col-11">
+                                                <div class="form-group row">
+                                                    <label for="staticEmail" class="col-sm-6 col-form-label">Supply Date</label>
+                                                    <div class="col-sm-6">
+                                                        <input type="date" class="form-control" value="{{supplyDate}}" ng-model="supplyDate" name="" id="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mt-2">
+                                        <div class="row">
+                                            <div class="col-1"></div>
+                                            <div class="col-11">
+                                                <div class="form-group row">
+                                                    <label for="staticEmail" class="col-sm-6 col-form-label">Payment Type</label>
+                                                    <div class="col-sm-6">
+                                                        <select class="form-control" ng-model="paymentType">
+                                                            <option value="10">In Cash</option>
+                                                            <option value="30">Credit</option>
+                                                            <option value="42">Payment to bank account</option>
+                                                            <option value="48">Bank Card</option>
+                                                            <option value="1">Instrument not defined (Free text)</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mt-2">
+                                        <div class="row">
+                                            <div class="col-1"></div>
+                                            <div class="col-11">
+                                                <div class="form-group row">
+                                                    <label for="staticEmail" class="col-sm-6 col-form-label">Invoice Currency</label>
+                                                    <div class="col-sm-6">
+                                                        <select name="" id="" class="form-control" ng-model="currency">
+                                                            <option value="">Select</option>
+                                                            <option value="AED">AED -	United Arab Emirates Dirham</option>
+                                                            <option value='AFN'>AFN -	Afghanistan Afghani</option>
+                                                            <option value='ALL'>ALL -	Albania Lek</option>
+                                                            <option value='AMD'>AMD -	Armenia Dram</option>
+                                                            <option value='ANG'>ANG -	Netherlands Antilles Guilder</option>
+                                                            <option value='AOA'>AOA -	Angola Kwanza</option>
+                                                            <option value='ARS'>ARS -	Argentina Peso</option>
+                                                            <option value='AUD'>AUD -	Australia Dollar</option>
+                                                            <option value='AWG'>AWG -	Aruba Guilder</option>
+                                                            <option value='AZN'>AZN -	Azerbaijan New Manat</option>
+                                                            <option value='BAM'>BAM -	Bosnia and Herzegovina Convertible Marka</option>
+                                                            <option value='BBD'>BBD -	Barbados Dollar</option>
+                                                            <option value='BDT'>BDT -	Bangladesh Taka</option>
+                                                            <option value='BGN'>BGN -	Bulgaria Lev</option>
+                                                            <option value='BHD'>BHD -	Bahrain Dinar</option>
+                                                            <option value='BIF'>BIF -	Burundi Franc</option>
+                                                            <option value='BMD'>BMD -	Bermuda Dollar</option>
+                                                            <option value='BND'>BND -	Brunei Darussalam Dollar</option>
+                                                            <option value='BOB'>BOB -	Bolivia Boliviano</option>
+                                                            <option value='BRL'>BRL -	Brazil Real</option>
+                                                            <option value='BSD'>BSD -	Bahamas Dollar</option>
+                                                            <option value='BTN'>BTN -	Bhutan Ngultrum</option>
+                                                            <option value='BWP'>BWP -	Botswana Pula</option>
+                                                            <option value='BYR'>BYR -	Belarus Ruble</option>
+                                                            <option value='BZD'>BZD -	Belize Dollar</option>
+                                                            <option value='CAD'>CAD -	Canada Dollar</option>
+                                                            <option value='CDF'>CDF -	Congo/Kinshasa Franc</option>
+                                                            <option value='CHF'>CHF -	Switzerland Franc</option>
+                                                            <option value='CLP'>CLP -	Chile Peso</option>
+                                                            <option value='CNY'>CNY -	China Yuan Renminbi</option>
+                                                            <option value='COP'>COP -	Colombia Peso</option>
+                                                            <option value='CRC'>CRC -	Costa Rica Colon</option>
+                                                            <option value='CUC'>CUC -	Cuba Convertible Peso</option>
+                                                            <option value='CUP'>CUP -	Cuba Peso</option>
+                                                            <option value='CVE'>CVE -	Cape Verde Escudo</option>
+                                                            <option value='CZK'>CZK -	Czech Republic Koruna</option>
+                                                            <option value='DJF'>DJF -	Djibouti Franc</option>
+                                                            <option value='DKK'>DKK -	Denmark Krone</option>
+                                                            <option value='DOP'>DOP -	Dominican Republic Peso</option>
+                                                            <option value='DZD'>DZD -	Algeria Dinar</option>
+                                                            <option value='EGP'>EGP -	Egypt Pound</option>
+                                                            <option value='ERN'>ERN -	Eritrea Nakfa</option>
+                                                            <option value='ETB'>ETB -	Ethiopia Birr</option>
+                                                            <option value='EUR'>EUR -	Euro Member Countries</option>
+                                                            <option value='FJD'>FJD -	Fiji Dollar</option>
+                                                            <option value='FKP'>FKP -	Falkland Islands (Malvinas) Pound</option>
+                                                            <option value='GBP'>GBP -	United Kingdom Pound</option>
+                                                            <option value='GEL'>GEL -	Georgia Lari</option>
+                                                            <option value='GGP'>GGP -	Guernsey Pound</option>
+                                                            <option value='GHS'>GHS -	Ghana Cedi</option>
+                                                            <option value='GIP'>GIP -	Gibraltar Pound</option>
+                                                            <option value='GMD'>GMD -	Gambia Dalasi</option>
+                                                            <option value='GNF'>GNF -	Guinea Franc</option>
+                                                            <option value='GTQ'>GTQ -	Guatemala Quetzal</option>
+                                                            <option value='GYD'>GYD -	Guyana Dollar</option>
+                                                            <option value='HKD'>HKD -	Hong Kong Dollar</option>
+                                                            <option value='HNL'>HNL -	Honduras Lempira</option>
+                                                            <option value='HRK'>HRK -	Croatia Kuna</option>
+                                                            <option value='HTG'>HTG -	Haiti Gourde</option>
+                                                            <option value='HUF'>HUF -	Hungary Forint</option>
+                                                            <option value='IDR'>IDR -	Indonesia Rupiah</option>
+                                                            <option value='ILS'>ILS -	Israel Shekel</option>
+                                                            <option value='IMP'>IMP -	Isle of Man Pound</option>
+                                                            <option value='INR'>INR -	India Rupee</option>
+                                                            <option value='IQD'>IQD -	Iraq Dinar</option>
+                                                            <option value='IRR'>IRR -	Iran Rial</option>
+                                                            <option value='ISK'>ISK -	Iceland Krona</option>
+                                                            <option value='JEP'>JEP -	Jersey Pound</option>
+                                                            <option value='JMD'>JMD -	Jamaica Dollar</option>
+                                                            <option value='JOD'>JOD -	Jordan Dinar</option>
+                                                            <option value='JPY'>JPY -	Japan Yen</option>
+                                                            <option value='KES'>KES -	Kenya Shilling</option>
+                                                            <option value='KGS'>KGS -	Kyrgyzstan Som</option>
+                                                            <option value='KHR'>KHR -	Cambodia Riel</option>
+                                                            <option value='KMF'>KMF -	Comoros Franc</option>
+                                                            <option value='KPW'>KPW -	Korea (North) Won</option>
+                                                            <option value='KRW'>KRW -	Korea (South) Won</option>
+                                                            <option value='KWD'>KWD -	Kuwait Dinar</option>
+                                                            <option value='KYD'>KYD -	Cayman Islands Dollar</option>
+                                                            <option value='KZT'>KZT -	Kazakhstan Tenge</option>
+                                                            <option value='LAK'>LAK -	Laos Kip</option>
+                                                            <option value='LBP'>LBP -	Lebanon Pound</option>
+                                                            <option value='LKR'>LKR -	Sri Lanka Rupee</option>
+                                                            <option value='LRD'>LRD -	Liberia Dollar</option>
+                                                            <option value='LSL'>LSL -	Lesotho Loti</option>
+                                                            <option value='LTL'>LTL -	Lithuania Litas</option>
+                                                            <option value='LVL'>LVL -	Latvia Lat</option>
+                                                            <option value='LYD'>LYD -	Libya Dinar</option>
+                                                            <option value='MAD'>MAD -	Morocco Dirham</option>
+                                                            <option value='MDL'>MDL-	Moldova Leu </option>
+                                                            <option value='MGA'>MGA-	Madagascar Ariary </option>
+                                                            <option value='MKD'>MKD-	Macedonia Denar </option>
+                                                            <option value='MMK'>MMK-	Myanmar (Burma) Kyat</option>
+                                                            <option value='MNT'>MNT-	Mongolia Tughrik </option>
+                                                            <option value='MOP'>MOP-	Macau Pataca </option>
+                                                            <option value='MRO'>MRO-	Mauritania Ouguiya </option>
+                                                            <option value='MUR'>MUR-	Mauritius Rupee </option>
+                                                            <option value='MVR'>MVR-	Maldives (Maldive Islands) Rufiyaa </option>
+                                                            <option value='MWK'>MWK-	Malawi Kwacha </option>
+                                                            <option value='MXN'>MXN-	Mexico Peso </option>
+                                                            <option value='MYR'>MYR-	Malaysia Ringgit </option>
+                                                            <option value='MZN'>MZN-	Mozambique Metical </option>
+                                                            <option value='NAD'>NAD-	Namibia Dollar </option>
+                                                            <option value='NGN'>NGN-	Nigeria Naira </option>
+                                                            <option value='NIO'>NIO-	Nicaragua Cordoba </option>
+                                                            <option value='NOK'>NOK-	Norway Krone </option>
+                                                            <option value='NPR'>NPR-	Nepal Rupee </option>
+                                                            <option value='NZD'>NZD-	New Zealand Dollar</option>
+                                                            <option value='OMR'>OMR-	Oman Rial </option>
+                                                            <option value='PAB'>PAB-	Panama Balboa </option>
+                                                            <option value='PEN'>PEN-	Peru Nuevo Sol</option>
+                                                            <option value='PGK'>PGK-	Papua New Guinea Kina </option>
+                                                            <option value='PHP'>PHP-	Philippines Peso </option>
+                                                            <option value='PKR'>PKR-	Pakistan Rupee </option>
+                                                            <option value='PLN'>PLN-	Poland Zloty </option>
+                                                            <option value='PYG'>PYG-	Paraguay Guarani </option>
+                                                            <option value='QAR'>QAR-	Qatar Riyal </option>
+                                                            <option value='RON'>RON-	Romania New Leu</option>
+                                                            <option value='RSD'>RSD-	Serbia Dinar </option>
+                                                            <option value='RUB'>RUB-	Russia Ruble </option>
+                                                            <option value='RWF'>RWF-	Rwanda Franc </option>
+                                                            <option value='SAR'>SAR-	Saudi Arabia Riyal</option>
+                                                            <option value='SBD'>SBD-	Solomon Islands Dollar</option>
+                                                            <option value='SCR'>SCR-	Seychelles Rupee </option>
+                                                            <option value='SDG'>SDG-	Sudan Pound </option>
+                                                            <option value='SEK'>SEK-	Sweden Krona </option>
+                                                            <option value='SGD'>SGD-	Singapore Dollar </option>
+                                                            <option value='SHP'>SHP-	Saint Helena Pound</option>
+                                                            <option value='SLL'>SLL-	Sierra Leone Leone</option>
+                                                            <option value='SOS'>SOS-	Somalia Shilling </option>
+                                                            <option value='SPL*'>SPL*-	Seborga Luigino </option>
+                                                            <option value='SRD'>SRD-	Suriname Dollar </option>
+                                                            <option value='STD'>STD-	São Tomé and Príncipe Dobra</option>
+                                                            <option value='SVC'>SVC-	El Salvador Colon</option>
+                                                            <option value='SYP'>SYP-	Syria Pound </option>
+                                                            <option value='SZL'>SZL-	Swaziland Lilangeni </option>
+                                                            <option value='THB'>THB-	Thailand Baht </option>
+                                                            <option value='TJS'>TJS-	Tajikistan Somoni </option>
+                                                            <option value='TMT'>TMT-	Turkmenistan Manat </option>
+                                                            <option value='TND'>TND-	Tunisia Dinar </option>
+                                                            <option value='TOP'>TOP-	Tonga Pa’anga </option>
+                                                            <option value='TRY'>TRY-	Turkey Lira </option>
+                                                            <option value='TTD'>TTD-	Trinidad and Tobago Dollar </option>
+                                                            <option value='TVD'>TVD-	Tuvalu Dollar </option>
+                                                            <option value='TWD'>TWD-	Taiwan New Dollar</option>
+                                                            <option value='TZS'>TZS-	Tanzania Shilling </option>
+                                                            <option value='UAH'>UAH-	Ukraine Hryvna </option>
+                                                            <option value='UGX'>UGX-	Uganda Shilling </option>
+                                                            <option value='USD'>USD-	United States Dollar</option>
+                                                            <option value='UYU'>UYU-	Uruguay Peso </option>
+                                                            <option value='UZS'>UZS-	Uzbekistan Som </option>
+                                                            <option value='VEF'>VEF-	Venezuela Bolivar </option>
+                                                            <option value='VND'>VND-	Viet Nam Dong</option>
+                                                            <option value='VUV'>VUV-	Vanuatu Vatu </option>
+                                                            <option value='WST'>WST-	Samoa Tala </option>
+                                                            <option value='XAF'>XAF-	Communauté Financière Africaine (BEAC) CFA Franc BEAC</option>
+                                                            <option value='XCD'>XCD-	East Caribbean Dollar</option>
+                                                            <option value='XDR'>XDR-	International Monetary Fund (IMF) Special Drawing Rights</option>
+                                                            <option value='XOF'>XOF-	Communauté Financière Africaine (BCEAO) Franc</option>
+                                                            <option value='XPF'>XPF-	Comptoirs Français du Pacifique (CFP) Franc </option>
+                                                            <option value='YER'>YER-	Yemen Rial </option>
+                                                            <option value='ZAR'>ZAR-	South Africa Rand</option>
+                                                            <option value='ZMW'>ZMW-	Zambia Kwacha </option>
+                                                            <option value='ZWD'>ZWD-	Zimbabwe Dollar </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mt-2"></div>
+                                    <div class="col-6 mt-2" ng-if="invoiceName =='Tax invoice - Debit Note' || invoiceName =='Tax invoice - Credit Note'">
+                                        <div class="row">
+                                            <div class="col-1"></div>
+                                            <div class="col-11">
+                                                <div class="form-group row">
+                                                    <label for="staticEmail" class="col-sm-6 col-form-label">Original Invoice Number </label>
+                                                    <div class="col-sm-6">
+                                                        <input type="number" class="form-control" ng-model="originalRefNo" name="" id="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-5">
+                            <div class="col-6">
+                                <h5><b>Line items</b></h5>
+                            </div>
+                            <div class="col-6" style="text-align: right;">
+                                <h5><b>البنود</b></h5>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <table class="table table-bordered table-striped">
+                                <thead class="thead-light">
+                                    <tr style="text-align: center;">
+                                        <th scope="col">Item name <br> اسم العنصر</th>
+                                        <th scope="col">Unit price <br> سعر الوحدة</th>
+                                        <th scope="col">Quantity <br> كمية</th>
+                                        <th scope="col">Taxable amount <br> المبلغ الخاضع للضريبة</th>
+                                        <th scope="col">Discount <br> تخفيض</th>
+                                        <th scope="col">Amount before tax <br> المبلغ قبل الضريبة</th>
+                                        <th scope="col">Tax Rate <br> معدل الضريبة</th>
+                                        <th scope="col">Tax amount <br> قيمة الضريبة</th>
+                                        <th scope="col" colspan="2">Item Subtotal <br> المجموع الفرعي للعنصر</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="x in cartItem track by $index">
+                                        <td style=" width:30%; padding: 6px 7px;">
+                                            <select name="listOfproduct" id="" class="form-control listOfproduct" ng-model="blisterPackTemplateSelected" ng-change="selectedProductDetails(cartItem[$index],$index,product)">
+                                                <option value="{{product.productName}}"  ng-repeat="product in products" >{{product.productName}} - {{product.arabicName}}</option>
+                                            </select>
+                                        </td>
+                                        <td style=" width: 8%; padding: 6px 7px;">
+                                            <input type="text" readonly class="form-control" ng-model="cartItem[$index].price" value="cartItem[$index].price">
+                                        </td>
+                                        <td style=" width: 7%; padding: 6px 7px;">
+                                            <input type="number" min="1" class="form-control" ng-model="cartItem[$index].quantity" ng-change="quantityChange(x.quantity,$index)">
+                                        </td>
+                                        <td style=" width: 9%; padding: 6px 7px;">
+                                            <input type="number" class="form-control" value="{{x.taxableAmount}}" readonly>
+                                        </td>
+                                        <td style=" width: 8%; padding: 6px 7px;">
+                                            <input type="number" min="0" class="form-control" ng-model="cartItem[$index].discount" ng-change=discountchange(x.discount,$index)>
+                                        </td>
+                                        <td style=" width: 9%; padding: 6px 7px;">
+                                            <input type="number" min="0" class="form-control" readonly value="{{x.amountBeforeTax}}">
+                                        </td>
+                                        <td style=" width: 8%; padding: 6px 7px;">
+                                            <select name="" class="form-control" ng-model="cartItem[$index].vat" ng-change=onVatChange(x,$index)>
+                                                 <!-- <option value="15" selected="selected">15%</option> -->
+                                                    <option value="{{vatt.vatRates}}" ng-repeat="vatt in vates" >{{vatt.vatRates}} %</option>
+                                                </select>
+                                        </td>
+                                        <td style=" width: 9%; padding: 6px 7px;">
+                                            <input type="text" readonly class="form-control" ng-model="cartItem[$index].taxAmount" value="">
+                                        </td>
+                                        <td style=" width: 10%; padding: 6px 7px;">
+                                            <input type="text" readonly class="form-control" ng-model="cartItem[$index].itemSubTotal" ng-change="totalsub()">
+                                        </td>
+                                        <td class="text-center" style=" width: 2%; padding: 6px 7px;">
+                                            <a href="javascript:void(0)" ng-click="deleteItem($index)">
+                                                <i class="fa fa-trash text-danger"></i>
+                                            </a>
+                                            <!-- <a href="javascript:void(0)" ng-click="addLineItemToList()">
+                                                <i class="fa fa-plus"></i>
+                                            </a> -->
+                                        </td>
+                                    </tr>
+                                    <!-- <tr class="text-center" id="selectitem">
+                                        <td colspan="9">
+                                            <select class="form-control" name="state" ng-model="blisterPackTemplateSelected" ng-change="selectedProductDetails(blisterPackTemplateSelected)" data-ng-options="product as product.productName for product in products">
+                                                    <option value="AL">Select Items</option>
+                                                </select>
+                                        </td>
+                                    </tr> -->
+
+                                    <tr class="text-center">
+                                        <td colspan="9" class="additem"> <span onclick="mytogal();" ng-click="addItemToCart()"><i class="bx bx-plus-circle"></i> Add an item</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-4"></div>
+                            <div class="col-8 ">
+                                <div class="row">
+                                    <div class="col-12 ">
+                                        <div class="row border-bottom">
+                                            <div class="col-6">
+                                                <h5>Total amounts</h5>
+                                            </div>
+                                            <div class="col-6" style="text-align: right;">
+                                                <h5>إجمالي المبالغ</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 p-0">
+                                                <table class="table table-hover table-bordered">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Total (Excluding VAT) الإجمالي (باستثناء ضريبة القيمة المضافة)</td>
+                                                            <td>{{totalExcludingVAT}} {{currency}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Discount تخفيض</td>
+                                                            <td>{{totalDiscount}} {{currency}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Total taxable amount (excluding VAT) إجمالي المبلغ الخاضع للضريبة (باستثناء ضريبة القيمة المضافة)</td>
+                                                            <td>{{totaltaxableAmount}} {{currency}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Total VAT إجمالي ضريبة القيمة المضافة</td>
+                                                            <td>{{TotalVat}} {{currency}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Total amount due إجمالي المبلغ المستحق</td>
+                                                            <td>{{totalAmountDue}} {{currency}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="col-3"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <label for="">Reason for not charging Standard VAT rate</label>
+                                <label style="float: right;" for="">سبب عدم فرض معدل ضريبة القيمة المضافة القياسي</label>
+                            </div>
+                            <div class="col-12">
+                                <textarea name="" ng-model="reasonChangingStandard" id="" class="form-control" cols="3" rows="3" placeholder="Enter notes or term of service that are visible to your customer"></textarea>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <label for="">Notes / Terms</label>
+                                <label style="float: right;" for="">ملاحظات / شروط</label>
+                            </div>
+                            <div class="col-12">
+                                <textarea name="" id="" ng-model="notes" class="form-control" cols="3" rows="3" placeholder="Enter notes or term of service that are visible to your customer"></textarea>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <label for="">Attach file</label>
+                                <input type="file" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-12 text-right addproduct">
+                                <a href="javascript:void(0);" ng-click="updateAndContinueInvoice()">update and continue - التحديث والمتابعة</a>
+                                <!--printinvoice.html-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+    });
+    $('#selectitem').hide();
+
+    function mytogal() {
+        $('#selectitem').show();
+        $('.select2-container').css("width", "50%");
+    }
+</script>

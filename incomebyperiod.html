@@ -1,8 +1,8 @@
-<div class="height-100">
+<div class="height-100" ng-controller="getinvoicebyperiodController">
     <div class="container m-0">
         <div class="row">
             <div class="col-6">
-                <h2>Income by Period</h2>
+                <h2>Income by Period - الدخل حسب الفترة</h2>
             </div>
             <div class="col-6 addproduct">
                 <div class="dropdown">
@@ -26,15 +26,15 @@
                     <div class="col-6">
                         <div class="row">
                             <div class="col-6">
-                                <input placeholder="From" class="textbox-n form-control" type="text" onfocus="(this.type='date')" id="date">
+                                <input placeholder="From" class="textbox-n form-control" ng-model="startDate" type="text" onfocus="(this.type='date')" id="date">
                             </div>
                             <div class="col-sm-6">
-                                <input placeholder="To" class="textbox-n form-control" type="text" onfocus="(this.type='date')" id="date">
+                                <input placeholder="To" class="textbox-n form-control" ng-model="endDate" type="text" onfocus="(this.type='date')" id="date">
                             </div>
                         </div>
                     </div>
                     <div class="col-6">
-                        <button class="btn btn-success" style="float:right">Update Report</button>
+                        <button class="btn btn-success" ng-click="gettotalperiodbydate()" style="float:right">Get Report - احصل على تقرير</button>
                     </div>
                 </div>
             </div>
@@ -49,21 +49,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th>18-19</th>
-                            <td>$0.00</td>
-                        </tr>
-                        <tr>
-                            <th>19-20</th>
-                            <td>$0.00</td>
-                        </tr>
-                        <tr>
-                            <th>20-21</th>
-                            <td>$0.00</td>
-                        </tr>
-                        <tr>
-                            <th>Total Income</th>
-                            <td>$0.00</td>
+                        <tr ng-repeat="x in getinvoicebyyear">
+                            <th>{{x.customerName}}</th>
+                            <th>{{x.invoiceTotal}}</th>
                         </tr>
                     </tbody>
                 </table>

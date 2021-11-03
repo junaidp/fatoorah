@@ -174,7 +174,7 @@ a {
     background-color: #136acd;
     border: 1px solid transparent;
     font-size: 18px;
-    padding: 5px 22px;
+    padding: 5px 10px;
     border-radius: 28px;
 }
 
@@ -218,6 +218,10 @@ label {
 
 
 /* tab code */
+
+.visibility {
+    visibility: hidden;
+}
 
 
 /* popup */
@@ -650,4 +654,133 @@ input:checked+.slider:before {
     .body-pd {
         padding-left: calc(var(--nav-width) + 188px)
     }
+}
+
+
+/* pagination */
+
+.pagination>.disabled>span,
+.pagination>.disabled>span:hover,
+.pagination>.disabled>span:focus,
+.pagination>.disabled>a,
+.pagination>.disabled>a:hover,
+.pagination>.disabled>a:focus {
+    color: #777;
+    cursor: not-allowed;
+    background-color: #fff;
+    border-color: #ddd;
+}
+
+.pagination>li {
+    display: inline;
+}
+
+.pagination>.active>a,
+.pagination>.active>span,
+.pagination>.active>a:hover,
+.pagination>.active>span:hover,
+.pagination>.active>a:focus,
+.pagination>.active>span:focus {
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+.page-item:first-child .page-link {
+    margin-left: 0;
+    border-top-left-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+}
+
+.ng-scope>a:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+
+.ng-scope>a {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #007bff;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+
+.ng-scope>a:hover {
+    color: #0056b3;
+    text-decoration: none;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+
+.ng-isolate-scope {
+    text-align: center !important;
+    display: inline-block;
+}
+
+.input.ng-invalid.ng-touched {
+    border: 2px solid red;
+}
+
+.errortext {
+    color: red;
+}
+
+.was-validated input.form-control:invalid,
+input.form-control.is-invalid {
+    padding-right: calc(1.5em + .75rem);
+    background-position: top calc(.375em + .1875rem) right calc(.375em + .1875rem);
+    border-color: #dc3545;
+}
+
+.was-validated input.form-control:valid,
+input.form-control.is-valid {
+    padding-right: calc(1.5em + .75rem);
+    background-position: top calc(.375em + .1875rem) right calc(.375em + .1875rem);
+    border-color: #198754 !important;
+}
+
+.form-control.is-invalid,
+.was-validated .form-control:invalid {
+    border-color: #dc3545;
+    background-image: none !important;
+    background-repeat: no-repeat;
+    background-position: right calc(.375em + .1875rem) center;
+    background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+}
+
+.form-control.is-valid,
+.was-validated .form-control:valid,
+.ng-not-empty {
+    border-color: #198754 !important;
+    background-repeat: no-repeat;
+    background-position: right calc(.375em + .1875rem) center;
+    background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+}
+
+.form-control.is-valid:focus,
+.was-validated .form-control:valid:focus,
+.ng-not-empty:focus {
+    box-shadow: 0 0 0 0.2rem rgb(40 167 69 / 25%) !important;
+}
+
+#qrcode img {
+    display: inline-block !important;
+}
+
+.table>:not(:last-child)>:last-child>* {
+    font-size: 13px;
+}
+
+.invoicetabact {
+    border-bottom: 2px solid #136acd;
+    color: #136acd;
+    font-weight: 700;
+}
+
+.badbackcolor {
+    background-color: #136acd;
 }
