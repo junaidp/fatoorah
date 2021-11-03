@@ -500,7 +500,7 @@
                         <div class="row mt-4">
                             <div class="col-12">
                                 <label for="">Attach file</label>
-                                <input type="file" class="form-control">
+                                <input type="file" onchange="validateSize(this)" id="fileupload" class="form-control">
                             </div>
                         </div>
                         <div class="row mt-4">
@@ -527,6 +527,18 @@
     function mytogal() {
         $('#selectitem').show();
         $('.select2-container').css("width", "50%");
+    }
+</script>
+<script>
+    function validateSize(input) {
+        const fileSize = input.files[0].size / 1024 / 1024; // in MiB
+        if (fileSize > 2) {
+            //alert('File size exceeds 2 MiB');
+            $.notify('File size exceeds 2 MiB', "error");
+            document.getElementById("fileupload").value = null;
+        } else {
+            // Proceed further
+        }
     }
 </script>
 <script>

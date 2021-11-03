@@ -513,8 +513,7 @@
                         <div class="row mt-4">
                             <div class="col-12">
                                 <label for="">Attach File</label>
-                                <input type="file" onclick="validate()" id="image-file" class="form-control">
-                                <span id="file_error"></span>
+                                <input type="file" onchange="validateSize(this)" id="fileupload" class="form-control">
                             </div>
                         </div>
                         <div class="row mt-4">
@@ -542,22 +541,18 @@
         $('#selectitem').show();
         $('.select2-container').css("width", "50%");
     }
-    // $('#image-file').bind('change', function() {
-    //     alert('Hi');
-    //     alert('This file size is: ' + this.files[0].size / 1024 / 1024 + "MB");
-    // });
-    $('#image-file').on('change', function() {
-
-        let input = document.querySelector('image-file');
-        let span = document.querySelector('file_error');
-
-        let files = input;
-        if (files[0].size > 10 * 1024) {
-            span.innerText = 'File Size Exceeds 10kb';
-            return;
+</script>
+<script>
+    function validateSize(input) {
+        const fileSize = input.files[0].size / 1024 / 1024; // in MiB
+        if (fileSize > 2) {
+            //alert('File size exceeds 2 MiB');
+            $.notify('File size exceeds 2 MiB', "error");
+            document.getElementById("fileupload").value = null;
+        } else {
+            // Proceed further
         }
-        span.innerText = '';
-    });
+    }
 </script>
 <script>
     function word() {
