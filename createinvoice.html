@@ -352,6 +352,20 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-6 mt-2"></div>
+                                    <div class="col-6 mt-2">
+                                        <div class="row">
+                                            <div class="col-1"></div>
+                                            <div class="col-11">
+                                                <div class="form-group row">
+                                                    <label for="staticEmail" class="col-sm-6 col-form-label">Service Location</label>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="serviceLocation" name="" id="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -384,15 +398,8 @@
                                             <!--cartItem[$index].product[$index] -->
                                             <select name="listOfproduct" id="" class="form-control listOfproduct" ng-model="blisterPackTemplateSelected" ng-change="selectedProductDetails(cartItem[$index],$index,product)">
                                                    <option value="{{product.productName}}"  ng-repeat="product in products" >{{product.productName}} - {{product.arabicName}}</option>
-                                               </select>
-                                            <!-- <select class="form-control" name="state" ng-model="blisterPackTemplateSelected" 
-                                            ng-change="selectedProductDetails(blisterPackTemplateSelected,$index,product)" 
-                                            data-ng-options="product as product.productName for product in products"> -->
-                                            <!--js-example-basic-single -->
-                                            <!-- <option value="AL" selected="selected">Select Items</option> -->
-                                            <!-- <option value="{{product.productName}}" ng-repeat="product in products"  ng-model="confirmed" ng-change="selectedProductDetails()">{{product.productName}}</option> -->
-                                            </select>
-                                            <!-- {{productName}} -->
+                                               </select><br>
+                                            <textarea name="" class="form-control" ng-model="cartItem[$index].description" id="" placeholder="Description" cols="1" rows="1"></textarea>
                                         </td>
                                         <td style=" width: 8%; padding: 6px 7px;">
                                             <input type="text" readonly class="form-control" ng-model="cartItem[$index].price" value="cartItem[$index].price">
@@ -469,6 +476,18 @@
                                                         <tr>
                                                             <td>Total Amount Due إجمالي المبلغ المستحق</td>
                                                             <td id="numberInput">{{totalAmountDue | number}} {{currency}} <br> <span id="result"></span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Less: Down Payment دفعة أولى</td>
+                                                            <td><input type="text" class="form-control" ng-change="ondownpayment()" ng-model="downPayment"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Less: Retention احتفاظ</td>
+                                                            <td><input type="text" class="form-control" ng-change="ondownpayment()" ng-model="retention"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Total Net Amount Payable إجمالي صافي المبلغ المستحق الدفع</td>
+                                                            <td>{{totalNetAmount | number}} {{currency}}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>

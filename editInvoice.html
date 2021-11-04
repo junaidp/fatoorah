@@ -22,7 +22,7 @@
                             <div class="col-6">
                                 <div class="row" style="direction: rtl;">
                                     <div class="col-12 mt-2">
-                                        <input type="text" ng-model="invoiceName" class="form-control" placeholder="Invoice فاتورة">
+                                        <input type="text" readonly ng-model="invoiceName" class="form-control" placeholder="Invoice فاتورة">
                                     </div>
                                     <!-- <div class="col-12 mt-2">
                                         <input type="text" ng-model="invoiceDescription" class="form-control" placeholder="Summary (e.g. project name, description of invoice) ملخص (مثل اسم المشروع ووصف الفاتورة)">
@@ -76,7 +76,7 @@
                                                 <div class="form-group row">
                                                     <label for="staticEmail" class="col-sm-6 col-form-label">Invoice Number <br> رقم الفاتورة</label>
                                                     <div class="col-sm-6">
-                                                        <input type="text" class="form-control" ng-model="invoiceNumber">
+                                                        <input type="text" readonly class="form-control" ng-model="invoiceNumber">
                                                     </div>
                                                 </div>
                                             </div>
@@ -349,7 +349,19 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-6 mt-2"></div>
+                                    <div class="col-6 mt-2">
+                                        <div class="row">
+                                            <div class="col-1"></div>
+                                            <div class="col-11">
+                                                <div class="form-group row">
+                                                    <label for="staticEmail" class="col-sm-6 col-form-label">Service Location</label>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="serviceLocation" name="" id="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="col-6 mt-2" ng-if="invoiceName =='Tax invoice - Debit Note' || invoiceName =='Tax invoice - Credit Note'">
                                         <div class="row">
                                             <div class="col-1"></div>
@@ -357,7 +369,7 @@
                                                 <div class="form-group row">
                                                     <label for="staticEmail" class="col-sm-6 col-form-label">Original Invoice Number </label>
                                                     <div class="col-sm-6">
-                                                        <input type="number" class="form-control" ng-model="originalRefNo" name="" id="">
+                                                        <input type="text" readonly class="form-control" ng-model="originalRefNo" name="" id="">
                                                     </div>
                                                 </div>
                                             </div>
@@ -394,7 +406,8 @@
                                         <td style=" width:30%; padding: 6px 7px;">
                                             <select name="listOfproduct" id="" class="form-control listOfproduct" ng-model="blisterPackTemplateSelected" ng-change="selectedProductDetails(cartItem[$index],$index,product)">
                                                 <option value="{{product.productName}}"  ng-repeat="product in products" >{{product.productName}} - {{product.arabicName}}</option>
-                                            </select>
+                                            </select><br>
+                                            <textarea name="" class="form-control mt-1" ng-model="cartItem[$index].description" id="" placeholder="Description" cols="1" rows="1"></textarea>
                                         </td>
                                         <td style=" width: 8%; padding: 6px 7px;">
                                             <input type="text" readonly class="form-control" ng-model="cartItem[$index].price" value="cartItem[$index].price">
@@ -465,25 +478,36 @@
                                                     <tbody>
                                                         <tr>
                                                             <td>Total (Excluding VAT) الإجمالي (باستثناء ضريبة القيمة المضافة)</td>
-                                                            <td>{{totalExcludingVAT}} {{currency}}</td>
+                                                            <td>{{totalExcludingVAT | number}} {{currency}}</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Discount تخفيض</td>
-                                                            <td>{{totalDiscount}} {{currency}}</td>
+                                                            <td>{{totalDiscount | number}} {{currency}}</td>
                                                         </tr>
                                                         <tr>
-                                                            <td>Total taxable amount (excluding VAT) إجمالي المبلغ الخاضع للضريبة (باستثناء ضريبة القيمة المضافة)</td>
-                                                            <td>{{totaltaxableAmount}} {{currency}}</td>
+                                                            <td>Total Taxable Amount (excluding VAT) إجمالي المبلغ الخاضع للضريبة (باستثناء ضريبة القيمة المضافة)</td>
+                                                            <td>{{totaltaxableAmount | number}} {{currency}}</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Total VAT إجمالي ضريبة القيمة المضافة</td>
-                                                            <td>{{TotalVat}} {{currency}}</td>
+                                                            <td>{{TotalVat | number}} {{currency}}</td>
                                                         </tr>
                                                         <tr>
-                                                            <td>Total amount due إجمالي المبلغ المستحق</td>
-                                                            <td>{{totalAmountDue}} {{currency}}</td>
+                                                            <td>Total Amount Due إجمالي المبلغ المستحق</td>
+                                                            <td>{{totalAmountDue | number}} {{currency}} <br> <span id="result"></span></td>
                                                         </tr>
-                                                    </tbody>
+                                                        <tr>
+                                                            <td>Less: Down Payment دفعة أولى</td>
+                                                            <td><input type="text" class="form-control" ng-change="ondownpayment()" ng-model="downPayment"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Less: Retention احتفاظ</td>
+                                                            <td><input type="text" class="form-control" ng-change="ondownpayment()" ng-model="retention"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Total Net Amount Payable إجمالي صافي المبلغ المستحق الدفع</td>
+                                                            <td>{{totalNetAmount | number}} {{currency}}</td>
+                                                        </tr>
                                                 </table>
                                             </div>
                                             <div class="col-3"></div>
@@ -512,8 +536,8 @@
                         </div>
                         <div class="row mt-4">
                             <div class="col-12">
-                                <label for="">Attach file</label>
-                                <input type="file" class="form-control">
+                                <label for="">Attach File</label>
+                                <input type="file" onchange="validateSize(this)" id="fileupload" class="form-control">
                             </div>
                         </div>
                         <div class="row mt-4">
@@ -540,5 +564,45 @@
     function mytogal() {
         $('#selectitem').show();
         $('.select2-container').css("width", "50%");
+    }
+</script>
+<script>
+    function validateSize(input) {
+        const fileSize = input.files[0].size / 1024 / 1024; // in MiB
+        if (fileSize > 2) {
+            //alert('File size exceeds 2 MiB');
+            $.notify('File size exceeds 2 MiB', "error");
+            document.getElementById("fileupload").value = null;
+        } else {
+            // Proceed further
+        }
+    }
+</script>
+<script>
+    function word() {
+        let numberInput = sessionStorage.getItem('currenttotalAmountDue');
+        //let numberInput = parseFloat($('#numberInput').text().replace(/,/g, ''));
+        let myDiv = document.querySelector('#result');
+
+        let oneToTwenty = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ',
+            'Eleven ', 'Twelve ', 'Thirteen ', 'Fourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ', 'Eighteen ', 'Nineteen '
+        ];
+        let tenth = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+        if (numberInput.toString().length > 7) return myDiv.innerHTML = 'overlimit';
+        console.log(numberInput);
+        //let num = ('0000000000'+ numberInput).slice(-10).match(/^(\d{1})(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
+        let num = ('0000000' + numberInput).slice(-7).match(/^(\d{1})(\d{1})(\d{2})(\d{1})(\d{2})$/);
+        console.log(num);
+        if (!num) return;
+
+        let outputText = num[1] != 0 ? (oneToTwenty[Number(num[1])] || `${tenth[num[1][0]]} ${oneToTwenty[num[1][1]]}`) + ' Million ' : '';
+
+        outputText += num[2] != 0 ? (oneToTwenty[Number(num[2])] || `${tenth[num[2][0]]} ${oneToTwenty[num[2][1]]}`) + 'Hundred ' : '';
+        outputText += num[3] != 0 ? (oneToTwenty[Number(num[3])] || `${tenth[num[3][0]]} ${oneToTwenty[num[3][1]]}`) + ' Thousand ' : '';
+        outputText += num[4] != 0 ? (oneToTwenty[Number(num[4])] || `${tenth[num[4][0]]} ${oneToTwenty[num[4][1]]}`) + 'Hundred ' : '';
+        outputText += num[5] != 0 ? (oneToTwenty[Number(num[5])] || `${tenth[num[5][0]]} ${oneToTwenty[num[5][1]]} `) : '';
+
+        myDiv.innerHTML = outputText;
     }
 </script>

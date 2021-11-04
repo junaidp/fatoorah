@@ -81,7 +81,7 @@
         let formData = new FormData();
         debugger
         formData.append("file", fileupload.files[0]);
-        await fetch('http://97f1-101-50-88-15.ngrok.io/uploader/uploadCustomers', {
+        await fetch('https://einvoice-1634502460189.azurewebsites.net/uploader/uploadCustomers', {
             method: "POST",
             body: formData
         });

@@ -68,7 +68,7 @@
             }
 
             var basePath = "http://97f1-101-50-88-15.ngrok.io/";
-            var translationpath = "http://fad2-101-50-88-15.ngrok.io/";
+            var translationpath = "https://einvoice-1634502460189.azurewebsites.net/";
 
             var app = angular.module("myApp", ['ngRoute', 'angularUtils.directives.dirPagination']);
 
@@ -188,7 +188,8 @@
             app.controller("customerController", function($scope, $http) {
                 $http.get(basePath + "control/getAllCustomers?companyID=" + sessionStorage.getItem('company_id'))
                     .then(function(response) {
-                        $scope.customers = response.data;
+                        $scope.customers = response.data[0];
+                        $scope.customers_in_arabics = response.data[1];
                     });
 
                 $scope.customerid = null;
@@ -203,7 +204,7 @@
                                     window.location.href = "/#!/customer";
                                     $http.get(basePath + "control/getAllCustomers?companyID=" + sessionStorage.getItem('company_id'))
                                         .then(function(response) {
-                                            $scope.customers = response.data;
+                                            $scope.customers = response.data[0];
                                         });
                                 });
                             },
@@ -218,6 +219,7 @@
                 $scope.updateCstomer = function(cId) {
 
                     customerForUpdate = $scope.customers.filter(x => x.id == cId)[0];
+                    customerForUpdate_Arabic = $scope.customers_in_arabics[$scope.customers.indexOf(customerForUpdate)];
                     window.location.href = "#!updateCustomer";
                 }
 
@@ -345,43 +347,19 @@
                 };
 
                 $scope.onNameChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "text": $scope.customerName
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.customerName).then(function(response) {
 
                         $scope.customerNameArabic = response.data;
                     }, function(response) {});
                 }
                 $scope.onFirstNameChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "text": $scope.firstName
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.firstName).then(function(response) {
 
                         $scope.firstNameInArabic = response.data;
                     }, function(response) {});
                 }
                 $scope.onLarstNameChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "text": $scope.lastName
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.lastName).then(function(response) {
 
                         $scope.lastNameInArabic = response.data;
                     }, function(response) {});
@@ -400,217 +378,98 @@
                 }
 
                 $scope.onnotesChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "text": $scope.notes
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.notes).then(function(response) {
 
                         $scope.notesInArabic = response.data;
                     }, function(response) {});
                 }
                 $scope.onadressoneChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "text": $scope.billingAddress1
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.billingAddress1).then(function(response) {
 
                         $scope.billingAddressoneInArabic = response.data;
                     }, function(response) {});
                 }
                 $scope.onadresstwoChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "text": $scope.billingAddress2
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.billingAddress2).then(function(response) {
 
                         $scope.billingAddresstwoInArabic = response.data;
                     }, function(response) {});
                 }
                 $scope.onbillingCountryChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "text": $scope.billingCountry
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.billingCountry).then(function(response) {
 
                         $scope.billingCountryInArabic = response.data;
                     }, function(response) {});
                 }
                 $scope.onbillingProvinceChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "text": $scope.billingProvince
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.billingProvince).then(function(response) {
 
                         $scope.billingProvinceInArabic = response.data;
                     }, function(response) {});
                 }
                 $scope.onbillingCityChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "text": $scope.billingProvince
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.billingProvince).then(function(response) {
 
                         $scope.billingCityInArabic = response.data;
                     }, function(response) {});
                 }
                 $scope.onbillingPostalChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "text": $scope.billingPostal
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.billingPostal).then(function(response) {
 
                         $scope.billingPostalInArabic = response.data;
                     }, function(response) {});
                 }
                 $scope.onshippingNameChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "text": $scope.shippingName
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.shippingName).then(function(response) {
 
                         $scope.shippingNameInArabic = response.data;
                     }, function(response) {});
                 }
                 $scope.onshippingAddressoneChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "text": $scope.shippingAddress1
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.shippingAddress1).then(function(response) {
 
                         $scope.shippingAddress1InArabic = response.data;
                     }, function(response) {});
                 }
                 $scope.onshippingAddresstwoChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "text": $scope.shippingAddress2
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.shippingAddress2).then(function(response) {
 
                         $scope.shippingAddress2InArabic = response.data;
                     }, function(response) {});
                 }
                 $scope.onshippingCountryChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "text": $scope.shippingCountry
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.shippingCountry).then(function(response) {
 
                         $scope.shippingCountryInArabic = response.data;
                     }, function(response) {});
                 }
                 $scope.onshippingProvinceChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "text": $scope.shippingProvince
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.shippingProvince).then(function(response) {
 
                         $scope.shippingProvinceInArabic = response.data;
                     }, function(response) {});
                 }
                 $scope.onshippingCityChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "text": $scope.shippingCity
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.shippingCity).then(function(response) {
 
                         $scope.shippingCityInArabic = response.data;
                     }, function(response) {});
                 }
                 $scope.onshippingPostalChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "text": $scope.shippingPostal
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.shippingPostal).then(function(response) {
 
                         $scope.shippingPostalInArabic = response.data;
                     }, function(response) {});
                 }
                 $scope.ondeliveryInstructionsChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "text": $scope.deliveryInstructions
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.deliveryInstructions).then(function(response) {
 
                         $scope.deliveryInstructionsInArabic = response.data;
                     }, function(response) {});
                 }
             });
 
+            //upload product 
             app.controller("productuoload", function($scope, $http) {
                 $scope.file = null;
 
@@ -1478,6 +1337,9 @@
                 $scope.subTotal = 0;
                 $scope.TotalVatAmount = 0;
                 $scope.totalAmountDue = 0;
+                $scope.downPayment = 0;
+                $scope.retention = 0;
+                $scope.totalNetAmount = 0;
 
 
                 $scope.lineitemArray = [];
@@ -1570,7 +1432,7 @@
                     $scope.cartItem[index].itemSubTotal = (parseInt($scope.cartItem[index].taxableAmount) -
                         parseInt($scope.cartItem[index].discount)) + parseInt($scope.cartItem[index].taxAmount);
 
-
+                    $scope.totalNetAmount = $scope.totalAmountDue - $scope.downPayment - $scope.retention;
                 }
 
                 $scope.amountbeforeTax = function(dis, index) {
@@ -1614,6 +1476,7 @@
                         sessionStorage.setItem('currenttotalAmountDue', $scope.totalAmountDue);
                         word();
                     }
+                    $scope.totalNetAmount = $scope.totalAmountDue - $scope.downPayment - $scope.retention;
                 }
 
                 $scope.onVatChange = function(item, index) {
@@ -1640,11 +1503,16 @@
                         sessionStorage.setItem('currenttotalAmountDue', $scope.totalAmountDue);
                         word();
                     }
+                    $scope.totalNetAmount = $scope.totalAmountDue - $scope.downPayment - $scope.retention;
                 }
+                $scope.ondownpayment = function() {
+                    $scope.totalNetAmount = $scope.totalAmountDue - $scope.downPayment - $scope.retention;
+                }
+
 
                 $http.get(basePath + "control/getAllCustomers?companyID=" + sessionStorage.getItem('company_id'))
                     .then(function(response) {
-                        $scope.customers = response.data;
+                        $scope.customers = response.data[0];
                     });
                 $http.get(basePath + "control/getInvoicesByCompany?companyID=" + sessionStorage.getItem('company_id'))
                     .then(function(response) {
@@ -1705,6 +1573,11 @@
                         $scope.invoiceNumber = sessionStorage.getItem('invoiceNumber');
                     });
 
+                var today = new Date();
+                var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+                var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                var dateTime = date + ' ' + time;
+
                 $scope.invoiceNumber = $scope.invoiceNumber;
                 $scope.posoNumber = null;
                 $scope.billTo = null;
@@ -1727,6 +1600,11 @@
                 $scope.originalRefNo = null;
                 $scope.reasonChangingStandard = null;
                 $scope.notes = null;
+                $scope.serviceLocation = null;
+                $scope.downPayment = null;
+                $scope.retention = null;
+                $scope.totalNetAmount = null;
+                $scope.dateTime = dateTime;
 
                 $scope.SaveAndContinueInvoice = function() {
                     debugger
@@ -1760,6 +1638,11 @@
                         originalRefNo: $scope.originalRefNo,
                         reasonChangingStandard: $scope.reasonChangingStandard,
                         notes: $scope.notes,
+                        serviceLocation: $scope.serviceLocation,
+                        downPayment: $scope.downPayment,
+                        retention: $scope.retention,
+                        totalNetAmount: $scope.totalNetAmount,
+                        dateTime: $scope.dateTime,
                     };
 
 
@@ -1905,7 +1788,7 @@
                     $scope.cartItem[index].itemSubTotal = (-(parseInt($scope.cartItem[index].taxableAmount) -
                         parseInt($scope.cartItem[index].discount)) + parseInt($scope.cartItem[index].taxAmount));
 
-
+                    $scope.totalNetAmount = $scope.totalAmountDue - $scope.downPayment - $scope.retention;
                 }
 
                 $scope.amountbeforeTax = function(dis, index) {
@@ -1949,6 +1832,7 @@
                         sessionStorage.setItem('currenttotalAmountDue', $scope.totalAmountDue);
                         word();
                     }
+                    $scope.totalNetAmount = $scope.totalAmountDue - $scope.downPayment - $scope.retention;
                 }
 
                 $scope.onVatChange = function(item, index) {
@@ -1975,11 +1859,16 @@
                         sessionStorage.setItem('currenttotalAmountDue', $scope.totalAmountDue);
                         word();
                     }
+                    $scope.totalNetAmount = $scope.totalAmountDue - $scope.downPayment - $scope.retention;
+                }
+                $scope.ondownpayment = function() {
+                    $scope.totalNetAmount = $scope.totalAmountDue - $scope.downPayment - $scope.retention;
                 }
 
                 $http.get(basePath + "control/getAllCustomers?companyID=" + sessionStorage.getItem('company_id'))
                     .then(function(response) {
-                        $scope.customers = response.data;
+                        debugger
+                        $scope.customers = response.data[0];
                     });
                 $http.get(basePath + "control/getInvoicesByCompany?companyID=" + sessionStorage.getItem('company_id'))
                     .then(function(response) {
@@ -2025,9 +1914,10 @@
                     });
 
                 $scope.getbuyergetails = function() {
-
+                    debugger
                     $http.get(basePath + "control/getCustomer?customerID=" + $scope.billTo)
                         .then(function(response) {
+                            debugger
                             $scope.buyer = response.data[0];
                             $scope.currency = response.data[0].currency;
                             $scope.customerName = response.data[0].customer;
@@ -2040,6 +1930,11 @@
                         sessionStorage.setItem('invoiceNumber', $scope.invoiceNumber);
                         $scope.invoiceNumber = sessionStorage.getItem('invoiceNumber');
                     });
+
+                var today = new Date();
+                var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+                var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                var dateTime = date + ' ' + time;
 
                 $scope.invoiceNumber = $scope.invoiceNumber;
                 $scope.posoNumber = null;
@@ -2063,6 +1958,11 @@
                 $scope.originalRefNo = null;
                 $scope.reasonChangingStandard = null;
                 $scope.notes = null;
+                $scope.serviceLocation = null;
+                $scope.downPayment = null;
+                $scope.retention = null;
+                $scope.totalNetAmount = null;
+                $scope.dateTime = dateTime;
 
                 $scope.SaveAndContinueInvoice = function() {
                     debugger
@@ -2096,6 +1996,11 @@
                         originalRefNo: $scope.originalRefNo,
                         reasonChangingStandard: $scope.reasonChangingStandard,
                         notes: $scope.notes,
+                        serviceLocation: $scope.serviceLocation,
+                        downPayment: $scope.downPayment,
+                        retention: $scope.retention,
+                        totalNetAmount: $scope.totalNetAmount,
+                        dateTime: $scope.dateTime,
                     };
 
 
@@ -2138,6 +2043,7 @@
                 $scope.ProductId = 0;
                 $scope.price = 0;
                 $scope.productName = null;
+                $scope.description = null;
                 $scope.quantity = 0;
                 $scope.taxableAmount = 0;
                 $scope.totalAmount = 0;
@@ -2197,6 +2103,7 @@
                     $scope.vat = null;
                     $scope.taxableAmount = null;
                     $scope.amountBeforeTax = null;
+                    $scope.description = null;
                 }
 
                 $scope.addItemToCart = function() {
@@ -2212,7 +2119,8 @@
                         itemSubTotal: 0,
                         amountBeforeTax: 0,
                         vat: null,
-                        productName: null
+                        productName: null,
+                        description: null,
                     }
                     $scope.cartItem.push(obj);
                 }
@@ -2266,7 +2174,7 @@
                     $scope.cartItem[index].itemSubTotal = (parseInt($scope.cartItem[index].taxableAmount) -
                         parseInt($scope.cartItem[index].discount)) + parseInt($scope.cartItem[index].taxAmount);
 
-
+                    $scope.totalNetAmount = $scope.totalAmountDue - $scope.downPayment - $scope.retention;
                 }
 
                 $scope.amountbeforeTax = function(dis, index) {
@@ -2310,6 +2218,7 @@
                         sessionStorage.setItem('currenttotalAmountDue', $scope.totalAmountDue);
                         word();
                     }
+                    $scope.totalNetAmount = $scope.totalAmountDue - $scope.downPayment - $scope.retention;
                 }
 
                 $scope.onVatChange = function(item, index) {
@@ -2336,11 +2245,16 @@
                         sessionStorage.setItem('currenttotalAmountDue', $scope.totalAmountDue);
                         word();
                     }
+                    $scope.totalNetAmount = $scope.totalAmountDue - $scope.downPayment - $scope.retention;
+                }
+                $scope.ondownpayment = function() {
+                    $scope.totalNetAmount = $scope.totalAmountDue - $scope.downPayment - $scope.retention;
                 }
 
                 $http.get(basePath + "control/getAllCustomers?companyID=" + sessionStorage.getItem('company_id'))
                     .then(function(response) {
-                        $scope.customers = response.data;
+                        debugger
+                        $scope.customers = response.data[0];
                     });
                 //$scope.getbuyergetails();
                 $scope.getbuyergetails = function() {
@@ -2382,12 +2296,17 @@
                         });
                     });
 
+                var today = new Date();
+                var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+                var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                var dateTime = date + ' ' + time;
 
                 $scope.invoiceNumber = $scope.allExistingData.invoiceNumber != null ? $scope.allExistingData.invoiceNumber : null;
                 $scope.currency = $scope.allExistingData.currency != null ? $scope.allExistingData.currency : null;
                 $scope.type = $scope.allExistingData.type != null ? $scope.allExistingData.type : null;
                 $scope.posoNumber = $scope.allExistingData.posoNumber != null ? $scope.allExistingData.posoNumber : null;
                 $scope.billTo = $scope.allExistingData.billTo != null ? $scope.allExistingData.billTo : null;;
+                $scope.serviceLocation = $scope.allExistingData.serviceLocation != null ? $scope.allExistingData.serviceLocation : null;;
                 $scope.paymentType = $scope.allExistingData.paymentType != null ? $scope.allExistingData.paymentType : null;;
                 $scope.originalRefNo = $scope.allExistingData.originalRefNo != null ? $scope.allExistingData.originalRefNo : null;;
                 $scope.notes = $scope.allExistingData.notes != null ? $scope.allExistingData.notes : null;;
@@ -2399,6 +2318,9 @@
                 $scope.totalTaxableAmount = null; //$scope.allExistingData.totalTaxableAmount != null ? $scope.allExistingData.totalTaxableAmount : null;
                 $scope.totalVat = null; //$scope.allExistingData.totalVat != null ? $scope.allExistingData.totalVat : null;
                 $scope.totalAmountDue = $scope.allExistingData.totalAmountDue != null ? $scope.allExistingData.totalAmountDue : null;
+                $scope.downPayment = $scope.allExistingData.downPayment != null ? $scope.allExistingData.downPayment : null;
+                $scope.retention = $scope.allExistingData.retention != null ? $scope.allExistingData.retention : null;
+                $scope.totalNetAmount = $scope.allExistingData.totalNetAmount != null ? $scope.allExistingData.totalNetAmount : null;
 
                 $scope.updateAndContinueInvoice = function() {
                     var data = {
@@ -2424,6 +2346,11 @@
                         originalRefNo: $scope.originalRefNo,
                         notes: $scope.notes,
                         reasonChangingStandard: $scope.reasonChangingStandard,
+                        serviceLocation: $scope.serviceLocation,
+                        downPayment: $scope.downPayment,
+                        retention: $scope.retention,
+                        totalNetAmount: $scope.totalNetAmount,
+                        dateTime: $scope.dateTime,
                     };
 
 
@@ -2818,49 +2745,16 @@
                 $scope.cartItem = [];
 
                 $scope.onproductNameChange = function() {
-                    debugger
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "text": $scope.productName
-                    }
-                    $http.get(basePath + 'control/getTranslation?english=' + $scope.productName).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.productName).then(function(response) {
 
-                        if (response.data.errorStatus != "Error") {
-                            $scope.productNameInArabic = response.data.arabic;
-                        } else {
-                            $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
-
-                                $scope.productNameInArabic = response.data;
-                            }, function(response) {});
-                        };
-
-                    });
+                        $scope.productNameInArabic = response.data;
+                    }, function(response) {});
                 }
                 $scope.onproductdecriptionChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "text": $scope.description
-                    }
-                    $http.get(basePath + 'control/getTranslation?english=' + $scope.description).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.description).then(function(response) {
 
-                        if (response.data.errorStatus != "Error") {
-                            $scope.descriptionInArabic = response.data.arabic;
-                        } else {
-                            $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
-
-                                $scope.descriptionInArabic = response.data;
-                            }, function(response) {});
-                        };
-
-                    });
+                        $scope.descriptionInArabic = response.data;
+                    }, function(response) {});
                 }
 
                 $scope.saveProduct = function() {
@@ -2930,29 +2824,13 @@
                 $scope.companyID = sessionStorage.getItem('company_id');
 
                 $scope.onproductNameChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "text": $scope.productName
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.productName).then(function(response) {
 
                         $scope.ProductName_in_Arabic = response.data;
                     }, function(response) {});
                 }
                 $scope.onproductdecriptionChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "text": $scope.description
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.description).then(function(response) {
 
                         $scope.Description_in_Arabic = response.data;
                     }, function(response) {});
@@ -3025,6 +2903,150 @@
                 $scope.additionalNumber_Customer = customerForUpdate.additionalNumber_Customer;
                 $scope.otherSellerid_Customer = customerForUpdate.otherSellerid_Customer;
 
+                //in arabic
+                $scope.customerNameArabic = customerForUpdate_Arabic.customer;
+                $scope.firstNameInArabic = customerForUpdate_Arabic.firstName;
+                $scope.lastNameInArabic = customerForUpdate_Arabic.lastName;
+                $scope.notesInArabic = customerForUpdate_Arabic.notes;
+                $scope.billingAddressoneInArabic = customerForUpdate_Arabic.billingAddress1;
+                $scope.billingAddresstwoInArabic = customerForUpdate_Arabic.billingAddress2;
+
+                $scope.billingCountryInArabic = customerForUpdate_Arabic.billingCountry;
+                $scope.billingProvinceInArabic = customerForUpdate_Arabic.billingProvince;
+                $scope.billingCityInArabic = customerForUpdate_Arabic.billingCity;
+                $scope.billingPostalInArabic = customerForUpdate_Arabic.billingPostal;
+
+                $scope.shippingNameInArabic = customerForUpdate_Arabic.shippingName;
+                $scope.shippingAddress1InArabic = customerForUpdate_Arabic.shippingAddress1;
+                $scope.shippingAddress2InArabic = customerForUpdate_Arabic.shippingAddress2;
+                $scope.shippingCountryInArabic = customerForUpdate_Arabic.shippingCountry;
+                $scope.shippingProvinceInArabic = customerForUpdate_Arabic.shippingProvince;
+                $scope.shippingPostalInArabic = customerForUpdate_Arabic.shippingPostal;
+                $scope.shippingCityInArabic = customerForUpdate_Arabic.shippingCity;
+                $scope.deliveryInstructionsInArabic = customerForUpdate_Arabic.deliveryInstructions;
+
+
+                $scope.onNameChange = function() {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.customerName).then(function(response) {
+
+                        $scope.customerNameArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onFirstNameChange = function() {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.firstName).then(function(response) {
+
+                        $scope.firstNameInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onLarstNameChange = function() {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.lastName).then(function(response) {
+
+                        $scope.lastNameInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onsomenotChange = function() {
+                    $scope.emailInArabic = $scope.email;
+                    $scope.phoneMainInArabic = $scope.phoneMain;
+                    $scope.websiteInArabic = $scope.website;
+                    $scope.relatedPartyInArabic = $scope.relatedParty;
+                    $scope.currencyInArabic = $scope.currency;
+                    $scope.accountNumberInArabic = $scope.accountNumber;
+                    $scope.phoneInArabic = $scope.phone;
+                    $scope.additionalNumber_CustomerInArabic = $scope.additionalNumber_Customer;
+                    $scope.vatNumber_CustomerInArabic = $scope.vatNumber_Customer;
+                    $scope.otherSellerid_CustomerInArabic = $scope.otherSellerid_Customer;
+                }
+
+                $scope.onnotesChange = function() {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.notes).then(function(response) {
+
+                        $scope.notesInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onadressoneChange = function() {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.billingAddress1).then(function(response) {
+
+                        $scope.billingAddressoneInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onadresstwoChange = function() {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.billingAddress2).then(function(response) {
+
+                        $scope.billingAddresstwoInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onbillingCountryChange = function() {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.billingCountry).then(function(response) {
+
+                        $scope.billingCountryInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onbillingProvinceChange = function() {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.billingProvince).then(function(response) {
+
+                        $scope.billingProvinceInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onbillingCityChange = function() {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.billingProvince).then(function(response) {
+
+                        $scope.billingCityInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onbillingPostalChange = function() {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.billingPostal).then(function(response) {
+
+                        $scope.billingPostalInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onshippingNameChange = function() {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.shippingName).then(function(response) {
+
+                        $scope.shippingNameInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onshippingAddressoneChange = function() {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.shippingAddress1).then(function(response) {
+
+                        $scope.shippingAddress1InArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onshippingAddresstwoChange = function() {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.shippingAddress2).then(function(response) {
+
+                        $scope.shippingAddress2InArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onshippingCountryChange = function() {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.shippingCountry).then(function(response) {
+
+                        $scope.shippingCountryInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onshippingProvinceChange = function() {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.shippingProvince).then(function(response) {
+
+                        $scope.shippingProvinceInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onshippingCityChange = function() {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.shippingCity).then(function(response) {
+
+                        $scope.shippingCityInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.onshippingPostalChange = function() {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.shippingPostal).then(function(response) {
+
+                        $scope.shippingPostalInArabic = response.data;
+                    }, function(response) {});
+                }
+                $scope.ondeliveryInstructionsChange = function() {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.deliveryInstructions).then(function(response) {
+
+                        $scope.deliveryInstructionsInArabic = response.data;
+                    }, function(response) {});
+                }
 
                 $scope.updatecustomer = function() {
                     var data = {
@@ -3060,7 +3082,31 @@
                         userId: sessionStorage.getItem('id'),
                         companyID: sessionStorage.getItem('company_id'),
                     };
-                    $http.post(basePath + 'control/updateCustomer', JSON.stringify(data)).then(function(response) {
+                    var arabic = {
+                        customer: $scope.customerNameArabic,
+                        firstName: $scope.firstNameInArabic,
+                        lastName: $scope.lastNameInArabic,
+                        notes: $scope.notesInArabic,
+                        billingAddress1: $scope.billingAddressoneInArabic,
+                        billingAddress2: $scope.billingAddresstwoInArabic,
+                        billingCountry: $scope.billingCountryInArabic,
+                        billingProvince: $scope.billingProvinceInArabic,
+                        billingCity: $scope.billingCityInArabic,
+                        billingPostal: $scope.billingPostalInArabic,
+                        shippingName: $scope.shippingNameInArabic,
+                        shippingAddress1: $scope.shippingAddress1InArabic,
+                        shippingAddress2: $scope.shippingAddress2InArabic,
+                        shippingCountry: $scope.shippingCountryInArabic,
+                        shippingProvince: $scope.shippingProvinceInArabic,
+                        shippingPostal: $scope.shippingPostalInArabic,
+                        shippingCity: $scope.shippingCityInArabic,
+                        deliveryInstructions: $scope.deliveryInstructionsInArabic,
+                        userId: sessionStorage.getItem('id'),
+                        companyID: sessionStorage.getItem('company_id'),
+                    };
+                    customer = [];
+                    customer.push(data, arabic);
+                    $http.post(basePath + 'control/updateCustomer', JSON.stringify(customer)).then(function(response) {
 
                         if (response.data.errorStatus == "Error") {
                             $.notify(response.data.error, "error");
@@ -3181,6 +3227,26 @@
                     sessionStorage.setItem('totalExcludingVAT_printInv', invoicesForPrint[0].totalExcludingVAT);
                     $scope.totalExcludingVAT = sessionStorage.getItem('totalExcludingVAT_printInv');
 
+                    // downPayment
+                    sessionStorage.setItem('downPayment', invoicesForPrint[0].downPayment);
+                    $scope.downPayment = sessionStorage.getItem('downPayment');
+
+                    // retention
+                    sessionStorage.setItem('retention', invoicesForPrint[0].retention);
+                    $scope.retention = sessionStorage.getItem('retention');
+
+                    // totalNetAmount
+                    sessionStorage.setItem('totalNetAmount', invoicesForPrint[0].totalNetAmount);
+                    $scope.totalNetAmount = sessionStorage.getItem('totalNetAmount');
+
+                    // totalNetAmount
+                    sessionStorage.setItem('serviceLocation', invoicesForPrint[0].serviceLocation);
+                    $scope.serviceLocation = sessionStorage.getItem('serviceLocation');
+
+                    // timeDate
+                    sessionStorage.setItem('dateTime', invoicesForPrint[0].dateTime);
+                    $scope.dateTime = sessionStorage.getItem('dateTime');
+
                 } else {
                     $scope.invoiceNumber = sessionStorage.getItem('invoiceNumber_printInv');
                     $scope.invoiceIssueDate = getLocalDataFromGMTDate(sessionStorage.getItem('invoiceDate_printInv'));
@@ -3198,6 +3264,11 @@
                     $scope.TotalVAT = sessionStorage.getItem('TotalVAT_printInv');
                     $scope.TotalAmountDue = sessionStorage.getItem('TotalAmountDue_printInv');
                     $scope.totalExcludingVAT = sessionStorage.getItem('totalExcludingVAT_printInv');
+                    $scope.downPayment = sessionStorage.getItem('downPayment');
+                    $scope.retention = sessionStorage.getItem('retention');
+                    $scope.totalNetAmount = sessionStorage.getItem('totalNetAmount');
+                    $scope.serviceLocation = sessionStorage.getItem('serviceLocation');
+                    $scope.dateTime = sessionStorage.getItem('dateTime');
 
                     word();
 
@@ -3207,6 +3278,7 @@
                 $http.get(basePath + "control/getCustomer?customerID=" + $scope.customerId)
                     .then(function(response) {
                         $scope.buyer = response.data[0];
+                        $scope.buyerarabic = response.data[1];
                     });
 
                 $http.get(basePath + "control/getCompany?companyID=" + sessionStorage.getItem('company_id'))

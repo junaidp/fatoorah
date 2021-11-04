@@ -7,7 +7,8 @@
                 <h2>Invoice</h2>
             </div>
             <div class="col-6 addproduct">
-                <div class="dropdown" ng-if="status =='APPROVED'">
+                <!-- ng-if="status =='APPROVED'" -->
+                <div class="dropdown">
                     <span>Download</span>
                     <div class="dropdown-content">
                         <ul>
@@ -109,7 +110,7 @@
                                 <h4 class="p-2 m-0">{{invoiceName}}</h4>
                             </di>
                         </div>
-                        <div class="row">
+                        <div class="row mt-3">
                             <div class="col-6">
                                 <img ng-src="data:image/JPEG;base64,{{companylogo}}" height="200" width="300">
                             </div>
@@ -119,8 +120,8 @@
                                         <tbody>
                                             <tr>
                                                 <td>Invoice Number</td>
-                                                <td>{{invoiceNumber}}</td>
-                                                <td id="invoicenumber" style="text-align: right;">{{invoiceNumber}}</td>
+                                                <td id="invnumber">{{invoiceNumber}}</td>
+                                                <td style="text-align: right;">{{invoiceNumber}}</td>
                                                 <td style="text-align: right;">رقم الفاتورة</td>
                                             </tr>
                                             <tr>
@@ -146,6 +147,12 @@
                                                 <td>{{type}}</td>
                                                 <td style="text-align: right;">Currency</td>
                                                 <td style="text-align: right;">{{currency}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Service Location</td>
+                                                <td>{{serviceLocation}}</td>
+                                                <td style="text-align: right;">Created Date</td>
+                                                <td style="text-align: right;">{{dateTime}}</td>
                                             </tr>
                                         </tbody>
                                     </thead>
@@ -237,49 +244,49 @@
                                         <tr>
                                             <td>Building No</td>
                                             <td>{{buyer.shippingAddress1}}</td>
-                                            <td class="textright"></td>
+                                            <td class="textright">{{buyerarabic.shippingAddress1}}</td>
                                             <td class="textright">لا للبناء</td>
                                         </tr>
                                         <tr>
                                             <td>Street Name</td>
                                             <td>{{buyer.shippingAddress2}}</td>
-                                            <td class="textright"></td>
+                                            <td class="textright">{{buyerarabic.shippingAddress2}}</td>
                                             <td class="textright">اسم الشارع</td>
                                         </tr>
                                         <tr>
                                             <td>Province</td>
                                             <td>{{buyer.shippingProvince}}</td>
-                                            <td class="textright"></td>
+                                            <td class="textright">{{buyerarabic.shippingProvince}}</td>
                                             <td class="textright">مقاطعة</td>
                                         </tr>
                                         <tr>
                                             <td>City</td>
                                             <td>{{buyer.shippingCity}}</td>
-                                            <td class="textright"></td>
+                                            <td class="textright">{{buyerarabic.shippingCity}}</td>
                                             <td class="textright">مدينة</td>
                                         </tr>
                                         <tr>
                                             <td>Postal Code</td>
                                             <td>{{buyer.shippingPostal}}</td>
-                                            <td class="textright"></td>
+                                            <td class="textright">{{buyerarabic.shippingPostal}}</td>
                                             <td class="textright">رمز بريدي</td>
                                         </tr>
                                         <tr>
                                             <td>Additional No</td>
                                             <td>{{buyer.additionalNumber_Customer}}</td>
-                                            <td class="textright"></td>
+                                            <td class="textright">{{buyer.additionalNumber_Customer}}</td>
                                             <td class="textright">لاإضافية</td>
                                         </tr>
                                         <tr>
                                             <td>VAT Number</td>
                                             <td id="vatnumber">{{buyer.vatNumber_Customer}}</td>
-                                            <td class="textright"></td>
+                                            <td class="textright">{{buyer.vatNumber_Customer}}</td>
                                             <td class="textright">ظريبه الشراء</td>
                                         </tr>
                                         <tr>
                                             <td>Other Seller ID</td>
                                             <td>{{buyer.otherSellerid_Customer}}</td>
-                                            <td class="textright"></td>
+                                            <td class="textright">{{buyer.otherSellerid_Customer}}</td>
                                             <td class="textright">معرف البائع الآخر</td>
                                         </tr>
                                     </tbody>
@@ -305,10 +312,7 @@
                                     <tbody>
                                         <tr ng-repeat="item in itemsList">
                                             <td>
-                                                {{item.productName}}<br>
-                                                <div class="" ng-if="invoiceName =='Tax invoice - Debit Note' || invoiceName =='Tax invoice - Credit Note'">
-                                                    {{item.description}}
-                                                </div>
+                                                {{item.productName}}<br> {{item.description}}
                                             </td>
                                             <td>{{item.price | number}}</td>
                                             <td>{{item.quantity}}</td>
@@ -361,6 +365,18 @@
                                                         <tr>
                                                             <td>Total Amount Due إجمالي المبلغ المستحق</td>
                                                             <td>{{TotalAmountDue | number}} {{currency}} <br> <span id="result"></span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Less: Down Payment دفعة أولى</td>
+                                                            <td>{{downPayment | number}} {{currency}} <br> <span id="result"></span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Less: Retention احتفاظ</td>
+                                                            <td>{{retention | number}} {{currency}} <br> <span id="result"></span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Total Net Amount Payable إجمالي صافي المبلغ المستحق الدفع</td>
+                                                            <td>{{totalNetAmount | number}} {{currency}}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -540,12 +556,13 @@
         const element = document.getElementById('printMe');
         // Choose the element and save the PDF for our user.
         debugger
+        vatnumber = $('#vatregisternumber').text();
+        invnumber = $('#invnumber').text();
+        const name = ['vatnumber=' + vatnumber + ',invoiceNumber=' + invnumber]
+            //name.push()
         var opt = {
             margin: 1,
-            filename: {
-                vatnumber: $('#invoicenumber').text(),
-                invoicenuber: $('#vatnumber').text()
-            },
+            filename: name,
             image: {
                 type: 'jpeg',
                 quality: 0.98

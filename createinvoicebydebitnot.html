@@ -50,7 +50,7 @@
                                         <h4>Bill To</h4>
                                     </div>
                                     <div class="col-10">
-                                        <select class="form-control" name="state" ng-model="billTo" ng-blur="getbuyergetails()">
+                                        <select class="form-control" name="state" ng-model="billTo" ng-change="getbuyergetails()">
                                             <option value="{{customer.id}}"  ng-repeat="customer in customers">{{customer.customer}}</option>
                                         </select>
                                     </div>
@@ -352,7 +352,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-6 mt-2"></div>
                                     <div class="col-6 mt-2">
                                         <div class="row">
                                             <div class="col-1"></div>
@@ -364,6 +363,19 @@
                                                         <datalist id="invoicenumberref">
                                                             <option value="{{x.invoiceNumber}}"  ng-repeat="x in incoicenumber"></option>
                                                         </datalist>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mt-2">
+                                        <div class="row">
+                                            <div class="col-1"></div>
+                                            <div class="col-11">
+                                                <div class="form-group row">
+                                                    <label for="staticEmail" class="col-sm-6 col-form-label">Service Location</label>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" class="form-control" ng-model="serviceLocation" name="" id="">
                                                     </div>
                                                 </div>
                                             </div>
@@ -400,7 +412,8 @@
                                         <td style=" width:30%; padding: 6px 7px;">
                                             <select name="listOfproduct" id="" class="form-control listOfproduct" ng-model="blisterPackTemplateSelected" ng-change="selectedProductDetails(cartItem[$index],$index,product)">
                                                 <option value="{{product.productName}}"  ng-repeat="product in products" >{{product.productName}} - {{product.arabicName}}</option>
-                                            </select>
+                                            </select><br>
+                                            <textarea name="" class="form-control mt-1" ng-model="cartItem[$index].description" id="" placeholder="Description" cols="1" rows="1"></textarea>
                                             <!-- {{productName}} -->
                                         </td>
                                         <td style=" width: 8%; padding: 6px 7px;">
@@ -478,6 +491,18 @@
                                                         <tr>
                                                             <td>Total Amount Due إجمالي المبلغ المستحق</td>
                                                             <td>{{totalAmountDue | number}} {{currency}} <br> <span id="result"></span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Less: Down Payment دفعة أولى</td>
+                                                            <td><input type="text" class="form-control" ng-change="ondownpayment()" ng-model="downPayment"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Less: Retention احتفاظ</td>
+                                                            <td><input type="text" class="form-control" ng-change="ondownpayment()" ng-model="retention"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Total Net Amount Payable إجمالي صافي المبلغ المستحق الدفع</td>
+                                                            <td>{{totalNetAmount | number}} {{currency}}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>

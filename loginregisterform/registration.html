@@ -22,7 +22,7 @@
     <!--===============================================================================================-->
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <script src="../NotifyPlugin/notify.min.js"></script>
+    <script src="js/notify.min.js"></script>
 </head>
 
 <body ng-app="registerApp" ng-controller="registerCtrl">
@@ -147,7 +147,7 @@
                     };
 
                     try {
-                        $http.post('http://97f1-101-50-88-15.ngrok.io/control/saveCompany', JSON.stringify(data)).then(function(response) {
+                        $http.post('https://einvoice-1634502460189.azurewebsites.net/control/saveCompany', JSON.stringify(data)).then(function(response) {
                             debugger;
                             if (response.data.errorStatus == "Error") {
                                 $.notify(response.data.error, "error");
