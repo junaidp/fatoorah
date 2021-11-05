@@ -139,31 +139,25 @@
 
                 $scope.registercompany = function() {
                     debugger
-                    var data = {
+                    var companyEnglish = {
+                        firstName: $scope.firstName,
                         email: $scope.email,
                         userType: $scope.userType,
                         password: $scope.password,
                         companyID: $scope.loginname,
                     };
-
-                    try {
-                        $http.post('https://einvoice-1634502460189.azurewebsites.net/control/saveCompany', JSON.stringify(data)).then(function(response) {
-                            debugger;
-                            if (response.data.errorStatus == "Error") {
-                                $.notify(response.data.error, "error");
-                                return;
-                            }
-
-                        }, function(response) {
-                            $.notify("Company Saved successfully", "success");
-                            setTimeout(() => {
-                                window.location.href = "index.html";
-                            }, 2000);
-                        });
-                    } catch (error) {
+                    $http.post('http://97f1-101-50-88-15.ngrok.io/control/saveCompany', JSON.stringify(companyEnglish)).then(function(response) {
                         debugger;
-                        console.log(error);
-                    }
+                        if (response.data.errorStatus == "Error") {
+                            $.notify(response.data.error, "error");
+                            return;
+                        }
+                    }, function(response) {
+                        $.notify("Company Saved successfully", "success");
+                        setTimeout(() => {
+                            window.location.href = "index.html";
+                        }, 2000);
+                    });
                 };
             });
         }());

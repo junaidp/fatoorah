@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="http://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <link href="css/style.css" rel="stylesheet">
-    <link href="http://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
     <script src="js/jquery-3.2.1.min.js"></script>
     <!-- <script src="js/dirPagination.js"></script> -->
     <script src="js/pagination.js"></script>
@@ -35,7 +35,7 @@
     <script src="js/jquery.js"></script>
     <script src="js/jquery.responsiveTabs.js" type="text/javascript"></script>
     <script src="./NotifyPlugin/notify.min.js"></script>
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 
     <!-- chart -->
@@ -998,143 +998,60 @@
 
 
                 $scope.oncompanynameChange = function() {
-
-
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var data = {
-                        "text": $scope.companyName
-                    }
-                    $http.get(basePath + 'control/getTranslation?english=' + $scope.companyName).then(function(response) {
-
-                        if (response.data.errorStatus != "Error") {
-                            $scope.companyNameInArabic = response.data.arabic;
-                        } else {
-                            $http.post(translationpath + 'Translate/translate-text', JSON.stringify(data), config).then(function(response) {
-
-                                $scope.companyNameInArabic = response.data;
-                            }, function(response) {});
-                        }
-
-                    });
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.companyName).then(function(response) {
+                        $scope.companyNameInArabic = response.data;
+                    }, function(response) {});
                 }
                 $scope.onfirstnameChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "text": $scope.firstName
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.firstName).then(function(response) {
 
                         $scope.firstNameInArabic = response.data;
                     }, function(response) {});
                 }
                 $scope.onlastnameChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "english": $scope.lastName
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.lastName).then(function(response) {
 
                         $scope.lastNameInArabic = response.data;
                     }, function(response) {});
 
                 }
                 $scope.oncomnotesChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "english": $scope.notes
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.notes).then(function(response) {
 
                         $scope.companynotesInArabic = response.data;
                     }, function(response) {});
 
                 }
                 $scope.oncompanyadressoneChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "english": $scope.address1
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.address1).then(function(response) {
 
                         $scope.companyadressoneInArabic = response.data;
                     }, function(response) {});
 
                 }
                 $scope.oncompanyadresstwoChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "english": $scope.address2
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.address2).then(function(response) {
 
                         $scope.companyadresstwoInArabic = response.data;
                     }, function(response) {});
 
                 }
                 $scope.oncompanycountryChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "english": $scope.country
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.country).then(function(response) {
 
                         $scope.companycountryInArabic = response.data;
                     }, function(response) {});
 
                 }
                 $scope.oncompanystateChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "english": $scope.state
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.state).then(function(response) {
 
                         $scope.companystateInArabic = response.data;
                     }, function(response) {});
 
                 }
                 $scope.oncompanycityChange = function() {
-                    var config = {
-                        headers: {
-                            'X-Force-Content-Type': 'application/json'
-                        }
-                    }
-                    var obj = {
-                        "english": $scope.city
-                    }
-                    $http.post(translationpath + 'Translate/translate-text', JSON.stringify(obj), config).then(function(response) {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.city).then(function(response) {
 
                         $scope.companycityInArabic = response.data;
                     }, function(response) {});
@@ -1158,7 +1075,6 @@
 
                 $http.get(basePath + "control/getAllUsers?companyID=" + sessionStorage.getItem('company_id'))
                     .then(function(response) {
-
                         $scope.getusers = response.data;
                     });
 
@@ -2511,7 +2427,7 @@
 
                 $http.get(basePath + "control/getAllCustomers?companyID=" + sessionStorage.getItem('company_id'))
                     .then(function(response) {
-                        $scope.customers = response.data;
+                        $scope.customers = response.data[0];
                     });
 
                 $scope.deleteinvoice = function(id) {
@@ -3142,10 +3058,6 @@
                         $scope.companylogo = arrayBufferToBase64(response.data);
                     });
 
-                // let getLocalDataFromGMTDate = (date) => {
-                //     var getDateFormat = new Date(date);
-                //     return getDateFormat.getFullYear() + '/' + getDateFormat.getMonth() + '/' + getDateFormat.getDay();
-                // }
                 let getLocalDataFromGMTDate = (date) => {
                     var getDateFormat = new Date(date);
                     let mnth = ("0" + (getDateFormat.getMonth() + 1)).slice(-2);
@@ -3284,7 +3196,7 @@
                 $http.get(basePath + "control/getCompany?companyID=" + sessionStorage.getItem('company_id'))
                     .then(function(response) {
 
-                        $scope.seller = response.data;
+                        $scope.seller = response.data[0];
 
                         sessionStorage.setItem('current_seller_name_for_print_invoice', $scope.seller.companyName);
                         sessionStorage.setItem('current_vat_registration_number_for_print_invoice', $scope.seller.vatNumber_Company);
