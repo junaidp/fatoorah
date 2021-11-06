@@ -39,7 +39,7 @@
 						User Register
 					</span>
                     <div class="wrap-input100 validate-input" data-validate="Name">
-                        <input class="input100" type="text" name="name" placeholder="Name" ng-model="firstName">
+                        <input class="input100" type="text" name="name" placeholder="Company Name" ng-model="companyName">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
 							<i class="fa fa-user" aria-hidden="true"></i>
@@ -140,7 +140,7 @@
                 $scope.registercompany = function() {
                     debugger
                     var companyEnglish = {
-                        firstName: $scope.firstName,
+                        companyName: $scope.companyName,
                         email: $scope.email,
                         userType: $scope.userType,
                         password: $scope.password,

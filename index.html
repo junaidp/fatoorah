@@ -68,7 +68,7 @@
             }
 
             var basePath = "http://97f1-101-50-88-15.ngrok.io/";
-            var translationpath = "https://einvoice-1634502460189.azurewebsites.net/";
+            var translationpath = "http://97f1-101-50-88-15.ngrok.io/";
 
             var app = angular.module("myApp", ['ngRoute', 'angularUtils.directives.dirPagination']);
 
@@ -923,6 +923,18 @@
                 $scope.additionalNumber_Company = sessionStorage.getItem('additionalNumber_Company');
                 $scope.otherSellerid_Company = sessionStorage.getItem('otherSellerid_Company');
 
+                //inarabic
+                $scope.companyNameInArabic = sessionStorage.getItem('companyNameArabic');
+                $scope.firstNameInArabic = sessionStorage.getItem('firstNameArabic');
+                $scope.lastNameInArabic = sessionStorage.getItem('lastNameArabic');
+                $scope.companyadressoneInArabic = sessionStorage.getItem('address1Arabic');
+                $scope.companyadresstwoInArabic = sessionStorage.getItem('address2Arabic');
+                $scope.companynotesInArabic = sessionStorage.getItem('notesArabic');
+                $scope.companycountryInArabic = sessionStorage.getItem('countryArabic');
+                $scope.companystateInArabic = sessionStorage.getItem('stateArabic');
+                $scope.companycityInArabic = sessionStorage.getItem('cityarAbic');
+                $scope.postalCodeArabic = sessionStorage.getItem('postalCodeArabic');
+
                 $scope.postdata = function() {
                     var data = {
                         id: $scope.id,
@@ -985,8 +997,21 @@
                         otherSellerid_Company: $scope.otherSellerid_Company
 
                     };
-
-                    $http.post(basePath + 'control/updateCompany', JSON.stringify(data)).then(function(response) {}, function(response) {
+                    var arabic = {
+                        companyName: $scope.companyNameInArabic,
+                        firstName: $scope.firstNameInArabic,
+                        lastName: $scope.lastNameInArabic,
+                        address1: $scope.companyadressoneInArabic,
+                        address2: $scope.companyadresstwoInArabic,
+                        notes: $scope.companynotesInArabic,
+                        country: $scope.companycountryInArabic,
+                        state: $scope.companystateInArabic,
+                        city: $scope.companycityInArabic,
+                        postalCode: $scope.postalCodeArabic,
+                    };
+                    company = [];
+                    company.push(data, arabic);
+                    $http.post(basePath + 'control/updateCompany', JSON.stringify(company)).then(function(response) {}, function(response) {
 
                         $.notify("Update company successfully", "success");
 
@@ -1057,11 +1082,18 @@
                     }, function(response) {});
 
                 }
+                $scope.oncompanypostalChange = function() {
+                    $http.get(translationpath + 'control/getTranslationFromApi?english=' + $scope.postalCode).then(function(response) {
+
+                        $scope.postalCodeArabic = response.data;
+                    }, function(response) {});
+
+                }
                 $scope.onsomenotChange = function() {
                     $scope.companyemailArabic = $scope.email;
                     $scope.cellNoArabic = $scope.cellNo;
                     $scope.cellNoArabic = $scope.website;
-                    $scope.postalCodeArabic = $scope.postalCode;
+                    //$scope.postalCodeArabic = $scope.postalCode;
                     $scope.vatNumber_CompanyArabic = $scope.vatNumber_Company;
                     $scope.additionalNumber_CompanyArabic = $scope.additionalNumber_Company;
                     $scope.otherSellerid_CompanyArabic = $scope.otherSellerid_Company;
@@ -3050,6 +3082,11 @@
                     return window.btoa(binary);
                 }
 
+                $http.get(basePath + "control/getAccounts?companyID=" + sessionStorage.getItem('company_id'))
+                    .then(function(response) {
+                        debugger
+                        $scope.bankaccount = response.data.filter(x => x.accountType == 'Bank');
+                    });
 
                 $http.get(basePath + "uploader/getLogo?companyID=" + sessionStorage.getItem('company_id'), {
                         responseType: "arraybuffer"
@@ -3197,6 +3234,7 @@
                     .then(function(response) {
 
                         $scope.seller = response.data[0];
+                        $scope.sellerArabic = response.data[1];
 
                         sessionStorage.setItem('current_seller_name_for_print_invoice', $scope.seller.companyName);
                         sessionStorage.setItem('current_vat_registration_number_for_print_invoice', $scope.seller.vatNumber_Company);
@@ -3208,11 +3246,11 @@
 
                     var data = {
                         paymentDate: $scope.paymentDate,
-                        amount: $scope.amount,
-                        paymentAccount: $scope.paymentAccount,
+                        totalAmount: $scope.TotalAmountDue,
+                        paidAmmount: $scope.paidAmmount,
                         notes: $scope.notes,
-                        invoiceNo: $scope.invoiceNo,
-                        invoiceTotal: $scope.TotalAmountDue,
+                        invoiceNo: $scope.invoiceNumber,
+                        payAccount: $scope.payAccount,
                     };
 
                     invoicesForPrint.push(data);
@@ -3228,6 +3266,7 @@
 
                         setTimeout(() => {
                             window.reload();
+                            $('#myModal').hide();
                         }, 2000);
                     });
 

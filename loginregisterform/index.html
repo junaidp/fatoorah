@@ -99,7 +99,7 @@
     <script src="js/main.js"></script>
     <script>
         var app = angular.module("userApp", []);
-        var basePath = "https://einvoice-1634502460189.azurewebsites.net/";
+        var basePath = "http://97f1-101-50-88-15.ngrok.io/";
         app.controller("userCtrl", function($scope, $http) {
 
             $scope.user = null;
@@ -112,7 +112,7 @@
                     'password': $scope.password
                 }
                 debugger;
-                $http.post(basePath + '/control/signIn', JSON.stringify(data), {
+                $http.post(basePath + 'control/signIn', JSON.stringify(data), {
                         headers: {
                             'Content-Type': 'application/json',
                             'Accept': '*/*'
@@ -120,50 +120,59 @@
                     }
 
                 ).then(function(response) {
-                        debugger;
+                    debugger;
 
-                        sessionStorage.setItem('company_id', response.data.companyID);
-                        sessionStorage.setItem('id', response.data.id);
+                    sessionStorage.setItem('company_id', response.data[0].companyID);
+                    sessionStorage.setItem('id', response.data[0].id);
 
-                        sessionStorage.setItem('address1', response.data.address1);
-                        sessionStorage.setItem('address2', response.data.address2);
-                        sessionStorage.setItem('cellNo', response.data.cellNo);
-                        sessionStorage.setItem('firstName', response.data.firstName);
-                        sessionStorage.setItem('lastName', response.data.lastName);
-                        sessionStorage.setItem('city', response.data.city);
-                        sessionStorage.setItem('companyName', response.data.companyName);
-                        sessionStorage.setItem('country', response.data.country);
-                        sessionStorage.setItem('currency', response.data.currency);
-                        sessionStorage.setItem('email', response.data.email);
-                        sessionStorage.setItem('id', response.data.id);
-                        sessionStorage.setItem('notes', response.data.notes);
-                        sessionStorage.setItem('password', response.data.password);
-                        sessionStorage.setItem('postalCode', response.data.postalCode);
-                        sessionStorage.setItem('state', response.data.state);
-                        sessionStorage.setItem('userType', response.data.userType);
-                        sessionStorage.setItem('logo', response.data.logo);
-                        sessionStorage.setItem('website', response.data.website);
-                        debugger;
-                        sessionStorage.setItem('vatNumber_Company', response.data.otherSellerid_Company);
-                        sessionStorage.setItem('additionalNumber_Company', response.data.additionalNumber_Company);
-                        sessionStorage.setItem('otherSellerid_Company', response.data.otherSellerid_Company);
+                    sessionStorage.setItem('address1', response.data[0].address1);
+                    sessionStorage.setItem('address2', response.data[0].address2);
+                    sessionStorage.setItem('cellNo', response.data[0].cellNo);
+                    sessionStorage.setItem('firstName', response.data[0].firstName);
+                    sessionStorage.setItem('lastName', response.data[0].lastName);
+                    sessionStorage.setItem('city', response.data[0].city);
+                    sessionStorage.setItem('companyName', response.data[0].companyName);
+                    sessionStorage.setItem('country', response.data[0].country);
+                    sessionStorage.setItem('currency', response.data[0].currency);
+                    sessionStorage.setItem('email', response.data[0].email);
+                    //sessionStorage.setItem('id', response.data.id);
+                    sessionStorage.setItem('notes', response.data[0].notes);
+                    sessionStorage.setItem('password', response.data[0].password);
+                    sessionStorage.setItem('postalCode', response.data[0].postalCode);
+                    sessionStorage.setItem('state', response.data[0].state);
+                    sessionStorage.setItem('userType', response.data[0].userType);
+                    sessionStorage.setItem('logo', response.data.logo);
+                    sessionStorage.setItem('website', response.data[0].website);
+                    debugger;
+                    sessionStorage.setItem('vatNumber_Company', response.data[0].otherSellerid_Company);
+                    sessionStorage.setItem('additionalNumber_Company', response.data[0].additionalNumber_Company);
+                    sessionStorage.setItem('otherSellerid_Company', response.data[0].otherSellerid_Company);
 
-                        //Set For user
-                        sessionStorage.setItem('approve', response.data.approve);
-                        sessionStorage.setItem('productSetup', response.data.productSetup);
-                        sessionStorage.setItem('invoiceRaise', response.data.invoiceRaise);
-                        sessionStorage.setItem('paymentReceipt', response.data.paymentReceipt);
+                    //Set For user
+                    sessionStorage.setItem('approve', response.data[0].approve);
+                    sessionStorage.setItem('productSetup', response.data[0].productSetup);
+                    sessionStorage.setItem('invoiceRaise', response.data[0].invoiceRaise);
+                    sessionStorage.setItem('paymentReceipt', response.data[0].paymentReceipt);
 
-                        //arabic section
-                        sessionStorage.setItem('paymentReceipt', response.data.paymentReceipt);
+                    //arabic section
+                    sessionStorage.setItem('address1Arabic', response.data[1].address1);
+                    sessionStorage.setItem('address2Arabic', response.data[1].address2);
+                    sessionStorage.setItem('firstNameArabic', response.data[1].firstName);
+                    sessionStorage.setItem('lastNameArabic', response.data[1].lastName);
+                    sessionStorage.setItem('cityarAbic', response.data[1].city);
+                    sessionStorage.setItem('companyNameArabic', response.data[1].companyName);
+                    sessionStorage.setItem('countryArabic', response.data[1].country);
+                    sessionStorage.setItem('notesArabic', response.data[1].notes);
+                    sessionStorage.setItem('stateArabic', response.data[1].state);
+                    sessionStorage.setItem('postalCodeArabic', response.data[1].postalCode);
 
-                        window.location.href = "/#!/";
-                    },
-                    function(response) {
-                        debugger;
-                        sessionStorage.setItem('company_id', response.data.companyID);
-                        window.location.href = "/#!/";
-                    });
+                    window.location.href = "/#!/";
+                });
+                // function(response) {
+                //     debugger;
+                //     sessionStorage.setItem('company_id', response.data.companyID);
+                //     window.location.href = "/#!/";
+                // });
             };
         });
     </script>

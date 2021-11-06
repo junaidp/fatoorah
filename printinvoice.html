@@ -172,55 +172,55 @@
                                         <tr>
                                             <td>Name</td>
                                             <td id="sellername">{{seller.companyName}}</td>
-                                            <td class="textright">علي</td>
+                                            <td class="textright">{{sellerArabic.companyName}}</td>
                                             <td class="textright">اسم</td>
                                         </tr>
                                         <tr>
                                             <td>Building No</td>
                                             <td>{{seller.address1}}</td>
-                                            <td class="textright"></td>
+                                            <td class="textright">{{sellerArabic.address1}}</td>
                                             <td class="textright">لا للبناء</td>
                                         </tr>
                                         <tr>
                                             <td>Street Name</td>
                                             <td>{{seller.address2}}</td>
-                                            <td class="textright"></td>
+                                            <td class="textright">{{sellerArabic.address2}}</td>
                                             <td class="textright">اسم الشارع</td>
                                         </tr>
                                         <tr>
                                             <td>Province</td>
                                             <td>{{seller.state}}</td>
-                                            <td class="textright"></td>
+                                            <td class="textright">{{sellerArabic.state}}</td>
                                             <td class="textright">مقاطعة</td>
                                         </tr>
                                         <tr>
                                             <td>City</td>
                                             <td>{{seller.city}}</td>
-                                            <td class="textright"></td>
+                                            <td class="textright">{{sellerArabic.city}}</td>
                                             <td class="textright">مدينة</td>
                                         </tr>
                                         <tr>
                                             <td>Postal Code</td>
                                             <td>{{seller.postalCode}}</td>
-                                            <td class="textright"></td>
+                                            <td class="textright">{{sellerArabic.postalCode}}</td>
                                             <td class="textright">رمز بريدي</td>
                                         </tr>
                                         <tr>
                                             <td>Additional No</td>
                                             <td>{{seller.additionalNumber_Company}}</td>
-                                            <td class="textright"></td>
+                                            <td class="textright">{{seller.additionalNumber_Company}}</td>
                                             <td class="textright">لاإضافية</td>
                                         </tr>
                                         <tr>
                                             <td>VAT Number</td>
                                             <td id="vatregisternumber">{{seller.vatNumber_Company}}</td>
-                                            <td class="textright"></td>
+                                            <td class="textright">{{seller.vatNumber_Company}}</td>
                                             <td class="textright">ظريبه الشراء</td>
                                         </tr>
                                         <tr>
                                             <td>Other Seller ID</td>
                                             <td>{{seller.otherSellerid_Company}}</td>
-                                            <td class="textright"></td>
+                                            <td class="textright">{{seller.otherSellerid_Company}}</td>
                                             <td class="textright">معرف البائع الآخر</td>
                                         </tr>
                                     </tbody>
@@ -449,31 +449,15 @@
                                 <div class="form-group row mt-2">
                                     <label class="col-sm-3 col-form-label">Pay Amount</label>
                                     <div class="col-sm-9">
-                                        <input type="number" ng-model="amount" class="form-control" value="$">
+                                        <input type="number" ng-model="paidAmmount" class="form-control" value="$">
                                     </div>
                                 </div>
-                                <!-- <div class="form-group row mt-2">
-                                    <label class="col-sm-3 col-form-label">Payment method</label>
-                                    <div class="col-sm-9">
-                                        <select name="" class="form-control" id="">
-                                                <option value="">Select a payment method...</option>
-                                                <option value="">Bank payment</option>
-                                                <option value="">Cash</option>
-                                                <option value="">Check</option>
-                                                <option value="">Credit card</option>
-                                                <option value="">Paypal</option>
-                                                <option value="">Other</option>
-                                            </select>
-                                    </div>
-                                </div> -->
                                 <div class="form-group row mt-2">
                                     <label class="col-sm-3 col-form-label">Payment account</label>
                                     <div class="col-sm-9">
-                                        <select name="" ng-model="paymentAccount" class="form-control" id="">
-                                                <option value="">Select a payment account...</option>
-                                                <option value="Cash on Hand (USD)">Cash on Hand (USD)</option>
-                                                <option value="Shareholder Loan (USD)">Shareholder Loan (USD)</option>
-                                            </select>
+                                        <select name="" ng-model="payAccount" class="form-control" id="">
+                                            <option ng-repeat="x in bankaccount">{{x.name}}</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group row mt-2">
@@ -580,7 +564,7 @@
             layout: "Portrait"
         };
         $("#printMe").css("font-size", "12px");
-
+        //$('#printMe').css("background-image", "url(../img/draft.png)")
         // New Promise-based usage:
         html2pdf().set(opt).from(element).save();
     }
