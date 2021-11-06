@@ -2997,6 +2997,7 @@
                 }
 
                 $scope.updatecustomer = function() {
+                    debugger
                     var data = {
                         id: $scope.id,
                         customer: $scope.customerName,
@@ -3049,8 +3050,6 @@
                         shippingPostal: $scope.shippingPostalInArabic,
                         shippingCity: $scope.shippingCityInArabic,
                         deliveryInstructions: $scope.deliveryInstructionsInArabic,
-                        userId: sessionStorage.getItem('id'),
-                        companyID: sessionStorage.getItem('company_id'),
                     };
                     customer = [];
                     customer.push(data, arabic);

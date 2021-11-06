@@ -318,7 +318,7 @@
                                     </div>
                                     <div class="row mt-2">
                                         <div class="col">
-                                            <input type="number" class="form-control is-invalid" ng-model="phone" placeholder="Phone" ng-blur="onsomenotChange()" required>
+                                            <input type="text" class="form-control is-invalid" ng-model="phone" placeholder="Phone" ng-blur="onsomenotChange()" required>
                                         </div>
                                         <div class="col">
                                             <input type="text" class="form-control is-invalid" placeholder="VAT number" ng-model="vatNumber_Customer" ng-blur="onsomenotChange()" required>
@@ -661,15 +661,15 @@
                                             <input type="text" class="form-control is-invalid" ng-model="phone" placeholder="Phone" ng-blur="onphoneChange()" required>
                                         </div>
                                         <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="VAT number" ng-model="vatNumber_CustomerInArabic" required>
+                                            <input type="text" class="form-control is-invalid" placeholder="VAT number" ng-model="vatNumber_Customer" required>
                                         </div>
                                     </div>
                                     <div class="row mt-2">
                                         <div class="col">
-                                            <input type="text" class="form-control is-invalid" ng-model="Additional" placeholder="Additional number" required>
+                                            <input type="text" class="form-control is-invalid" ng-model="additionalNumber_Customer" placeholder="Additional number" required>
                                         </div>
                                         <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="Other seller ID" ng-model="otherSellerid_CustomerInArabic" required>
+                                            <input type="text" class="form-control is-invalid" placeholder="Other seller ID" ng-model="otherSellerid_Customer" required>
                                         </div>
                                     </div>
                                 </div>
@@ -687,7 +687,7 @@
             <div class="row mt-4">
                 <div class="col-12 text-center pb-5">
                     <button class="btn btn-danger">Cancel &nbsp; إلغاء</button>
-                    <input class="btn btn-success" type="button" ng-click="SaveCustomer();" value="Save &nbsp; حفظ">
+                    <input class="btn btn-success" type="button" ng-click="updatecustomer();" value="Save &nbsp; حفظ">
                 </div>
             </div>
             <!-- </form> -->
