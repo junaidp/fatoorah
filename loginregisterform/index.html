@@ -90,6 +90,7 @@
     <script src="vendor/select2/select2.min.js"></script>
     <!--===============================================================================================-->
     <script src="vendor/tilt/tilt.jquery.min.js"></script>
+    <script src="js/notify.min.js"></script>
     <script>
         $('.js-tilt').tilt({
             scale: 1.1
@@ -121,58 +122,95 @@
 
                 ).then(function(response) {
                     debugger;
+                    if (response.data.length == 1) {
+                        sessionStorage.setItem('company_id', response.data[0].companyID);
+                        sessionStorage.setItem('id', response.data[0].id);
 
-                    sessionStorage.setItem('company_id', response.data[0].companyID);
-                    sessionStorage.setItem('id', response.data[0].id);
+                        sessionStorage.setItem('address1', response.data[0].address1);
+                        sessionStorage.setItem('address2', response.data[0].address2);
+                        sessionStorage.setItem('cellNo', response.data[0].cellNo);
+                        sessionStorage.setItem('firstName', response.data[0].firstName);
+                        sessionStorage.setItem('lastName', response.data[0].lastName);
+                        sessionStorage.setItem('city', response.data[0].city);
+                        sessionStorage.setItem('companyName', response.data[0].companyName);
+                        sessionStorage.setItem('country', response.data[0].country);
+                        sessionStorage.setItem('currency', response.data[0].currency);
+                        sessionStorage.setItem('email', response.data[0].email);
+                        //sessionStorage.setItem('id', response.data.id);
+                        sessionStorage.setItem('notes', response.data[0].notes);
+                        sessionStorage.setItem('password', response.data[0].password);
+                        sessionStorage.setItem('postalCode', response.data[0].postalCode);
+                        sessionStorage.setItem('state', response.data[0].state);
+                        sessionStorage.setItem('userType', response.data[0].userType);
+                        sessionStorage.setItem('logo', response.data.logo);
+                        sessionStorage.setItem('website', response.data[0].website);
+                        debugger;
+                        sessionStorage.setItem('vatNumber_Company', response.data[0].otherSellerid_Company);
+                        sessionStorage.setItem('additionalNumber_Company', response.data[0].additionalNumber_Company);
+                        sessionStorage.setItem('otherSellerid_Company', response.data[0].otherSellerid_Company);
 
-                    sessionStorage.setItem('address1', response.data[0].address1);
-                    sessionStorage.setItem('address2', response.data[0].address2);
-                    sessionStorage.setItem('cellNo', response.data[0].cellNo);
-                    sessionStorage.setItem('firstName', response.data[0].firstName);
-                    sessionStorage.setItem('lastName', response.data[0].lastName);
-                    sessionStorage.setItem('city', response.data[0].city);
-                    sessionStorage.setItem('companyName', response.data[0].companyName);
-                    sessionStorage.setItem('country', response.data[0].country);
-                    sessionStorage.setItem('currency', response.data[0].currency);
-                    sessionStorage.setItem('email', response.data[0].email);
-                    //sessionStorage.setItem('id', response.data.id);
-                    sessionStorage.setItem('notes', response.data[0].notes);
-                    sessionStorage.setItem('password', response.data[0].password);
-                    sessionStorage.setItem('postalCode', response.data[0].postalCode);
-                    sessionStorage.setItem('state', response.data[0].state);
-                    sessionStorage.setItem('userType', response.data[0].userType);
-                    sessionStorage.setItem('logo', response.data.logo);
-                    sessionStorage.setItem('website', response.data[0].website);
-                    debugger;
-                    sessionStorage.setItem('vatNumber_Company', response.data[0].otherSellerid_Company);
-                    sessionStorage.setItem('additionalNumber_Company', response.data[0].additionalNumber_Company);
-                    sessionStorage.setItem('otherSellerid_Company', response.data[0].otherSellerid_Company);
+                        //Set For user
+                        sessionStorage.setItem('approve', response.data[0].approve);
+                        sessionStorage.setItem('productSetup', response.data[0].productSetup);
+                        sessionStorage.setItem('invoiceRaise', response.data[0].invoiceRaise);
+                        sessionStorage.setItem('paymentReceipt', response.data[0].paymentReceipt);
 
-                    //Set For user
-                    sessionStorage.setItem('approve', response.data[0].approve);
-                    sessionStorage.setItem('productSetup', response.data[0].productSetup);
-                    sessionStorage.setItem('invoiceRaise', response.data[0].invoiceRaise);
-                    sessionStorage.setItem('paymentReceipt', response.data[0].paymentReceipt);
+                        window.location.href = "/#!/";
 
-                    //arabic section
-                    sessionStorage.setItem('address1Arabic', response.data[1].address1);
-                    sessionStorage.setItem('address2Arabic', response.data[1].address2);
-                    sessionStorage.setItem('firstNameArabic', response.data[1].firstName);
-                    sessionStorage.setItem('lastNameArabic', response.data[1].lastName);
-                    sessionStorage.setItem('cityarAbic', response.data[1].city);
-                    sessionStorage.setItem('companyNameArabic', response.data[1].companyName);
-                    sessionStorage.setItem('countryArabic', response.data[1].country);
-                    sessionStorage.setItem('notesArabic', response.data[1].notes);
-                    sessionStorage.setItem('stateArabic', response.data[1].state);
-                    sessionStorage.setItem('postalCodeArabic', response.data[1].postalCode);
+                    } else if (response.data.length == 2) {
 
-                    window.location.href = "/#!/";
+                        sessionStorage.setItem('company_id', response.data[0].companyID);
+                        sessionStorage.setItem('id', response.data[0].id);
+
+                        sessionStorage.setItem('address1', response.data[0].address1);
+                        sessionStorage.setItem('address2', response.data[0].address2);
+                        sessionStorage.setItem('cellNo', response.data[0].cellNo);
+                        sessionStorage.setItem('firstName', response.data[0].firstName);
+                        sessionStorage.setItem('lastName', response.data[0].lastName);
+                        sessionStorage.setItem('city', response.data[0].city);
+                        sessionStorage.setItem('companyName', response.data[0].companyName);
+                        sessionStorage.setItem('country', response.data[0].country);
+                        sessionStorage.setItem('currency', response.data[0].currency);
+                        sessionStorage.setItem('email', response.data[0].email);
+                        //sessionStorage.setItem('id', response.data.id);
+                        sessionStorage.setItem('notes', response.data[0].notes);
+                        sessionStorage.setItem('password', response.data[0].password);
+                        sessionStorage.setItem('postalCode', response.data[0].postalCode);
+                        sessionStorage.setItem('state', response.data[0].state);
+                        sessionStorage.setItem('userType', response.data[0].userType);
+                        sessionStorage.setItem('logo', response.data.logo);
+                        sessionStorage.setItem('website', response.data[0].website);
+                        debugger;
+                        sessionStorage.setItem('vatNumber_Company', response.data[0].otherSellerid_Company);
+                        sessionStorage.setItem('additionalNumber_Company', response.data[0].additionalNumber_Company);
+                        sessionStorage.setItem('otherSellerid_Company', response.data[0].otherSellerid_Company);
+
+                        //Set For user
+                        sessionStorage.setItem('approve', response.data[0].approve);
+                        sessionStorage.setItem('productSetup', response.data[0].productSetup);
+                        sessionStorage.setItem('invoiceRaise', response.data[0].invoiceRaise);
+                        sessionStorage.setItem('paymentReceipt', response.data[0].paymentReceipt);
+
+                        //arabic section
+                        sessionStorage.setItem('address1Arabic', response.data[1].address1);
+                        sessionStorage.setItem('address2Arabic', response.data[1].address2);
+                        sessionStorage.setItem('firstNameArabic', response.data[1].firstName);
+                        sessionStorage.setItem('lastNameArabic', response.data[1].lastName);
+                        sessionStorage.setItem('cityarAbic', response.data[1].city);
+                        sessionStorage.setItem('companyNameArabic', response.data[1].companyName);
+                        sessionStorage.setItem('countryArabic', response.data[1].country);
+                        sessionStorage.setItem('notesArabic', response.data[1].notes);
+                        sessionStorage.setItem('stateArabic', response.data[1].state);
+                        sessionStorage.setItem('postalCodeArabic', response.data[1].postalCode);
+
+                        window.location.href = "/#!/";
+                    } else if (response.data == '"Invalid Credentials"') {
+                        $.notify(response.data, "error");
+                        return;
+                    }
+
+
                 });
-                // function(response) {
-                //     debugger;
-                //     sessionStorage.setItem('company_id', response.data.companyID);
-                //     window.location.href = "/#!/";
-                // });
             };
         });
     </script>
