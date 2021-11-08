@@ -589,7 +589,16 @@
     }
 </script>
 <script>
+    $(document).ready(function() {
+        if (!localStorage.onload) {
+            localStorage.setItem("onload", "true");
+            window.location.reload();
+        }
+    });
     window.onload = function() {
-        window.location.reload(true);
+        if (!localStorage.justOnce) {
+            localStorage.setItem("justOnce", "true");
+            window.location.reload();
+        }
     }
 </script>

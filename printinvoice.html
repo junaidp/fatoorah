@@ -36,7 +36,7 @@
                                 <small><b>Created:</b> 4 hour ago</small>
                             </div>
                             <div class="col-6 addproduct">
-                                <a href="#">Approve</a>
+                                <a href="javascript:void(0);" ng-click="updateinvoicestatusapproved();">Approve</a>
                                 <a href="createinvoice.html">Edit invoice</a>
                             </div>
                         </div>
@@ -480,7 +480,9 @@
     </div>
 </div>
 
-
+<script src="./NotifyPlugin/notify.min.js?v=2.1"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css?v=3.1">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js?v=4.1"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 <script>
     $(document).ready(function() {

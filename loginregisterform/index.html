@@ -204,6 +204,7 @@
                             sessionStorage.setItem('postalCodeArabic', response.data[1].postalCode);
 
                             window.location.href = "/#!/";
+
                         } else if (response.data == '"Invalid Credentials"') {
                             $.notify(response.data, "error");
                             return;
