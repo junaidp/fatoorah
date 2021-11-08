@@ -501,3 +501,16 @@ iframe {
         opacity: 1;
     }
 }
+
+.logo_cssregister {
+    width: 100%;
+}
+
+.form_cssregister {
+    width: 100%;
+}
+
+.form_cssregister_input {
+    width: 50%;
+    float: left;
+}

@@ -3,11 +3,16 @@
         <div class="container m-0">
             <div class="row mt-3">
                 <div class="col-6">
-                    <div class="col-6">
-                        <h2>User Profile</h2>
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>User Profile</h2>
+                        </div>
+                        <div class="col-6">
+                            <img ng-src="data:image/JPEG;base64,{{companylogo}}" height="90" width="150">
+                        </div>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-6" ng-if="$scope.companylogo.length >0 ">
                     <div class="row">
                         <div class="col-8">
                             <input class="form-control" id="fileupload" type="file" name="fileupload">
@@ -17,6 +22,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
         <div class="row mt-2">
@@ -603,7 +609,7 @@
         let formData = new FormData();
         debugger
         formData.append("file", fileupload.files[0]);
-        await fetch('https://einvoice-1634502460189.azurewebsites.net/uploader/uploadLogo', {
+        await fetch('http://97f1-101-50-88-15.ngrok.io/uploader/uploadLogo', {
             method: "POST",
             body: formData
         });
