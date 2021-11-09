@@ -981,11 +981,13 @@
                     };
 
                     $http.post(basePath + 'control/updateCompany', JSON.stringify(data)).then(function(response) {}, function(response) {
-                        //$.notify("Company Saved successfully", "success");
+                        $.notify("Company Saved successfully", "success");
+
                         setTimeout(() => {
                             window.location.href = "/#!/edituserprofile";
                         }, 2000);
                     });
+
                 };
 
                 $scope.uploadFile = function() {
@@ -1033,14 +1035,25 @@
                     };
                     company = [];
                     company.push(data, arabic);
-                    $http.post(basePath + 'control/updateCompany', JSON.stringify(company)).then(function(response) {}, function(response) {
+                    debugger
+                    $http.post(basePath + 'control/updateCompany', JSON.stringify(company)).then(function(response) {
 
+                        if (response.data.errorStatus == "Error") {
+                            $.notify(response.data.error, "error");
+                            return;
+                        }
+
+                    }, function(response) {
                         $.notify("Update company successfully", "success");
-
-                        setTimeout(() => {
-                            window.location.href = "/#!/edituserprofile";
-                        }, 2000);
+                        logout();
                     });
+                    $scope.logout = function() {
+                        sessionStorage.removeItem('company_id');
+                        window.location.reload(true);
+                    }
+                    setTimeout(() => {
+                        $scope.logout();
+                    }, 2000);
                 }
                 let arrayBufferToBase64 = (buffer) => {
                     var binary = '';
@@ -1217,6 +1230,12 @@
                                 $scope.getusers = response.data;
                             });
                     });
+                    $scope.refresh = function() {
+                        window.location.reload(true);
+                    }
+                    setTimeout(() => {
+                        $scope.refresh();
+                    }, 2000);
                 };
 
                 $http.get(basePath + "control/getAllLocations?companyID=" + sessionStorage.getItem('company_id'))
@@ -1248,12 +1267,13 @@
 
                 //Update user
                 $scope.getCurrentUserDetails = function(id) {
+                    debugger
                     $scope.id = id;
                     $scope.userId = $scope.getusers.filter(x => x.id == id)[0].userId;
                     $scope.username = $scope.getusers.filter(x => x.id == id)[0].name;
                     $scope.email = $scope.getusers.filter(x => x.id == id)[0].email;
                     $scope.location = $scope.getusers.filter(x => x.id == id)[0].location;
-                    $scope.password = parseInt($scope.getusers.filter(x => x.id == id)[0].password);
+                    //$scope.password = parseInt($scope.getusers.filter(x => x.id == id)[0].password);
                     $scope.phonenumber = $scope.getusers.filter(x => x.id == id)[0].phone;
 
                     $scope.productsetup = $scope.getusers.filter(x => x.id == id)[0].productSetup;
@@ -1264,6 +1284,18 @@
                 }
                 $scope.updateuser = function() {
                     debugger
+                    if ($('#productsetup:checkbox:checked').length > 0) {
+                        $scope.productsetup = true;
+                    }
+                    if ($('#Invoiceraise:checkbox:checked').length > 0) {
+                        $scope.Invoiceraise = true;
+                    }
+                    if ($('#Paymentreceipt:checkbox:checked').length > 0) {
+                        $scope.Paymentreceipt = true;
+                    }
+                    if ($('#Approve:checkbox:checked').length > 0) {
+                        $scope.Approve = true;
+                    }
                     var user = {
                         id: $scope.id,
                         userId: $scope.userId,
@@ -1271,8 +1303,8 @@
                         email: $scope.email,
                         location: $scope.location,
                         phone: $scope.phonenumber,
-                        password: $scope.password,
-                        approve: $scope.productsetup,
+                        //password: $scope.password,
+                        approve: $scope.Approve,
                         productSetup: $scope.productsetup,
                         invoiceRaise: $scope.Invoiceraise,
                         paymentReceipt: $scope.Paymentreceipt,
@@ -1281,14 +1313,17 @@
                     $http.post(basePath + 'control/updateUser', JSON.stringify(user)).then(function(response) {}, function(response) {
 
                         $.notify("update use successfully", "success");
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 2000);
                         $http.get(basePath + "control/getAllUsers?companyID=" + sessionStorage.getItem('company_id'))
                             .then(function(response) {
                                 $scope.getusers = response.data;
                             });
                     });
+                    $scope.refresh = function() {
+                        window.location.reload(true);
+                    }
+                    setTimeout(() => {
+                        $scope.refresh();
+                    }, 2000);
                 };
             });
 
@@ -1594,6 +1629,7 @@
                 $scope.retention = null;
                 $scope.totalNetAmount = null;
                 $scope.dateTime = dateTime;
+                //$scope.recordPayment = null;
 
                 $scope.SaveAndContinueInvoice = function() {
                     debugger
@@ -1632,6 +1668,7 @@
                         retention: $scope.retention,
                         totalNetAmount: $scope.totalNetAmount,
                         dateTime: $scope.dateTime,
+                        recordPayment: $scope.totalNetAmount,
                     };
 
 
@@ -2003,6 +2040,7 @@
                         retention: $scope.retention,
                         totalNetAmount: $scope.totalNetAmount,
                         dateTime: $scope.dateTime,
+                        recordPayment: $scope.totalNetAmount,
                     };
 
 
@@ -2357,6 +2395,7 @@
                         retention: $scope.retention,
                         totalNetAmount: $scope.totalNetAmount,
                         dateTime: $scope.dateTime,
+                        recordPayment: $scope.totalNetAmount,
                     };
 
 
@@ -2586,6 +2625,7 @@
                                 retention: getapiData.retention,
                                 totalNetAmount: getapiData.totalNetAmount,
                                 dateTime: getapiData.dateTime,
+                                recordPayment: getapiData.recordPayment,
                             };
                             invoicesForPrint = [];
 
@@ -3285,6 +3325,14 @@
                     sessionStorage.setItem('dateTime', invoicesForPrint[0].dateTime);
                     $scope.dateTime = sessionStorage.getItem('dateTime');
 
+                    // status
+                    sessionStorage.setItem('status', invoicesForPrint[0].status);
+                    $scope.status = sessionStorage.getItem('status');
+
+                    // recordpayment
+                    sessionStorage.setItem('recordPayment', invoicesForPrint[0].recordPayment);
+                    $scope.recordPayment = sessionStorage.getItem('recordPayment');
+
                 } else {
                     $scope.invoiceNumber = sessionStorage.getItem('invoiceNumber_printInv');
                     $scope.invoiceIssueDate = getLocalDataFromGMTDate(sessionStorage.getItem('invoiceDate_printInv'));
@@ -3307,10 +3355,11 @@
                     $scope.totalNetAmount = sessionStorage.getItem('totalNetAmount');
                     $scope.serviceLocation = sessionStorage.getItem('serviceLocation');
                     $scope.dateTime = sessionStorage.getItem('dateTime');
-
-                    word();
+                    $scope.status = sessionStorage.getItem('status');
+                    $scope.recordPayment = sessionStorage.getItem('recordPayment');
 
                     $scope.itemsList = JSON.parse(sessionStorage.getItem('lineItemList_printInv'));
+                    word();
                 }
 
                 $http.get(basePath + "control/getCustomer?customerID=" + $scope.customerId)
@@ -3331,12 +3380,18 @@
                         sessionStorage.setItem('current_total_vat_for_print_invoice', $scope.TotalVAT);
                     });
 
+                $http.get(basePath + "control/getRecordPaymeny?invoiceNo=" + $scope.invoiceNumber)
+                    .then(function(response) {
+                        debugger
+                        $scope.recordpayment = response.data;
+                    });
+
 
                 $scope.recordpaymentInvoice = function() {
 
                     var data = {
                         paymentDate: $scope.paymentDate,
-                        totalAmount: $scope.TotalAmountDue,
+                        totalAmount: $scope.recordpayment,
                         paidAmmount: $scope.paidAmmount,
                         notes: $scope.notes,
                         invoiceNo: $scope.invoiceNumber,
@@ -3353,9 +3408,9 @@
 
                     }, function(response) {
                         $.notify("Payment Record successfully", "success");
-
+                        //window.location.href = "/#!/invoice";
                         setTimeout(() => {
-                            window.reload();
+                            window.location.href = "/#!/invoice";
                             $('#myModal').hide();
                         }, 2000);
                     });
@@ -3438,7 +3493,7 @@
                     <a ng-href="#!products" ng-show="productSetup_Persmission == 'true' || userType == 'company' || userType == 'individual'" class="nav_link"> <i class='bx bx-box nav_icon'></i> <span class="nav_name">Product</span> </a>
                     <a ng-href="#!customer" ng-show="userType == 'company' || userType == 'individual'" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Customer</span>
                     </a>
-                    <a ng-href="/#!invoice" ng-show="invoiceRaise == 'true' || userType == 'company' || userType == 'individual'" class="nav_link"> <i class="fas fa-file-invoice"></i> <span class="nav_name">Invoice</span> </a>
+                    <a ng-href="/#!invoice" ng-show="invoiceRaise_Persmission == 'true' || userType == 'company' || userType == 'individual' || approve_Persmission === 'true'" class="nav_link"> <i class="fas fa-file-invoice"></i> <span class="nav_name">Invoice</span> </a>
                     <a ng-href="/#!report" ng-show="userType == 'company' || userType == 'individual'" class="nav_link">
                         <i class="fas fa-chart-bar"></i> <span class="nav_name">Reports</span> </a>
                     <a ng-href="/#!setting" ng-show="userType == 'company' || userType == 'individual'" class="nav_link"> <i class="fas fa-cog nav_icon"></i></i> <span class="nav_name">Settings</span></a>

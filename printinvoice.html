@@ -8,7 +8,7 @@
             </div>
             <div class="col-6 addproduct">
                 <!-- ng-if="status =='APPROVED'" -->
-                <div class="dropdown">
+                <div class="dropdown" ng-if="status =='APPROVED'">
                     <span>Download</span>
                     <div class="dropdown-content">
                         <ul>
@@ -26,17 +26,17 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-3">
+        <div class="row mt-3" ng-if="status =='UNAPPROVED'">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-6">
                                 <h4>Create</h4>
-                                <small><b>Created:</b> 4 hour ago</small>
+                                <!-- <small><b>Created:</b> 4 hour ago</small> -->
                             </div>
                             <div class="col-6 addproduct">
-                                <a href="javascript:void(0);" ng-click="updateinvoicestatusapproved();">Approve</a>
+                                <a href="javascript:void(0);" ng-show="approve_Persmission === 'true' || userType === 'individual' " ng-click="updateinvoicestatusapproved();">Approve</a>
                                 <a href="createinvoice.html">Edit invoice</a>
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-3">
+        <div class="row mt-3" ng-if="status =='UNAPPOVED'">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
@@ -75,7 +75,7 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-3">
+        <div class="row mt-3" ng-if="status =='APPROVED'" ng-show="paymentReceipt_Persmission === 'true' || userType === 'individual' ">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
@@ -86,7 +86,7 @@
                                         <h4>Get Paid</h4>
                                     </div>
                                     <div class="col-6">
-                                        <small><b>Amount due:</b> <a href="#">Record a payment</a> manually</small>
+                                        <small><b>Amount due: {{recordPayment | number}} </b></small>
                                     </div>
                                     <div class="col-6">
                                         <small><b>Status:</b> Your invoice is awaiting payment</small>
@@ -94,7 +94,7 @@
                                 </div>
                             </div>
                             <div class="col-6 addproduct">
-                                <a href="javascript:void(0);" id="myBtn">Record a payment - دفع قياسي</a>
+                                <a href="javascript:void(0);" id="myBtn" onclick="$('#myModal').show();">Record a payment - دفع قياسي</a>
                             </div>
                         </div>
                     </div>
@@ -378,6 +378,10 @@
                                                             <td>Total Net Amount Payable إجمالي صافي المبلغ المستحق الدفع</td>
                                                             <td>{{totalNetAmount | number}} {{currency}}</td>
                                                         </tr>
+                                                        <tr ng-if="status =='APPROVE'">
+                                                            <td>Total Amount Pay</td>
+                                                            <td>{{recordPayment | number}} {{currency}}</td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -437,7 +441,7 @@
                                 <div class="form-group row mt-2">
                                     <label class="col-sm-3 col-form-label">Total Amount</label>
                                     <div class="col-sm-9">
-                                        <input type="text" readonly ng-model="TotalAmountDue" value="{{TotalAmountDue}}" class="form-control">
+                                        <input type="text" readonly ng-model="recordPayment" value="{{recordPayment}}" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group row mt-2">

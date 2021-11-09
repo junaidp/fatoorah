@@ -1,84 +1,84 @@
 <div class="height-100" ng-controller="customerCtrl">
     <div class="container m-0">
         <div class="row mt-2">
-            <!-- <form action="" class="col-12"> -->
-            <div class="row">
-                <div class="col-6">
-                    <div class="row border_right">
-                        <div class="col-6">
-                            <h2>New customer</h2>
-                        </div>
-                    </div>
-                    <div class="row border_right">
-                        <div class="col-12 mt-3 border-bottom">
-                            <h4>Basic information</h4>
-                        </div>
-                        <div class="col-12 mt-3">
-                            <div class="form-group row">
-                                <label for="inputPassword" class="col-sm-2 col-form-label">Customer</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control is-invalid" ng-model="customerName" ng-blur="onNameChange()" required>
-                                    <small class="form-text text-muted">Name of a business or person.</small>
-                                </div>
+            <form action="" class="col-12" name="customerupdate">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row border_right">
+                            <div class="col-6">
+                                <h2>New customer</h2>
                             </div>
-                            <div class="form-group row mt-2">
-                                <label for="inputPassword" class="col-sm-2 col-form-label">Primary Contact</label>
-                                <div class="col-sm-10 mt-2">
-                                    <div class="row">
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="First name" ng-model="firstName" ng-blur="onFirstNameChange()" required>
-                                        </div>
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="Last name" ng-model="lastName" ng-blur="onLarstNameChange()" required>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col">
-                                            <input type="email" class="form-control is-invalid" placeholder="Email" ng-model="email" ng-blur="onsomenotChange()" required>
-                                        </div>
-                                        <div class="col">
-                                            <input type="number" class="form-control is-invalid" placeholder="Phone" ng-model="phoneMain" ng-blur="onsomenotChange()" required>
-                                        </div>
+                        </div>
+                        <div class="row border_right">
+                            <div class="col-12 mt-3 border-bottom">
+                                <h4>Basic information</h4>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <div class="form-group row">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">Customer</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control is-invalid" ng-model="customerName" ng-blur="onNameChange()" required>
+                                        <small class="form-text text-muted">Name of a business or person.</small>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group row mt-2">
-                                <label for="inputPassword" class="col-sm-2 col-form-label">Account Number</label>
-                                <div class="col-sm-10">
-                                    <input type="number" class="form-control is-invalid" ng-model="accountNumber" ng-blur="onsomenotChange()" required>
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">Primary Contact</label>
+                                    <div class="col-sm-10 mt-2">
+                                        <div class="row">
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="First name" ng-model="firstName" ng-blur="onFirstNameChange()" required>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="Last name" ng-model="lastName" ng-blur="onLarstNameChange()" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col">
+                                                <input type="email" class="form-control is-invalid" placeholder="Email" ng-model="email" ng-blur="onsomenotChange()" required>
+                                            </div>
+                                            <div class="col">
+                                                <input type="number" class="form-control is-invalid" placeholder="Phone" ng-model="phoneMain" ng-blur="onsomenotChange()" required>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group row mt-2">
-                                <label for="inputPassword" class="col-sm-2 col-form-label">Website</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control is-invalid" ng-model="website" ng-blur="onsomenotChange()" required>
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">Account Number</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control is-invalid" ng-model="accountNumber" ng-blur="onsomenotChange()" required>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group row mt-2">
-                                <label for="inputPassword" class="col-sm-2 col-form-label">Related party</label>
-                                <div class="col-sm-10">
-                                    <select name="" class="form-control is-invalid" id="" ng-model="relatedParty" ng-blur="onsomenotChange()" required>
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">Website</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control is-invalid" ng-model="website" ng-blur="onsomenotChange()" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">Related party</label>
+                                    <div class="col-sm-10">
+                                        <select name="" class="form-control is-invalid" id="" ng-model="relatedParty" ng-blur="onsomenotChange()" required>
                                                 <option value="">Select</option>
                                                 <option id="yes" value="yes">yes</option>
                                                 <option id="no" value="no">No</option>
                                             </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">Notes</label>
+                                    <div class="col-sm-10">
+                                        <textarea name="" class="form-control is-invalid" id="" cols="2" rows="2" ng-model="notes" ng-blur="onnotesChange()" required></textarea>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group row mt-2">
-                                <label for="inputPassword" class="col-sm-2 col-form-label">Notes</label>
-                                <div class="col-sm-10">
-                                    <textarea name="" class="form-control is-invalid" id="" cols="2" rows="2" ng-model="notes" ng-blur="onnotesChange()" required></textarea>
-                                </div>
+                            <div class="col-12 mt-3 border-bottom">
+                                <h4>Billing</h4>
                             </div>
-                        </div>
-                        <div class="col-12 mt-3 border-bottom">
-                            <h4>Billing</h4>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group row mt-2">
-                                <label for="inputPassword" class="col-sm-2 col-form-label">Currency</label>
-                                <div class="col-sm-10">
-                                    <select name="" id="" class="form-control is-invalid" ng-model="currency" ng-blur="onsomenotChange()" required>
+                            <div class="col-12">
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">Currency</label>
+                                    <div class="col-sm-10">
+                                        <select name="" id="" class="form-control is-invalid" ng-model="currency" ng-blur="onsomenotChange()" required>
                                         <option value="">Select</option>
                                         <option value="AED">AED -	United Arab Emirates Dirham</option>
                                         <option value='AFN'>AFN -	Afghanistan Afghani</option>
@@ -245,180 +245,180 @@
                                         <option value='ZMW'>ZMW-	Zambia Kwacha </option>
                                         <option value='ZWD'>ZWD-	Zimbabwe Dollar </option>
                                     </select>
-                                    <small class="form-text text-muted">Invoices for this customer will default to this currency.</small>
-                                </div>
-                            </div>
-                            <div class="form-group row mt-2">
-                                <label for="inputPassword" class="col-sm-2 col-form-label">Billing address</label>
-                                <div class="col-sm-10 mt-2">
-                                    <div class="row">
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="Address" ng-model="billingAddress1" ng-blur="onadressoneChange()" required>
-                                        </div>
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="Address 2 (optional)" ng-model="billingAddress2" ng-blur="onadresstwoChange()" required>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="country" ng-model="billingCountry" ng-blur="onbillingCountryChange()" required>
-                                        </div>
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="province" ng-model="billingProvince" ng-blur="onbillingProvinceChange()" required>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="City" ng-model="billingCity" ng-blur="onbillingCityChange()" required>
-                                        </div>
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="Postal" ng-model="billingPostal" ng-blur="onbillingPostalChange()" required>
-                                        </div>
+                                        <small class="form-text text-muted">Invoices for this customer will default to this currency.</small>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-12 mt-3 border-bottom">
-                            <h4>Shipping</h4>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group row mt-2">
-                                <label for="inputPassword" class="col-sm-2 col-form-label">Ship to</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control is-invalid" ng-model="shippingName" ng-blur="onshippingNameChange()" required>
-                                    <small class="form-text text-muted"> Name of business or person.</small>
-                                </div>
-                            </div>
-                            <div class="form-group row mt-2">
-                                <label for="inputPassword" class="col-sm-2 col-form-label">Shipping address</label>
-                                <div class="col-sm-10 mt-2">
-                                    <div class="row">
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="Building number" ng-model="shippingAddress1" ng-blur="onshippingAddressoneChange()" required>
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">Billing address</label>
+                                    <div class="col-sm-10 mt-2">
+                                        <div class="row">
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="Address" ng-model="billingAddress1" ng-blur="onadressoneChange()" required>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="Address 2 (optional)" ng-model="billingAddress2" ng-blur="onadresstwoChange()" required>
+                                            </div>
                                         </div>
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="Street number" ng-model="shippingAddress2" ng-blur="onshippingAddresstwoChange()" required>
+                                        <div class="row mt-2">
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="country" ng-model="billingCountry" ng-blur="onbillingCountryChange()" required>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="province" ng-model="billingProvince" ng-blur="onbillingProvinceChange()" required>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="country" ng-model="shippingCountry" ng-blur="onshippingCountryChange()" required>
-                                        </div>
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="province" ng-model="shippingProvince" ng-blur="onshippingProvinceChange()" required>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="City" ng-model="shippingCity" ng-blur="onshippingCityChange()" required>
-                                        </div>
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="Postal" ng-model="shippingPostal" ng-blur="onshippingPostalChange()" required>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col">
-                                            <input type="number" class="form-control is-invalid" ng-model="phone" placeholder="Phone" ng-blur="onsomenotChange()" required>
-                                        </div>
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="VAT number" ng-model="vatNumber_Customer" ng-blur="onsomenotChange()" required>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" ng-model="additionalNumber_Customer" ng-blur="onsomenotChange()" placeholder="Additional number" required>
-                                        </div>
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="Other seller ID" ng-blur="onsomenotChange()" ng-model="otherSellerid_Customer" required>
+                                        <div class="row mt-2">
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="City" ng-model="billingCity" ng-blur="onbillingCityChange()" required>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="Postal" ng-model="billingPostal" ng-blur="onbillingPostalChange()" required>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group row mt-2">
-                                <label for="inputPassword" class="col-sm-2 col-form-label">Delivery instructions</label>
-                                <div class="col-sm-10">
-                                    <textarea name="" class="form-control is-invalid" id="" cols="2" rows="2" ng-model="deliveryInstructions" ng-blur="ondeliveryInstructionsChange()" required></textarea>
+                            <div class="col-12 mt-3 border-bottom">
+                                <h4>Shipping</h4>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">Ship to</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control is-invalid" ng-model="shippingName" ng-blur="onshippingNameChange()" required>
+                                        <small class="form-text text-muted"> Name of business or person.</small>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">Shipping address</label>
+                                    <div class="col-sm-10 mt-2">
+                                        <div class="row">
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="Building number" ng-model="shippingAddress1" ng-blur="onshippingAddressoneChange()" required>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="Street number" ng-model="shippingAddress2" ng-blur="onshippingAddresstwoChange()" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="country" ng-model="shippingCountry" ng-blur="onshippingCountryChange()" required>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="province" ng-model="shippingProvince" ng-blur="onshippingProvinceChange()" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="City" ng-model="shippingCity" ng-blur="onshippingCityChange()" required>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="Postal" ng-model="shippingPostal" ng-blur="onshippingPostalChange()" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col">
+                                                <input type="number" class="form-control is-invalid" ng-model="phone" placeholder="Phone" ng-blur="onsomenotChange()" required>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="VAT number" ng-model="vatNumber_Customer" ng-blur="onsomenotChange()" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" ng-model="additionalNumber_Customer" ng-blur="onsomenotChange()" placeholder="Additional number" required>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="Other seller ID" ng-blur="onsomenotChange()" ng-model="otherSellerid_Customer" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">Delivery instructions</label>
+                                    <div class="col-sm-10">
+                                        <textarea name="" class="form-control is-invalid" id="" cols="2" rows="2" ng-model="deliveryInstructions" ng-blur="ondeliveryInstructionsChange()" required></textarea>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6" style="direction: rtl;">
-                    <div class="row">
-                        <div class="col-6">
-                            <h2>عميل جديد</h2>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12 mt-3 border-bottom">
-                            <h4>معلومات اساسية</h4>
+                    <div class="col-6" style="direction: rtl;">
+                        <div class="row">
+                            <div class="col-6">
+                                <h2>عميل جديد</h2>
+                            </div>
                         </div>
-                        <div class="col-12 mt-3">
-                            <div class="form-group row">
-                                <label for="inputPassword" class="col-sm-2 col-form-label">عميل</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control is-invalid" ng-model="customerNameArabic" required>
-                                    <small class="form-text text-muted">اسم شركة أو شخص۔</small>
-                                </div>
+                        <div class="row">
+                            <div class="col-12 mt-3 border-bottom">
+                                <h4>معلومات اساسية</h4>
                             </div>
-                            <div class="form-group row mt-2">
-                                <label for="inputPassword" class="col-sm-2 col-form-label">اتصال رئيسي</label>
-                                <div class="col-sm-10 mt-2">
-                                    <div class="row">
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" ng-model="firstNameInArabic" placeholder="الاسم الاول" required>
-                                        </div>
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" ng-model="lastNameInArabic" placeholder="الكنية" required>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col">
-                                            <input type="email" class="form-control is-invalid" ng-model="emailInArabic" placeholder="البريد الإلكتروني" required>
-                                        </div>
-                                        <div class="col">
-                                            <input type="number" class="form-control is-invalid" ng-model="phoneMainInArabic" placeholder="هاتف" required>
-                                        </div>
+                            <div class="col-12 mt-3">
+                                <div class="form-group row">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">عميل</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control is-invalid" ng-model="customerNameArabic" required>
+                                        <small class="form-text text-muted">اسم شركة أو شخص۔</small>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group row mt-2">
-                                <label class="col-sm-2 col-form-label">رقم حساب</label>
-                                <div class="col-sm-10">
-                                    <input type="number" class="form-control is-invalid" ng-model="accountNumberInArabic" required>
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">اتصال رئيسي</label>
+                                    <div class="col-sm-10 mt-2">
+                                        <div class="row">
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" ng-model="firstNameInArabic" placeholder="الاسم الاول" required>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" ng-model="lastNameInArabic" placeholder="الكنية" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col">
+                                                <input type="email" class="form-control is-invalid" ng-model="emailInArabic" placeholder="البريد الإلكتروني" required>
+                                            </div>
+                                            <div class="col">
+                                                <input type="number" class="form-control is-invalid" ng-model="phoneMainInArabic" placeholder="هاتف" required>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group row mt-2">
-                                <label class="col-sm-2 col-form-label">موقع إلكتروني</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control is-invalid" ng-model="websiteInArabic" required>
+                                <div class="form-group row mt-2">
+                                    <label class="col-sm-2 col-form-label">رقم حساب</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control is-invalid" ng-model="accountNumberInArabic" required>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group row mt-2">
-                                <label class="col-sm-2 col-form-label">طرف ذو صلة</label>
-                                <div class="col-sm-10">
-                                    <select name="" class="form-control is-invalid" id="" ng-model="relatedPartyInArabic" required>
+                                <div class="form-group row mt-2">
+                                    <label class="col-sm-2 col-form-label">موقع إلكتروني</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control is-invalid" ng-model="websiteInArabic" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-2">
+                                    <label class="col-sm-2 col-form-label">طرف ذو صلة</label>
+                                    <div class="col-sm-10">
+                                        <select name="" class="form-control is-invalid" id="" ng-model="relatedPartyInArabic" required>
                                                 <option value="">Select</option>
                                                 <option value="yes">Yes</option>
                                                 <option value="no">No</option>
                                             </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">تلاحظ</label>
+                                    <div class="col-sm-10">
+                                        <textarea name="" class="form-control is-invalid" id="" cols="2" rows="2" ng-model="notesInArabic" required></textarea>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group row mt-2">
-                                <label for="inputPassword" class="col-sm-2 col-form-label">تلاحظ</label>
-                                <div class="col-sm-10">
-                                    <textarea name="" class="form-control is-invalid" id="" cols="2" rows="2" ng-model="notesInArabic" required></textarea>
-                                </div>
+                            <div class="col-12 mt-3 border-bottom">
+                                <h4>الفواتير</h4>
                             </div>
-                        </div>
-                        <div class="col-12 mt-3 border-bottom">
-                            <h4>الفواتير</h4>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group row mt-2">
-                                <label for="inputPassword" class="col-sm-2 col-form-label">عملة</label>
-                                <div class="col-sm-10">
-                                    <select name="" id="" class="form-control is-invalid" ng-model="currency" ng-blur="onsomenotChange()" required>
+                            <div class="col-12">
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">عملة</label>
+                                    <div class="col-sm-10">
+                                        <select name="" id="" class="form-control is-invalid" ng-model="currency" ng-blur="onsomenotChange()" required>
                                         <option value="">Select</option>
                                         <option value="AED">AED -	United Arab Emirates Dirham</option>
                                         <option value='AFN'>AFN -	Afghanistan Afghani</option>
@@ -585,112 +585,112 @@
                                         <option value='ZMW'>ZMW-	Zambia Kwacha </option>
                                         <option value='ZWD'>ZWD-	Zimbabwe Dollar </option>
                                     </select>
-                                    <small class="form-text text-muted">سيتم تعيين فواتير هذا العميل بشكل افتراضي إلى هذه العملة۔</small>
-                                </div>
-                            </div>
-                            <div class="form-group row mt-2">
-                                <label for="inputPassword" class="col-sm-2 col-form-label">عنوان وصول الفواتير</label>
-                                <div class="col-sm-10 mt-2">
-                                    <div class="row">
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="تبوك" ng-model="billingAddressoneInArabic" required>
-                                        </div>
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="العنوان 2 (اختياري)" ng-model="billingAddresstwoInArabic" required>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="دولة" ng-model="billingCountryInArabic" required>
-                                        </div>
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="مقاطعة ، ولاية" ng-model="billingProvinceInArabic" required>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="مدينة" ng-model="billingCityInArabic" required>
-                                        </div>
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="بريدي" ng-model="billingPostalInArabic" required>
-                                        </div>
+                                        <small class="form-text text-muted">سيتم تعيين فواتير هذا العميل بشكل افتراضي إلى هذه العملة۔</small>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-12 mt-3 border-bottom">
-                            <h4>شحن</h4>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group row mt-2">
-                                <label for="inputPassword" class="col-sm-2 col-form-label">سافر على متن سفينة ل</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control is-invalid" ng-model="shippingNameInArabic" required>
-                                    <small class="form-text text-muted">اسم العمل أو الشخص۔</small>
-                                </div>
-                            </div>
-                            <div class="form-group row mt-2">
-                                <label for="inputPassword" class="col-sm-2 col-form-label">عنوان الشحن</label>
-                                <div class="col-sm-10 mt-2">
-                                    <div class="row">
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="تبوك" ng-model="shippingAddress1InArabic" required>
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">عنوان وصول الفواتير</label>
+                                    <div class="col-sm-10 mt-2">
+                                        <div class="row">
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="تبوك" ng-model="billingAddressoneInArabic" required>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="العنوان 2 (اختياري)" ng-model="billingAddresstwoInArabic" required>
+                                            </div>
                                         </div>
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="العنوان 2 (اختياري)" ng-model="shippingAddress2InArabic" required>
+                                        <div class="row mt-2">
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="دولة" ng-model="billingCountryInArabic" required>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="مقاطعة ، ولاية" ng-model="billingProvinceInArabic" required>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col">
-                                            <input class="form-control is-invalid" type="text" placeholder="دولة" ng-model="shippingCountryInArabic" required>
-                                        </div>
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="مقاطعة ، ولاية" ng-model="shippingProvinceInArabic" required>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="مدينة" ng-model="shippingCityInArabic" required>
-                                        </div>
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="بريدي" ng-model="shippingPostalInArabic" required>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" ng-model="phone" placeholder="Phone" ng-blur="onphoneChange()" required>
-                                        </div>
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="VAT number" ng-model="vatNumber_CustomerInArabic" required>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" ng-model="additionalNumber_CustomerInArabic" placeholder="Additional number" required>
-                                        </div>
-                                        <div class="col">
-                                            <input type="text" class="form-control is-invalid" placeholder="Other seller ID" ng-model="otherSellerid_CustomerInArabic" required>
+                                        <div class="row mt-2">
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="مدينة" ng-model="billingCityInArabic" required>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="بريدي" ng-model="billingPostalInArabic" required>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group row mt-2">
-                                <label for="inputPassword" class="col-sm-2 col-form-label">تعليمات التوصيل</label>
-                                <div class="col-sm-10">
-                                    <textarea name="" class="form-control is-invalid" id="" cols="2" rows="2" ng-model="deliveryInstructionsInArabic" required></textarea>
+                            <div class="col-12 mt-3 border-bottom">
+                                <h4>شحن</h4>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">سافر على متن سفينة ل</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control is-invalid" ng-model="shippingNameInArabic" required>
+                                        <small class="form-text text-muted">اسم العمل أو الشخص۔</small>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">عنوان الشحن</label>
+                                    <div class="col-sm-10 mt-2">
+                                        <div class="row">
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="تبوك" ng-model="shippingAddress1InArabic" required>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="العنوان 2 (اختياري)" ng-model="shippingAddress2InArabic" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col">
+                                                <input class="form-control is-invalid" type="text" placeholder="دولة" ng-model="shippingCountryInArabic" required>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="مقاطعة ، ولاية" ng-model="shippingProvinceInArabic" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="مدينة" ng-model="shippingCityInArabic" required>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="بريدي" ng-model="shippingPostalInArabic" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" ng-model="phone" placeholder="Phone" ng-blur="onphoneChange()" required>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="VAT number" ng-model="vatNumber_CustomerInArabic" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" ng-model="additionalNumber_CustomerInArabic" placeholder="Additional number" required>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control is-invalid" placeholder="Other seller ID" ng-model="otherSellerid_CustomerInArabic" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-2">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">تعليمات التوصيل</label>
+                                    <div class="col-sm-10">
+                                        <textarea name="" class="form-control is-invalid" id="" cols="2" rows="2" ng-model="deliveryInstructionsInArabic" required></textarea>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row mt-4">
-                <div class="col-12 text-center pb-5">
-                    <button class="btn btn-danger">Cancel &nbsp; إلغاء</button>
-                    <input class="btn btn-success" type="button" ng-click="SaveCustomer();" value="Save &nbsp; حفظ">
+                <div class="row mt-4">
+                    <div class="col-12 text-center pb-5">
+                        <button class="btn btn-danger">Cancel &nbsp; إلغاء</button>
+                        <input class="btn btn-success" ng-disabled="customerupdate.$invalid" type="button" ng-click="SaveCustomer();" value="Save &nbsp; حفظ">
+                    </div>
                 </div>
-            </div>
-            <!-- </form> -->
+            </form>
         </div>
     </div>
 </div>
