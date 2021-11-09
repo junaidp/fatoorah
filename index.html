@@ -1672,7 +1672,7 @@
                     };
 
 
-                    invoicesForPrint.push(data);
+                    //invoicesForPrint.push(data);
                     $http.post(basePath + 'control/saveInvoice', JSON.stringify(data)).then(function(response) {
 
                         if (response.data.errorStatus == "Error") {
@@ -1684,7 +1684,7 @@
                         $.notify("Invoice Saved successfully", "success");
 
                         setTimeout(() => {
-                            window.location.href = "/#!/printinvoice";
+                            window.location.href = "/#!/invoice";
                         }, 2000);
                     });
 
