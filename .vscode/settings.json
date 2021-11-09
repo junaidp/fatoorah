@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/6f489a87-641b-4d54-ae3a-7a0d3a6e28c6/resourceGroups/eInvoice-1634502460189-rg/providers/Microsoft.Web/sites/gofatoorah",
+    "appService.deploySubpath": "."
+}
