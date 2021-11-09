@@ -36,7 +36,7 @@
                                 <!-- <small><b>Created:</b> 4 hour ago</small> -->
                             </div>
                             <div class="col-6 addproduct">
-                                <a href="javascript:void(0);" ng-click="updateinvoicestatusapproved();">Approve</a>
+                                <a href="javascript:void(0);" ng-show="approve_Persmission === 'true' || userType === 'individual' " ng-click="updateinvoicestatusapproved();">Approve</a>
                                 <a href="createinvoice.html">Edit invoice</a>
                             </div>
                         </div>
@@ -75,7 +75,7 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-3" ng-if="status =='APPROVED'">
+        <div class="row mt-3" ng-if="status =='APPROVED'" ng-show="paymentReceipt_Persmission === 'true' || userType === 'individual' ">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
