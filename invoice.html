@@ -4,7 +4,7 @@
             <div class="col-4">
                 <h2>Invoices - الفواتير</h2>
             </div>
-            <div class="col-8 addproduct">
+            <div class="col-8 addproduct" ng-show="invoiceRaise_Persmission == 'true' || userType == 'company' || userType == 'individual'">
                 <a ng-href="#!createinvoice">Create invoice - إنشاء فاتورة</a>
                 <a ng-href="#!debitnote">Create debit note - إنشاء مذكرة الخصم</a>
                 <a ng-href="#!creditnote">Create credit note - إنشاء مذكرة ائتمان</a>
@@ -83,7 +83,7 @@
                         <li class="draft invoicetabact">
                             <p style="cursor: pointer;margin-right: 8px;" onclick="draft()">Draft <span class="badge badge-light draftbg badbackcolor">{{UnApprovedCounter}}</span></p>
                         </li>
-                        <li class="forapproval" ng-show="userType === 'company' || approve_Persmission === 'Approve' || userType === 'individual' ">
+                        <li class="forapproval" ng-show="userType === 'company' || approve_Persmission === 'true' || userType === 'individual' ">
                             <p style="cursor: pointer;margin-right: 8px;" onclick="forapproval()">For Approval <span class="badge badge-light forapprovalbg">{{pendingApprovedCounter}}</span></p>
                         </li>
                         <li class="unpaid">
