@@ -981,11 +981,13 @@
                     };
 
                     $http.post(basePath + 'control/updateCompany', JSON.stringify(data)).then(function(response) {}, function(response) {
-                        //$.notify("Company Saved successfully", "success");
+                        $.notify("Company Saved successfully", "success");
+
                         setTimeout(() => {
                             window.location.href = "/#!/edituserprofile";
                         }, 2000);
                     });
+
                 };
 
                 $scope.uploadFile = function() {
@@ -1034,15 +1036,6 @@
                     company = [];
                     company.push(data, arabic);
                     debugger
-                    // $http.post(basePath + 'control/updateCompany', JSON.stringify(company)).then(function(response) {}, function(response) {
-
-                    //     $.notify("Update company successfully", "success");
-                    //     logout();
-
-                    //     setTimeout(() => {
-                    //         window.location.href = "/#!/edituserprofile";
-                    //     }, 2000);
-                    // });
                     $http.post(basePath + 'control/updateCompany', JSON.stringify(company)).then(function(response) {
 
                         if (response.data.errorStatus == "Error") {
@@ -1054,6 +1047,13 @@
                         $.notify("Update company successfully", "success");
                         logout();
                     });
+                    $scope.logout = function() {
+                        sessionStorage.removeItem('company_id');
+                        window.location.reload(true);
+                    }
+                    setTimeout(() => {
+                        $scope.logout();
+                    }, 2000);
                 }
                 let arrayBufferToBase64 = (buffer) => {
                     var binary = '';
@@ -1230,6 +1230,12 @@
                                 $scope.getusers = response.data;
                             });
                     });
+                    $scope.refresh = function() {
+                        window.location.reload(true);
+                    }
+                    setTimeout(() => {
+                        $scope.refresh();
+                    }, 2000);
                 };
 
                 $http.get(basePath + "control/getAllLocations?companyID=" + sessionStorage.getItem('company_id'))
@@ -1307,15 +1313,17 @@
                     $http.post(basePath + 'control/updateUser', JSON.stringify(user)).then(function(response) {}, function(response) {
 
                         $.notify("update use successfully", "success");
-                        location.reload(true);
-                        setTimeout(() => {
-                            window.location.reload(true);
-                        }, 2000);
                         $http.get(basePath + "control/getAllUsers?companyID=" + sessionStorage.getItem('company_id'))
                             .then(function(response) {
                                 $scope.getusers = response.data;
                             });
                     });
+                    $scope.refresh = function() {
+                        window.location.reload(true);
+                    }
+                    setTimeout(() => {
+                        $scope.refresh();
+                    }, 2000);
                 };
             });
 
