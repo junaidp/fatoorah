@@ -101,7 +101,7 @@
         let formData = new FormData();
         debugger
         formData.append("file", fileupload.files[0]);
-        await fetch('https://einvoice-1634502460189.azurewebsites.net/uploader/uploadProducts', {
+        await fetch('https://c0a1-2a0a-a541-4d1f-0-88d-8a53-813c-39ba.ngrok.io/uploader/uploadProducts', {
             method: "POST",
             body: formData
         });
@@ -123,7 +123,7 @@
         let formData = new FormData();
         formData.append("file", fileupload.files[0]);
         debugger
-        // await fetch('https://einvoice-1634502460189.azurewebsites.net/uploader/uploadProducts?file=' + formData + '&companyID=' + sessionStorage.getItem('company_id') + '&loggedInUserID=' + sessionStorage.getItem('id'), {
+        // await fetch('http://97f1-101-50-88-15.ngrok.io/uploader/uploadProducts?file=' + formData + '&companyID=' + sessionStorage.getItem('company_id') + '&loggedInUserID=' + sessionStorage.getItem('id'), {
         //     //method: "POST",
         //     //body: formData
         // });
@@ -132,7 +132,7 @@
             companyID: sessionStorage.getItem('company_id'),
             loggedInUserID: 12861,
         }
-        $http.post('https://einvoice-1634502460189.azurewebsites.net/uploader/uploadProducts?file', JSON.stringify(uploadFile)).then(function(response) {
+        $http.post('http://97f1-101-50-88-15.ngrok.io/uploader/uploadProducts?file', JSON.stringify(uploadFile)).then(function(response) {
 
             if (response.data.errorStatus == "Error") {
                 $.notify(response.data.error, "error");

@@ -138,7 +138,7 @@
                         password: $scope.password,
                         companyID: $scope.loginname,
                     };
-                    $http.post('https://einvoice-1634502460189.azurewebsites.net/control/saveCompany', JSON.stringify(companyEnglish)).then(function(response) {
+                    $http.post('https://c0a1-2a0a-a541-4d1f-0-88d-8a53-813c-39ba.ngrok.io/control/saveCompany', JSON.stringify(companyEnglish)).then(function(response) {
                         debugger;
                         if (response.data.errorStatus == "Error") {
                             $.notify(response.data.error, "error");
